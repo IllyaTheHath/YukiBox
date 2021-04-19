@@ -1,0 +1,3 @@
+[submodule "ThirdParty/FluentWPF"]
+	path = ThirdParty/FluentWPF
+	url = https://github.com/IllyaTheHath/FluentWPF.git
