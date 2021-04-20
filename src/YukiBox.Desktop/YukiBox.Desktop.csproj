@@ -9,6 +9,7 @@
     <Platforms>x64</Platforms>
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

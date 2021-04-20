@@ -16,7 +16,7 @@ namespace YukiBox.Desktop.Helpers
 
         public static ViewModelLocator Current { get { return _current.Value; } }
 
-        //public ShellViewModel ShellViewModel => Ioc.Default.GetService<ShellViewModel>();
+        public ShellViewModel ShellViewModel => Ioc.Default.GetService<ShellViewModel>();
 
         public HomeViewModel HomeViewModel => Ioc.Default.GetService<HomeViewModel>();
 

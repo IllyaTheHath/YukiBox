@@ -7,6 +7,7 @@
     xmlns:helpers="clr-namespace:YukiBox.Desktop.Helpers"
     xmlns:local="clr-namespace:YukiBox.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:YukiBox.Desktop.Models"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="clr-namespace:YukiBox.Desktop.ViewModels"
     Title="{helpers:I18N System.AppName}"
@@ -14,6 +15,7 @@
     Height="768"
     d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
     ui:TitleBar.ExtendViewIntoTitleBar="False"
+    ui:TitleBar.IsIconVisible="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
 
@@ -28,16 +30,28 @@
         SelectionChanged="NavigateView">
         <ui:NavigationView.MenuItemTemplate>
             <DataTemplate>
-                <ui:NavigationViewItem Content="{Binding Name, Mode=OneTime}" ToolTipService.ToolTip="{Binding Tooltip, Mode=OneTime}">
+                <ui:NavigationViewItem Content="{Binding Name, Mode=OneWay}" ToolTipService.ToolTip="{Binding Tooltip, Mode=OneWay}">
                     <ui:NavigationViewItem.Icon>
-                        <ui:SymbolIcon Symbol="{Binding Glyph, Mode=OneTime}" />
+                        <ui:FontIcon Glyph="{Binding Glyph, Mode=OneWay}" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </DataTemplate>
         </ui:NavigationView.MenuItemTemplate>
-        <StackPanel>
-            <ui:Frame x:Name="shellFrame" Margin="0,0,0,0" />
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Margin="12,12"
+                VerticalAlignment="Center"
+                Style="{DynamicResource TitleTextBlockStyle}"
+                Text="{Binding SelectedItem.Name, Mode=OneWay}" />
+            <ui:Frame
+                x:Name="shellFrame"
+                Grid.Row="1"
+                Margin="0,0,0,0" />
+        </Grid>
     </ui:NavigationView>
-
 </Window>

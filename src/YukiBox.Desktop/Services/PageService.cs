@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
-
-using ModernWpf.Controls;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.ViewModels;
@@ -36,13 +35,12 @@ namespace YukiBox.Desktop.Services
         public Page GetPage(String key)
         {
             var pageType = GetPageType(key);
-            if(pageType is null)
+            if (pageType is null)
             {
                 return null;
             }
             return Ioc.Default.GetService(pageType) as Page;
         }
-
 
         public void Configure<ViewModel, View>()
             where ViewModel : ViewModelBase

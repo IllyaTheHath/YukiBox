@@ -12,6 +12,7 @@ using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
 
 using ModernWpf;
+using ModernWpf.Controls;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
@@ -22,7 +23,7 @@ namespace YukiBox.Desktop.Services
     {
         private readonly IMediatorService _mediatorService;
 
-        private  TaskbarIcon _taskbarIcon;
+        private TaskbarIcon _taskbarIcon;
 
         private ContextMenu _contextMenu;
 
@@ -43,8 +44,9 @@ namespace YukiBox.Desktop.Services
             this._contextMenu.Items.Clear();
             var settingMenuItem = new MenuItem()
             {
-                Header = I18NSource.Instance["TrayIcon.Setting"],
-                ToolTip = I18NSource.Instance["TrayIcon.Setting.Tooltip"],
+                Icon = new SymbolIcon(Symbol.Setting),
+                Header = I18NSource.Instance["TrayIcon.Main"],
+                ToolTip = I18NSource.Instance["TrayIcon.Main.Tooltip"],
                 Command = new RelayCommand(() =>
                 {
                     AppStartup.Instance.ShowShellWindow();
@@ -52,6 +54,7 @@ namespace YukiBox.Desktop.Services
             };
             var exitMenuItem = new MenuItem()
             {
+                Icon = new SymbolIcon(Symbol.Cancel),
                 Header = I18NSource.Instance["TrayIcon.Exit"],
                 ToolTip = I18NSource.Instance["TrayIcon.Exit.Tooltip"],
                 Command = new RelayCommand(() =>
@@ -67,25 +70,24 @@ namespace YukiBox.Desktop.Services
         {
             this._mediatorService.Register(this, "I18N", OnLocaleChange);
 
-            this._contextMenu = new ();
+            this._contextMenu = new();
             InitContextMenu();
 
-            this._toolTip = new ();
+            this._toolTip = new();
             this._toolTip.Content = Program.AppName;
 
             this._taskbarIcon = new();
             this._taskbarIcon.ContextMenu = this._contextMenu;
-            this._taskbarIcon.ToolTip = this._toolTip;
+            this._taskbarIcon.TrayToolTip = this._toolTip;
             this._taskbarIcon.DoubleClickCommand = new RelayCommand(() =>
             {
                 AppStartup.Instance.ShowShellWindow();
             });
 
-
             var iconUri = CommonUtils.GetAbsoluteUri(@"Assets\Images\logo.ico");
             this._taskbarIcon.IconSource = BitmapFrame.Create(iconUri);
 
-            //ThemeManager.SetRequestedTheme(this._contextMenu, ElementTheme.Default);
+            ThemeManager.SetRequestedTheme(this._contextMenu, ElementTheme.Default);
             ThemeManager.SetRequestedTheme(this._toolTip, ElementTheme.Default);
         }
     }

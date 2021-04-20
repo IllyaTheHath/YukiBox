@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ModernWpf.Controls;
-
 namespace YukiBox.Desktop.Models
 {
     public class NavMenuItemBase { }
 
-    public class NavMenuItem: NavMenuItemBase
+    public class NavMenuItem : NavMenuItemBase
     {
         public String Name { get; set; }
 
         public String Tooltip { get; set; }
 
-        public Symbol Glyph { get; set; }
+        public String Glyph { get; set; }
 
         public Type TargetType { get; set; }
 
@@ -24,7 +22,7 @@ namespace YukiBox.Desktop.Models
         {
         }
 
-        public NavMenuItem(String name,String toolTip,Symbol glyph,Type targetType)
+        public NavMenuItem(String name, String toolTip, String glyph, Type targetType)
         {
             Name = name;
             Tooltip = toolTip;

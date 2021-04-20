@@ -24,14 +24,13 @@ namespace YukiBox.Desktop
     /// </summary>
     public partial class ShellWindow : Window, IShellWindow
     {
-        //public ShellViewModel ViewModel => ViewModelLocator.Current.ShellViewModel;
-        private ShellViewModel _viewModel;
+        public ShellViewModel ViewModel => ViewModelLocator.Current.ShellViewModel;
+        //public ShellViewModel ViewModel => new ();
 
         public ShellWindow()
         {
             InitializeComponent();
-            this._viewModel = new();
-            DataContext = this._viewModel;
+            DataContext = ViewModel;
         }
 
         public ModernWpf.Controls.Frame GetNavigationFrame()
@@ -51,12 +50,13 @@ namespace YukiBox.Desktop
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            this._viewModel.Dispose();
+            Hide();
+            e.Cancel = true;
         }
 
         private void NavigateView(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            this._viewModel.TryNavigate();
+            ViewModel.TryNavigate();
         }
     }
 }

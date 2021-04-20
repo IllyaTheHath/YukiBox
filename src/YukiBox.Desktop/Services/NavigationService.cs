@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
-
-using ModernWpf.Controls;
 
 using YukiBox.Desktop.Contracts.Services;
 
@@ -51,7 +50,7 @@ namespace YukiBox.Desktop.Services
         {
             var pageType = this._pageService.GetPageType(pageKey);
 
-            if(pageType is null)
+            if (pageType is null)
             {
                 return;
             }
@@ -59,7 +58,7 @@ namespace YukiBox.Desktop.Services
             if (this._frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(this._lastParameterUsed)))
             {
                 var page = this._pageService.GetPage(pageKey);
-                if(page is null)
+                if (page is null)
                 {
                     return;
                 }

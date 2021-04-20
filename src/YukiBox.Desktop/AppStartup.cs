@@ -19,7 +19,7 @@ namespace YukiBox.Desktop
 {
     public class AppStartup
     {
-        private static readonly Lazy<AppStartup> lazy = new (() => new AppStartup());
+        private static readonly Lazy<AppStartup> lazy = new(() => new AppStartup());
 
         public static AppStartup Instance { get { return lazy.Value; } }
 
@@ -56,8 +56,8 @@ namespace YukiBox.Desktop
             services.AddSingleton<IFileStoreService, FileStoreService>();
 
             // Configure Shell Window
-            //services.AddSingleton<IShellWindow, ShellWindow>();
-            //services.AddSingleton<ShellViewModel>();
+            services.AddSingleton<IShellWindow, ShellWindow>();
+            services.AddSingleton<ShellViewModel>();
 
             // Configure View & ViewModel
             services.AddSingleton<HomeView>();
@@ -81,7 +81,6 @@ namespace YukiBox.Desktop
 
         public void OnExit(ExitEventArgs e)
         {
-
         }
 
         private void ConfigurePages()
@@ -102,13 +101,19 @@ namespace YukiBox.Desktop
 
         public void ShowShellWindow()
         {
-            if (!App.Current.Windows.OfType<IShellWindow>().Any())
+            if (this._shellWindow is null)
+            //if (!App.Current.Windows.OfType<IShellWindow>().Any())
             {
                 this._navigationService = Ioc.Default.GetService<INavigationService>();
-                this._shellWindow = new ShellWindow();
+                this._shellWindow = Ioc.Default.GetService<IShellWindow>();
+                //this._shellWindow = new ShellWindow();
                 this._navigationService.Initialize(this._shellWindow.GetNavigationFrame());
                 this._shellWindow.ShowWindow();
                 this._navigationService.NavigateTo(typeof(HomeViewModel).FullName);
+            }
+            else
+            {
+                this._shellWindow.ShowWindow();
             }
         }
 
@@ -116,6 +121,5 @@ namespace YukiBox.Desktop
         {
             App.Current.Shutdown();
         }
-
     }
 }

@@ -160,20 +160,20 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setting.
+        ///   Looks up a localized string similar to Open Main Window.
         /// </summary>
-        public static string TrayIcon_Setting {
+        public static string TrayIcon_Main {
             get {
-                return ResourceManager.GetString("TrayIcon.Setting", resourceCulture);
+                return ResourceManager.GetString("TrayIcon.Main", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open Setting Window.
+        ///   Looks up a localized string similar to Open Main Window.
         /// </summary>
-        public static string TrayIcon_Setting_Tooltip {
+        public static string TrayIcon_Main_Tooltip {
             get {
-                return ResourceManager.GetString("TrayIcon.Setting.Tooltip", resourceCulture);
+                return ResourceManager.GetString("TrayIcon.Main.Tooltip", resourceCulture);
             }
         }
     }
