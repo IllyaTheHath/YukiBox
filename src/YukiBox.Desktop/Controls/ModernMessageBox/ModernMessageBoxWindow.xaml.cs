@@ -111,7 +111,7 @@ namespace YukiBox.Desktop.Controls
                     break;
 
                 case "NO":
-                    Result = MessageBoxResult.None;
+                    Result = MessageBoxResult.No;
                     Close();
                     break;
 
