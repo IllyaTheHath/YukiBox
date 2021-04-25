@@ -4,28 +4,51 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
-namespace YukiBox.Desktop.Helpers
+namespace YukiBox.Desktop.Controls
 {
     /// <summary>
-    /// <see cref="https://github.com/ModernFlyouts-Community/ModernFlyouts/blob/main/ModernFlyouts/Helpers/ScrollViewerHelperEx.cs"/>
+    /// <see cref="https://github.com/ModernFlyouts-Community/ModernFlyouts/blob/main/ModernFlyouts/Helpers/ScrollViewerHelperEx.cs" />
     /// </summary>
-    internal static class ScrollViewerHelperEx
+    public static class FluentScrollViewer
     {
+        #region Enabled
+
+        public static Boolean GetEnabled(ScrollViewer element)
+        {
+            return (Boolean)element.GetValue(EnabledProperty);
+        }
+
+        public static void SetEnabled(ScrollViewer element, Boolean value)
+        {
+            element.SetValue(EnabledProperty, value);
+        }
+
+        public static readonly DependencyProperty EnabledProperty =
+            DependencyProperty.RegisterAttached("Enabled", typeof(Boolean), typeof(FluentScrollViewer), new PropertyMetadata(false, OnEnabledChanged));
+
+        private static void OnEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sv = d as ScrollViewer;
+            sv.AddHandler(UIElement.PreviewMouseWheelEvent, new MouseWheelEventHandler(Sv_ScrollChanged));
+        }
+
+        #endregion Enabled
+
         #region IsAnimating
 
         internal static readonly DependencyProperty IsAnimatingProperty =
             DependencyProperty.RegisterAttached(
                 "IsAnimating",
-                typeof(bool),
-                typeof(ScrollViewerHelperEx),
+                typeof(Boolean),
+                typeof(FluentScrollViewer),
                 new PropertyMetadata(false));
 
-        internal static bool GetIsAnimating(ScrollViewer scrollViewer)
+        private static Boolean GetIsAnimating(ScrollViewer scrollViewer)
         {
-            return (bool)scrollViewer.GetValue(IsAnimatingProperty);
+            return (Boolean)scrollViewer.GetValue(IsAnimatingProperty);
         }
 
-        internal static void SetIsAnimating(ScrollViewer scrollViewer, bool value)
+        private static void SetIsAnimating(ScrollViewer scrollViewer, Boolean value)
         {
             scrollViewer.SetValue(IsAnimatingProperty, value);
         }
@@ -36,23 +59,23 @@ namespace YukiBox.Desktop.Helpers
 
         internal static readonly DependencyProperty CurrentVerticalOffsetProperty =
             DependencyProperty.RegisterAttached("CurrentVerticalOffset",
-                typeof(double),
-                typeof(ScrollViewerHelperEx),
+                typeof(Double),
+                typeof(FluentScrollViewer),
                 new PropertyMetadata(0.0, OnCurrentVerticalOffsetChanged));
 
-        private static double GetCurrentVerticalOffset(ScrollViewer scrollViewer)
+        private static Double GetCurrentVerticalOffset(ScrollViewer scrollViewer)
         {
-            return (double)scrollViewer.GetValue(CurrentVerticalOffsetProperty);
+            return (Double)scrollViewer.GetValue(CurrentVerticalOffsetProperty);
         }
 
-        private static void SetCurrentVerticalOffset(ScrollViewer scrollViewer, double value)
+        private static void SetCurrentVerticalOffset(ScrollViewer scrollViewer, Double value)
         {
             scrollViewer.SetValue(CurrentVerticalOffsetProperty, value);
         }
 
         private static void OnCurrentVerticalOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ScrollViewer ctl && e.NewValue is double v)
+            if (d is ScrollViewer ctl && e.NewValue is Double v)
             {
                 ctl.ScrollToVerticalOffset(v);
             }
@@ -64,23 +87,23 @@ namespace YukiBox.Desktop.Helpers
 
         internal static readonly DependencyProperty CurrentHorizontalOffsetProperty =
             DependencyProperty.RegisterAttached("CurrentHorizontalOffset",
-                typeof(double),
-                typeof(ScrollViewerHelperEx),
+                typeof(Double),
+                typeof(FluentScrollViewer),
                 new PropertyMetadata(0.0, OnCurrentHorizontalOffsetChanged));
 
-        private static double GetCurrentHorizontalOffset(ScrollViewer scrollViewer)
+        private static Double GetCurrentHorizontalOffset(ScrollViewer scrollViewer)
         {
-            return (double)scrollViewer.GetValue(CurrentHorizontalOffsetProperty);
+            return (Double)scrollViewer.GetValue(CurrentHorizontalOffsetProperty);
         }
 
-        private static void SetCurrentHorizontalOffset(ScrollViewer scrollViewer, double value)
+        private static void SetCurrentHorizontalOffset(ScrollViewer scrollViewer, Double value)
         {
             scrollViewer.SetValue(CurrentHorizontalOffsetProperty, value);
         }
 
         private static void OnCurrentHorizontalOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ScrollViewer ctl && e.NewValue is double v)
+            if (d is ScrollViewer ctl && e.NewValue is Double v)
             {
                 ctl.ScrollToHorizontalOffset(v);
             }
@@ -88,11 +111,11 @@ namespace YukiBox.Desktop.Helpers
 
         #endregion CurrentHorizontalOffset
 
-        internal static void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        private static void Sv_ScrollChanged(Object sender, MouseWheelEventArgs e)
         {
             var scrollViewer = sender as ScrollViewer;
 
-            bool isHorizontal = Keyboard.Modifiers == ModifierKeys.Shift;
+            Boolean isHorizontal = Keyboard.Modifiers == ModifierKeys.Shift;
 
             if (!isHorizontal)
             {
@@ -101,7 +124,7 @@ namespace YukiBox.Desktop.Helpers
                     SetCurrentVerticalOffset(scrollViewer, scrollViewer.VerticalOffset);
                 }
 
-                double _totalVerticalOffset = Math.Min(Math.Max(0, scrollViewer.VerticalOffset - e.Delta), scrollViewer.ScrollableHeight);
+                Double _totalVerticalOffset = Math.Min(Math.Max(0, scrollViewer.VerticalOffset - e.Delta), scrollViewer.ScrollableHeight);
                 ScrollToVerticalOffset(scrollViewer, _totalVerticalOffset);
             }
             else
@@ -111,12 +134,14 @@ namespace YukiBox.Desktop.Helpers
                     SetCurrentHorizontalOffset(scrollViewer, scrollViewer.HorizontalOffset);
                 }
 
-                double _totalHorizontalOffset = Math.Min(Math.Max(0, scrollViewer.HorizontalOffset - e.Delta), scrollViewer.ScrollableWidth);
+                Double _totalHorizontalOffset = Math.Min(Math.Max(0, scrollViewer.HorizontalOffset - e.Delta), scrollViewer.ScrollableWidth);
                 ScrollToHorizontalOffset(scrollViewer, _totalHorizontalOffset);
             }
+
+            e.Handled = true;
         }
 
-        public static void ScrollToOffset(ScrollViewer scrollViewer, Orientation orientation, double offset, double duration = 500, IEasingFunction easingFunction = null)
+        public static void ScrollToOffset(ScrollViewer scrollViewer, Orientation orientation, Double offset, Double duration = 500, IEasingFunction easingFunction = null)
         {
             var animation = new DoubleAnimation(offset, TimeSpan.FromMilliseconds(duration));
             easingFunction ??= new CubicEase
@@ -142,12 +167,12 @@ namespace YukiBox.Desktop.Helpers
             scrollViewer.BeginAnimation(orientation == Orientation.Vertical ? CurrentVerticalOffsetProperty : CurrentHorizontalOffsetProperty, animation, HandoffBehavior.Compose);
         }
 
-        public static void ScrollToVerticalOffset(ScrollViewer scrollViewer, double offset, double duration = 500, IEasingFunction easingFunction = null)
+        public static void ScrollToVerticalOffset(ScrollViewer scrollViewer, Double offset, Double duration = 500, IEasingFunction easingFunction = null)
         {
             ScrollToOffset(scrollViewer, Orientation.Vertical, offset, duration, easingFunction);
         }
 
-        public static void ScrollToHorizontalOffset(ScrollViewer scrollViewer, double offset, double duration = 500, IEasingFunction easingFunction = null)
+        public static void ScrollToHorizontalOffset(ScrollViewer scrollViewer, Double offset, Double duration = 500, IEasingFunction easingFunction = null)
         {
             ScrollToOffset(scrollViewer, Orientation.Horizontal, offset, duration, easingFunction);
         }

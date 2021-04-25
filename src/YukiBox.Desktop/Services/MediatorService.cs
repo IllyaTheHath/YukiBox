@@ -14,7 +14,7 @@ namespace YukiBox.Desktop.Services
 
         public MediatorService()
         {
-            this._participants = new Dictionary<string, Dictionary<object, Action<object>>>();
+            this._participants = new Dictionary<String, Dictionary<Object, Action<Object>>>();
         }
 
         public void Register(Object sender, String @event, Action<Object> callback)
@@ -46,7 +46,6 @@ namespace YukiBox.Desktop.Services
                 }
             }
         }
-
 
         public void BroadcastMessage(String @event, Object arg)
         {

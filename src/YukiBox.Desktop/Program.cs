@@ -15,6 +15,7 @@ namespace YukiBox.Desktop
     public static class Program
     {
         public const String AppName = "YukiBox.Desktop";
+        public const String AppDisplayName = "YukiBox";
         public const String AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
 
         [STAThread]
@@ -36,7 +37,7 @@ namespace YukiBox.Desktop
                 thread.SetApartmentState(ApartmentState.STA);
                 thread.Start();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }

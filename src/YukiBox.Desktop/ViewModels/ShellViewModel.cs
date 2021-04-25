@@ -91,6 +91,7 @@ namespace YukiBox.Desktop.ViewModels
         public void Dispose()
         {
             this._mediatorService.UnRegister(this, "I18N");
+            GC.SuppressFinalize(this);
         }
     }
 }

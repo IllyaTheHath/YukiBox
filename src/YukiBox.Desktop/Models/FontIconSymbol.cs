@@ -25,6 +25,7 @@ namespace YukiBox.Desktop.Models
         public const String Warning = "\xE78A";
         public const String PowerButton = "\xE7E8";
         public const String Home = "\xE80F";
+        public const String Help = "\xE897";
         public const String Info = "\xE946";
     }
 }

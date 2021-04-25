@@ -39,8 +39,6 @@ namespace YukiBox.Desktop
         {
             this._services = ConfigureServices();
             Ioc.Default.ConfigureServices(this._services);
-
-            I18NSource.Instance.Initialize();
         }
 
         private static IServiceProvider ConfigureServices()
@@ -75,6 +73,8 @@ namespace YukiBox.Desktop
         public void OnStartup(StartupEventArgs e)
         {
             ConfigurePages();
+
+            I18NSource.Instance.Initialize();
 
             HandleActivation();
         }

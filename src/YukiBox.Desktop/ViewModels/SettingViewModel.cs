@@ -12,6 +12,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
 using YukiBox.Desktop.Contracts.Services;
+using YukiBox.Desktop.Controls;
 using YukiBox.Desktop.Helpers;
 
 namespace YukiBox.Desktop.ViewModels
@@ -34,6 +35,26 @@ namespace YukiBox.Desktop.ViewModels
         public SettingViewModel(IFileStoreService fileStoreService)
         {
             this._fileStoreService = fileStoreService;
+        }
+
+        private ICommand _showMessageCommand;
+
+        public ICommand ShowMessageCommand
+        {
+            get
+            {
+                if (this._showMessageCommand is null)
+                {
+                    this._showMessageCommand = new RelayCommand(ShowMessageBox);
+                }
+                return this._showMessageCommand;
+            }
+        }
+
+        public void ShowMessageBox()
+        {
+            var result = ModernMessageBox.Show("test text", null, MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
+            ModernMessageBox.Show($"You clicked {result}");
         }
     }
 }
