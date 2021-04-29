@@ -61,6 +61,42 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string MsgBox_Cancel {
+            get {
+                return ResourceManager.GetString("MsgBox.Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MsgBox_No {
+            get {
+                return ResourceManager.GetString("MsgBox.No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string MsgBox_Ok {
+            get {
+                return ResourceManager.GetString("MsgBox.Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MsgBox_Yes {
+            get {
+                return ResourceManager.GetString("MsgBox.Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string Nav_About {

@@ -7,9 +7,9 @@ using System.Windows;
 
 namespace YukiBox.Desktop.Controls
 {
-    public sealed class ModernMessageBox
+    public sealed class FluentMessageBox
     {
-        private ModernMessageBox()
+        private FluentMessageBox()
         {
         }
 
@@ -166,7 +166,7 @@ namespace YukiBox.Desktop.Controls
             MessageBoxImage icon,
             MessageBoxResult defaultResult)
         {
-            ModernMessageBoxWindow window = new(
+            FluentMessageBoxWindow window = new(
                 owner,
                 messageBoxText,
                 caption,

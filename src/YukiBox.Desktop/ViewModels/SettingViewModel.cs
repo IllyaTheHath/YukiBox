@@ -53,8 +53,8 @@ namespace YukiBox.Desktop.ViewModels
 
         public void ShowMessageBox()
         {
-            var result = ModernMessageBox.Show("test text", null, MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
-            ModernMessageBox.Show($"You clicked {result}");
+            var result = FluentMessageBox.Show("test text", null, MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
+            MessageBox.Show($"You clicked {result}", null, MessageBoxButton.YesNoCancel);
         }
     }
 }

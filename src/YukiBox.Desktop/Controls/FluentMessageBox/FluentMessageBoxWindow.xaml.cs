@@ -21,9 +21,9 @@ using YukiBox.Desktop.Models;
 namespace YukiBox.Desktop.Controls
 {
     /// <summary>
-    /// Interaction logic for MessageBox.xaml
+    /// Interaction logic for FluentMessageBoxWindow.xaml
     /// </summary>
-    public partial class ModernMessageBoxWindow : Window
+    public partial class FluentMessageBoxWindow : Window
     {
         public String Glyph { get; set; }
 
@@ -41,27 +41,16 @@ namespace YukiBox.Desktop.Controls
 
         public MessageBoxResult Result { get; private set; }
 
-        private ICommand btnCommand;
+        private ICommand _btnCommand;
+        public ICommand BtnCommand => this._btnCommand ??= new RelayCommand<String>(BtnClick);
 
-        public ICommand BtnCommand
-        {
-            get
-            {
-                if (this.btnCommand is null)
-                {
-                    this.btnCommand = new RelayCommand<String>(BtnClick);
-                }
-                return this.btnCommand;
-            }
-        }
-
-        private ModernMessageBoxWindow()
+        private FluentMessageBoxWindow()
         {
             InitializeComponent();
             DataContext = this;
         }
 
-        public ModernMessageBoxWindow(
+        public FluentMessageBoxWindow(
             Window owner,
             String messageBoxText,
             String caption,
