@@ -20,7 +20,10 @@
     mc:Ignorable="d">
 
     <ui:NavigationView
+        fw:PointerTracker.Enabled="True"
+        AlwaysShowHeader="True"
         FooterMenuItemsSource="{Binding FooterNavMenuItems, Mode=OneWay}"
+        Header="{Binding SelectedItem.Name, Mode=OneWay}"
         IsBackButtonVisible="Collapsed"
         IsSettingsVisible="False"
         IsTabStop="False"
@@ -37,21 +40,9 @@
                 </ui:NavigationViewItem>
             </DataTemplate>
         </ui:NavigationView.MenuItemTemplate>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock
-                Grid.Row="0"
-                Margin="12,12"
-                VerticalAlignment="Center"
-                Style="{DynamicResource TitleTextBlockStyle}"
-                Text="{Binding SelectedItem.Name, Mode=OneWay}" />
-            <ui:Frame
-                x:Name="shellFrame"
-                Grid.Row="1"
-                Margin="0,0,0,0" />
-        </Grid>
+        <ui:Frame
+            x:Name="shellFrame"
+            Grid.Row="1"
+            Margin="0,0,0,0" />
     </ui:NavigationView>
 </Window>

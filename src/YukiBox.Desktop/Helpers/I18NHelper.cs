@@ -27,7 +27,6 @@ namespace YukiBox.Desktop.Helpers
 
     public class LanguageInfo
     {
-
         public CultureInfo CultureInfo { get; private set; }
 
         public String DisplayName { get; private set; }
@@ -72,6 +71,7 @@ namespace YukiBox.Desktop.Helpers
     public class I18NSource : INotifyPropertyChanged
     {
         private readonly IMediatorService _mediatorService;
+        private readonly IConfigService _configService;
 
         private static readonly Lazy<I18NSource> lazy = new(() => new I18NSource());
 
@@ -102,6 +102,7 @@ namespace YukiBox.Desktop.Helpers
                     this._currentLanguage = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(String.Empty));
                     this._mediatorService.BroadcastMessage("I18N", null);
+                    this._configService.CurrentConfig.System.Language = value.LanguageName;
                 }
             }
         }
@@ -111,16 +112,17 @@ namespace YukiBox.Desktop.Helpers
         private I18NSource()
         {
             this._mediatorService = Ioc.Default.GetService<IMediatorService>();
+            this._configService = Ioc.Default.GetService<IConfigService>();
         }
-
 
         public void Initialize()
         {
             var systemUICulture = CultureInfo.CurrentUICulture;
             SupportedLanguages = GetAllSupportedLanguages();
-            var language = systemUICulture.Name;
+            //var language = systemUICulture.Name;
+            var language = this._configService.CurrentConfig.System.Language;
             CurrentLanguage = SupportedLanguages.FirstOrDefault(x => x.LanguageName == language);
-            if(CurrentLanguage is null)
+            if (CurrentLanguage is null)
             {
                 CurrentLanguage = SupportedLanguages[0];
             }
