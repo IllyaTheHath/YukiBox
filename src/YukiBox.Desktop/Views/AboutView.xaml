@@ -2,10 +2,13 @@
     x:Class="YukiBox.Desktop.Views.AboutView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:c="clr-namespace:YukiBox.Desktop.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:YukiBox.Desktop.Helpers"
     xmlns:local="clr-namespace:YukiBox.Desktop.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:YukiBox.Desktop"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="clr-namespace:YukiBox.Desktop.ViewModels"
     Title="AboutView"
@@ -14,8 +17,107 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ui:SimpleStackPanel Margin="5">
-        <TextBlock Text="{helpers:I18N System.AppName}" />
-    </ui:SimpleStackPanel>
-
+    <ScrollViewer c:FluentScrollViewer.Enabled="True">
+        <ui:SimpleStackPanel Margin="10,0" Spacing="10">
+            <ui:SimpleStackPanel
+                Margin="5,0"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Image
+                    Height="64"
+                    HorizontalAlignment="Left"
+                    Source="/Assets/Images/logo.png" />
+                <ui:SimpleStackPanel VerticalAlignment="Center" Spacing="5">
+                    <TextBlock Style="{DynamicResource TitleTextBlockStyle}" Text="{helpers:I18N System.AppName}" />
+                    <TextBlock>
+                        <Run Text="{helpers:I18N System.About.Version}" />
+                        <Run Text="{x:Static p:Program.AppVersion}" />
+                    </TextBlock>
+                </ui:SimpleStackPanel>
+            </ui:SimpleStackPanel>
+            <TextBlock
+                Margin="10,0"
+                Text="{helpers:I18N System.About.Description}"
+                TextWrapping="Wrap" />
+            <ui:ListView
+                Margin="5,0"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding AboutLists}">
+                <ui:ListView.ItemContainerStyle>
+                    <Style TargetType="ui:ListViewItem">
+                        <Setter Property="Focusable" Value="false" />
+                    </Style>
+                </ui:ListView.ItemContainerStyle>
+                <ui:ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid MinWidth="250">
+                            <ui:SimpleStackPanel
+                                Margin="0,10"
+                                Orientation="Horizontal"
+                                Spacing="14">
+                                <ui:FontIcon Foreground="{StaticResource SystemAccentColorBrush}" Glyph="{Binding Glyph}" />
+                                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                                    <TextBlock Text="{Binding Title}" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="{Binding Description}" />
+                                </StackPanel>
+                            </ui:SimpleStackPanel>
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                    <b:LaunchUriOrFileAction IsEnabled="{Binding OpenUrl}" Path="{Binding Url}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </Grid>
+                    </DataTemplate>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
+            <GroupBox Margin="5,0" Header="Third Party License">
+                <ui:ListView
+                    Margin="10,-15"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding ThirdParties}">
+                    <ui:ListView.ItemContainerStyle>
+                        <Style TargetType="ui:ListViewItem">
+                            <Setter Property="Focusable" Value="false" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ui:ListViewItem">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ui:ListView.ItemContainerStyle>
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ui:SimpleStackPanel
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Text="{Binding ProjectName}" />
+                                <ui:HyperlinkButton
+                                    Margin="0"
+                                    VerticalAlignment="Center"
+                                    Content="Website"
+                                    FontSize="14"
+                                    NavigateUri="{Binding Website}" />
+                                <ui:HyperlinkButton
+                                    Margin="0"
+                                    VerticalAlignment="Center"
+                                    Content="License"
+                                    FontSize="14"
+                                    NavigateUri="{Binding LicenseUrl}" />
+                            </ui:SimpleStackPanel>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </GroupBox>
+        </ui:SimpleStackPanel>
+    </ScrollViewer>
 </ui:Page>

@@ -74,7 +74,7 @@ namespace YukiBox.Desktop.Services
             InitContextMenu();
 
             this._toolTip = new();
-            this._toolTip.Content = Program.AppName;
+            this._toolTip.Content = Program.AppDisplayName;
 
             this._taskbarIcon = new();
             this._taskbarIcon.ContextMenu = this._contextMenu;
@@ -89,6 +89,14 @@ namespace YukiBox.Desktop.Services
 
             ThemeManager.SetRequestedTheme(this._contextMenu, ElementTheme.Default);
             ThemeManager.SetRequestedTheme(this._toolTip, ElementTheme.Default);
+        }
+
+        public void Dispose()
+        {
+            this._taskbarIcon?.Dispose();
+            this._contextMenu = null;
+            this._toolTip = null;
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -10,10 +10,19 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <Authors>Kagura Chiyuki</Authors>
+    <Description>An application thats contains sort of tools.</Description>
+    <Copyright>Copyright © 2021 Kagura Chiyuki</Copyright>
+    <PackageProjectUrl>https://github.com/IllyaTheHath/YukiBox</PackageProjectUrl>
+    <PackageLicenseExpression>https://github.com/IllyaTheHath/YukiBox/blob/main/LICENSE</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/IllyaTheHath/YukiBox</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\Images\logo.ico" />
+    <None Remove="Assets\Images\logo.png" />
+    <None Remove="Assets\Images\logo_white.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,12 +30,9 @@
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ThirdParty\FluentWPF\FluentWPF\FluentWPF.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +52,8 @@
 
   <ItemGroup>
     <Resource Include="Assets\Images\logo.ico" />
+    <Resource Include="Assets\Images\logo.png" />
+    <Resource Include="Assets\Images\logo_white.png" />
   </ItemGroup>
 
 </Project>

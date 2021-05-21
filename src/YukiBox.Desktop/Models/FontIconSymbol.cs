@@ -17,15 +17,18 @@ namespace YukiBox.Desktop.Models
         public const String Forward = "\xE72A";
         public const String Back = "\xE72B";
         public const String Refresh = "\xE72C";
+        public const String FavoriteStar = "\xE734";
         public const String CheckMark = "\xE73E";
         public const String Up = "\xE74A";
         public const String Down = "\xE74B";
         public const String Save = "\xE74E";
+        public const String SIPRedock = "\xE75B";
         public const String Error = "\xE783";
         public const String Warning = "\xE78A";
         public const String PowerButton = "\xE7E8";
         public const String Home = "\xE80F";
         public const String Help = "\xE897";
         public const String Info = "\xE946";
+        public const String Feedback = "\xED15";
     }
 }

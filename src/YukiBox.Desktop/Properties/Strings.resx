@@ -168,4 +168,37 @@
   <data name="MsgBox.Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="System.RunAtStartUp" xml:space="preserve">
+    <value>Run at startup</value>
+  </data>
+  <data name="System.RunAtStartUp.On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="System.RunAtStartUp.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="System.RunAtStartUp.Error" xml:space="preserve">
+    <value>Cannot Toggle Run At StartUp.</value>
+  </data>
+  <data name="System.RunAtStartUp.Disabled" xml:space="preserve">
+    <value>Disabled By User, Please Enable Manually.</value>
+  </data>
+  <data name="System.Restart" xml:space="preserve">
+    <value>Restart Application To Apply Changes.</value>
+  </data>
+  <data name="System.About.Version" xml:space="preserve">
+    <value>Version: </value>
+  </data>
+  <data name="System.About.Description" xml:space="preserve">
+    <value>An application thats contains sort of tools. Welcome to use and provide suggestions.</value>
+  </data>
+  <data name="System.About.Github.Des" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="System.About.Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="System.About.Feedback.Des" xml:space="preserve">
+    <value>Send me an issues</value>
+  </data>
 </root>

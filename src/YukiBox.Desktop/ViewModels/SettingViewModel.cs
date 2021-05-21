@@ -11,6 +11,10 @@ using System.Windows.Input;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
+using ModernWpf.Controls;
+
+using Windows.ApplicationModel;
+
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Controls;
 using YukiBox.Desktop.Helpers;
@@ -19,7 +23,7 @@ namespace YukiBox.Desktop.ViewModels
 {
     public class SettingViewModel : ViewModelBase
     {
-        private readonly IFileStoreService _fileStoreService;
+        private readonly IConfigService _configService;
 
         public LanguageInfo CurrentLanguage
         {
@@ -32,29 +36,107 @@ namespace YukiBox.Desktop.ViewModels
             get => I18NSource.Instance.SupportedLanguages;
         }
 
-        public SettingViewModel(IFileStoreService fileStoreService)
+        private Boolean _enableStartUp;
+
+        public Boolean EnableStartUp
         {
-            this._fileStoreService = fileStoreService;
+            get => this._enableStartUp;
+            set
+            {
+                if (SetProperty(ref this._enableStartUp, value))
+                {
+                    SetToggleEnableStartUp(this._enableStartUp);
+                }
+                async void SetToggleEnableStartUp(Boolean flag)
+                {
+                    var success = await ToggleEnableStartUp(value);
+                    SetProperty(ref this._enableStartUp, await GetEnableStartUp());
+                }
+            }
+        }
+
+        public SettingViewModel(IConfigService configService)
+        {
+            this._configService = configService;
+            InitGetEnableStartUp();
+
+            async void InitGetEnableStartUp() => EnableStartUp = await GetEnableStartUp();
         }
 
         private ICommand _showMessageCommand;
+        public ICommand ShowMessageCommand => this._showMessageCommand ??= new RelayCommand(ShowMessageBox);
 
-        public ICommand ShowMessageCommand
-        {
-            get
-            {
-                if (this._showMessageCommand is null)
-                {
-                    this._showMessageCommand = new RelayCommand(ShowMessageBox);
-                }
-                return this._showMessageCommand;
-            }
-        }
+        private ICommand _resetSettingCommand;
+        public ICommand ResetSettingCommand => this._resetSettingCommand ??= new AsyncRelayCommand(ResetSetting);
 
         public void ShowMessageBox()
         {
             var result = FluentMessageBox.Show("test text", null, MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
-            MessageBox.Show($"You clicked {result}", null, MessageBoxButton.YesNoCancel);
+            FluentMessageBox.Show($"You clicked {result}", null, MessageBoxButton.YesNoCancel);
+        }
+
+        public async Task ResetSetting()
+        {
+            await this._configService.Clear();
+            var dialog = new ContentDialog
+            {
+                Title = Program.AppDisplayName,
+                Content = I18NSource.Instance["System.Restart"],
+                CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
+            };
+            await dialog.ShowAsync();
+        }
+
+        private async Task<Boolean> GetEnableStartUp()
+        {
+            try
+            {
+                var startupTask = await StartupTask.GetAsync(Program.AppName);
+                var state = startupTask.State;
+                return state == StartupTaskState.Enabled;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private async Task<Boolean> ToggleEnableStartUp(Boolean enableStartUp)
+        {
+            try
+            {
+                var startupTask = await StartupTask.GetAsync(Program.AppName);
+                if (enableStartUp)
+                {
+                    if (startupTask.State == StartupTaskState.DisabledByUser)
+                    {
+                        var dialog = new ContentDialog
+                        {
+                            Title = Program.AppDisplayName,
+                            Content = I18NSource.Instance["System.RunAtStartUp.Disabled"],
+                            CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
+                        };
+                        await dialog.ShowAsync();
+                    }
+                    await startupTask.RequestEnableAsync();
+                }
+                else
+                {
+                    startupTask.Disable();
+                }
+                return true;
+            }
+            catch
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = Program.AppDisplayName,
+                    Content = I18NSource.Instance["System.RunAtStartUp.Error"],
+                    CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
+                };
+                await dialog.ShowAsync();
+                return false;
+            }
         }
     }
 }

@@ -151,6 +151,51 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An application thats contains sort of tools. Welcome to use and provide suggestions..
+        /// </summary>
+        public static string System_About_Description {
+            get {
+                return ResourceManager.GetString("System.About.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback.
+        /// </summary>
+        public static string System_About_Feedback {
+            get {
+                return ResourceManager.GetString("System.About.Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send me an issues.
+        /// </summary>
+        public static string System_About_Feedback_Des {
+            get {
+                return ResourceManager.GetString("System.About.Feedback.Des", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Code.
+        /// </summary>
+        public static string System_About_Github_Des {
+            get {
+                return ResourceManager.GetString("System.About.Github.Des", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: .
+        /// </summary>
+        public static string System_About_Version {
+            get {
+                return ResourceManager.GetString("System.About.Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to YukiBox.
         /// </summary>
         public static string System_AppName {
@@ -174,6 +219,60 @@ namespace YukiBox.Desktop.Properties {
         public static string System_Language_Default {
             get {
                 return ResourceManager.GetString("System.Language.Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Application To Apply Changes..
+        /// </summary>
+        public static string System_Restart {
+            get {
+                return ResourceManager.GetString("System.Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run at startup.
+        /// </summary>
+        public static string System_RunAtStartUp {
+            get {
+                return ResourceManager.GetString("System.RunAtStartUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled By User, Please Enable Manually..
+        /// </summary>
+        public static string System_RunAtStartUp_Disabled {
+            get {
+                return ResourceManager.GetString("System.RunAtStartUp.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Toggle Run At StartUp..
+        /// </summary>
+        public static string System_RunAtStartUp_Error {
+            get {
+                return ResourceManager.GetString("System.RunAtStartUp.Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string System_RunAtStartUp_Off {
+            get {
+                return ResourceManager.GetString("System.RunAtStartUp.Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string System_RunAtStartUp_On {
+            get {
+                return ResourceManager.GetString("System.RunAtStartUp.On", resourceCulture);
             }
         }
         

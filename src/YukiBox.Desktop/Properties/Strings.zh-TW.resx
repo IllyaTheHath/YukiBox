@@ -168,4 +168,37 @@
   <data name="MsgBox.No" xml:space="preserve">
     <value>否</value>
   </data>
+  <data name="System.RunAtStartUp" xml:space="preserve">
+    <value>開機自動啟動</value>
+  </data>
+  <data name="System.RunAtStartUp.On" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="System.RunAtStartUp.Off" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="System.RunAtStartUp.Error" xml:space="preserve">
+    <value>無法設置開機啟動。</value>
+  </data>
+  <data name="System.RunAtStartUp.Disabled" xml:space="preserve">
+    <value>啟動項被用戶禁用，請手動開啟。</value>
+  </data>
+  <data name="System.Restart" xml:space="preserve">
+    <value>重新啟動應用以生效。</value>
+  </data>
+  <data name="System.About.Version" xml:space="preserve">
+    <value>版本： </value>
+  </data>
+  <data name="System.About.Github.Des" xml:space="preserve">
+    <value>源代碼</value>
+  </data>
+  <data name="System.About.Feedback.Des" xml:space="preserve">
+    <value>提出一個問題</value>
+  </data>
+  <data name="System.About.Feedback" xml:space="preserve">
+    <value>反饋</value>
+  </data>
+  <data name="System.About.Description" xml:space="preserve">
+    <value>一個包含各種小工具的應用，歡迎使用和吐槽 。</value>
+  </data>
 </root>

@@ -168,4 +168,37 @@
   <data name="MsgBox.Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="System.RunAtStartUp" xml:space="preserve">
+    <value>开机自动启动</value>
+  </data>
+  <data name="System.RunAtStartUp.On" xml:space="preserve">
+    <value>开启</value>
+  </data>
+  <data name="System.RunAtStartUp.Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="System.RunAtStartUp.Error" xml:space="preserve">
+    <value>无法设置开机启动。</value>
+  </data>
+  <data name="System.RunAtStartUp.Disabled" xml:space="preserve">
+    <value>启动项被用户禁用，请手动开启。</value>
+  </data>
+  <data name="System.Restart" xml:space="preserve">
+    <value>重新启动应用以生效。</value>
+  </data>
+  <data name="System.About.Version" xml:space="preserve">
+    <value>版本： </value>
+  </data>
+  <data name="System.About.Github.Des" xml:space="preserve">
+    <value>源代码</value>
+  </data>
+  <data name="System.About.Feedback" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="System.About.Feedback.Des" xml:space="preserve">
+    <value>提出一个问题</value>
+  </data>
+  <data name="System.About.Description" xml:space="preserve">
+    <value>一个包含各种小工具的应用，欢迎使用和吐槽 。</value>
+  </data>
 </root>

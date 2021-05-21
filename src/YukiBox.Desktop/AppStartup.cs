@@ -82,6 +82,7 @@ namespace YukiBox.Desktop
 
         public void OnExit(ExitEventArgs e)
         {
+            this._trayIconService?.Dispose();
         }
 
         private void ConfigurePages()
@@ -110,7 +111,7 @@ namespace YukiBox.Desktop
                 //this._shellWindow = new ShellWindow();
                 this._navigationService.Initialize(this._shellWindow.GetNavigationFrame());
                 this._shellWindow.ShowWindow();
-                this._navigationService.NavigateTo(typeof(HomeViewModel).FullName);
+                //this._navigationService.NavigateTo(typeof(AboutViewModel).FullName);
             }
             else
             {

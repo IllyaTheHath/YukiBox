@@ -33,7 +33,7 @@ namespace YukiBox.Desktop
             DataContext = ViewModel;
         }
 
-        public ModernWpf.Controls.Frame GetNavigationFrame()
+        public Frame GetNavigationFrame()
         {
             return this.shellFrame;
         }

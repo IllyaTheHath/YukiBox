@@ -73,7 +73,7 @@ namespace YukiBox.Desktop.ViewModels
             }
             else
             {
-                SelectedItem = home;
+                SelectedItem = about;
             }
         }
 

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:YukiBox.Desktop.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
     xmlns:helpers="clr-namespace:YukiBox.Desktop.Helpers"
     xmlns:local="clr-namespace:YukiBox.Desktop.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,49 +15,31 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ScrollViewer c:FluentScrollViewer.Enabled="True" fw:PointerTracker.Enabled="True">
+    <ScrollViewer c:FluentScrollViewer.Enabled="True">
         <StackPanel Margin="5">
             <GroupBox Header="General Behavior">
-                <ComboBox
-                    MinWidth="240"
-                    ItemsSource="{Binding SupportedLanguages, Mode=OneWay}"
-                    SelectedItem="{Binding CurrentLanguage}">
-                    <ui:ControlHelper.Header>
-                        <ui:SimpleStackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="{helpers:I18N System.Language}" />
-                        </ui:SimpleStackPanel>
-                    </ui:ControlHelper.Header>
-                </ComboBox>
-            </GroupBox>
-            <GroupBox Header="test">
-                <ui:SimpleStackPanel fw:PointerTracker.Enabled="True">
-                    <Button
-                        Command="{Binding ShowMessageCommand}"
-                        Content="Test Messagebox"
-                        Style="{StaticResource ButtonRevealStyle}" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="123" />
+                <ui:SimpleStackPanel Spacing="10">
+                    <ui:ToggleSwitch
+                        Header="{helpers:I18N System.RunAtStartUp}"
+                        IsOn="{Binding EnableStartUp}"
+                        OffContent="{helpers:I18N System.RunAtStartUp.Off}"
+                        OnContent="{helpers:I18N System.RunAtStartUp.On}" />
+                    <ComboBox
+                        MinWidth="240"
+                        ItemsSource="{Binding SupportedLanguages, Mode=OneWay}"
+                        SelectedItem="{Binding CurrentLanguage}">
+                        <ui:ControlHelper.Header>
+                            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="4">
+                                <TextBlock Text="{helpers:I18N System.Language}" />
+                            </ui:SimpleStackPanel>
+                        </ui:ControlHelper.Header>
+                    </ComboBox>
                 </ui:SimpleStackPanel>
+            </GroupBox>
+            <GroupBox Header="Additional">
+                <StackPanel HorizontalAlignment="Left">
+                    <Button Command="{Binding ResetSettingCommand}" Content="Reset all settings to default" />
+                </StackPanel>
             </GroupBox>
         </StackPanel>
     </ScrollViewer>

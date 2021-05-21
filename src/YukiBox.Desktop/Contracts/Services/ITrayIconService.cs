@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YukiBox.Desktop.Contracts.Services
 {
-    public interface ITrayIconService
+    public interface ITrayIconService : IDisposable
     {
         void Initialize();
     }
