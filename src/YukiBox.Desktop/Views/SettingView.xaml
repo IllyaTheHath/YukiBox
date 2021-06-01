@@ -22,8 +22,8 @@
                     <ui:ToggleSwitch
                         Header="{helpers:I18N System.RunAtStartUp}"
                         IsOn="{Binding EnableStartUp}"
-                        OffContent="{helpers:I18N System.RunAtStartUp.Off}"
-                        OnContent="{helpers:I18N System.RunAtStartUp.On}" />
+                        OffContent="{helpers:I18N ToggleButton.Off}"
+                        OnContent="{helpers:I18N ToggleButton.On}" />
                     <ComboBox
                         MinWidth="240"
                         ItemsSource="{Binding SupportedLanguages, Mode=OneWay}"

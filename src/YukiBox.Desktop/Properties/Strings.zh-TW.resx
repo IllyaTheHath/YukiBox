@@ -132,11 +132,11 @@
   <data name="Nav.About.Tooltip" xml:space="preserve">
     <value>關於頁</value>
   </data>
-  <data name="Nav.Home" xml:space="preserve">
-    <value>主頁</value>
+  <data name="Nav.Taskbar" xml:space="preserve">
+    <value>任務欄調整</value>
   </data>
-  <data name="Nav.Home.Tooltip" xml:space="preserve">
-    <value>主頁</value>
+  <data name="Nav.Taskbar.Tooltip" xml:space="preserve">
+    <value>任務欄調整</value>
   </data>
   <data name="Nav.Setting" xml:space="preserve">
     <value>設置</value>
@@ -171,10 +171,10 @@
   <data name="System.RunAtStartUp" xml:space="preserve">
     <value>開機自動啟動</value>
   </data>
-  <data name="System.RunAtStartUp.On" xml:space="preserve">
+  <data name="ToggleButton.On" xml:space="preserve">
     <value>開啟</value>
   </data>
-  <data name="System.RunAtStartUp.Off" xml:space="preserve">
+  <data name="ToggleButton.Off" xml:space="preserve">
     <value>關閉</value>
   </data>
   <data name="System.RunAtStartUp.Error" xml:space="preserve">
@@ -200,5 +200,23 @@
   </data>
   <data name="System.About.Description" xml:space="preserve">
     <value>一個包含各種小工具的應用，歡迎使用和吐槽 。</value>
+  </data>
+  <data name="Taskbar.Player.QQMusic" xml:space="preserve">
+    <value>QQ音乐</value>
+  </data>
+  <data name="Taskbar.Player.CloudMusic" xml:space="preserve">
+    <value>网易云音乐</value>
+  </data>
+  <data name="Taskbar.Searchbox.EnableMusicUpdate" xml:space="preserve">
+    <value>搜索欄顯示正在播放的歌曲名</value>
+  </data>
+  <data name="Taskbar.Searchbox.DefaultText" xml:space="preserve">
+    <value>無音樂播放時顯示文字：</value>
+  </data>
+  <data name="Taskbar.Searchbox.CheckingPlayer" xml:space="preserve">
+    <value>對以下播放器啟用：</value>
+  </data>
+  <data name="Taskbar.Searchbox" xml:space="preserve">
+    <value>搜索欄</value>
   </data>
 </root>

@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
 
 using ModernWpf;
@@ -25,6 +20,9 @@ namespace YukiBox.Desktop.Services
 
         private TaskbarIcon _taskbarIcon;
 
+        private MenuItem _settingMenuItem;
+        private MenuItem _exitMenuItem;
+
         private ContextMenu _contextMenu;
 
         private ToolTip _toolTip;
@@ -36,13 +34,19 @@ namespace YukiBox.Desktop.Services
 
         private void OnLocaleChange(Object obj)
         {
-            InitContextMenu();
+            this._settingMenuItem.Header = I18NSource.Instance["TrayIcon.Main"];
+            this._settingMenuItem.ToolTip = I18NSource.Instance["TrayIcon.Main.Tooltip"];
+            this._exitMenuItem.Header = I18NSource.Instance["TrayIcon.Exit"];
+            this._exitMenuItem.ToolTip = I18NSource.Instance["TrayIcon.Exit.Tooltip"];
         }
 
-        private void InitContextMenu()
+        public void Initialize()
         {
+            this._mediatorService.Register(this, "I18N", OnLocaleChange);
+
+            this._contextMenu = new();
             this._contextMenu.Items.Clear();
-            var settingMenuItem = new MenuItem()
+            this._settingMenuItem = new MenuItem()
             {
                 Icon = new SymbolIcon(Symbol.Setting),
                 Header = I18NSource.Instance["TrayIcon.Main"],
@@ -52,7 +56,7 @@ namespace YukiBox.Desktop.Services
                     AppStartup.Instance.ShowShellWindow();
                 })
             };
-            var exitMenuItem = new MenuItem()
+            this._exitMenuItem = new MenuItem()
             {
                 Icon = new SymbolIcon(Symbol.Cancel),
                 Header = I18NSource.Instance["TrayIcon.Exit"],
@@ -62,16 +66,9 @@ namespace YukiBox.Desktop.Services
                     AppStartup.Instance.Exit();
                 })
             };
-            this._contextMenu.Items.Add(settingMenuItem);
-            this._contextMenu.Items.Add(exitMenuItem);
-        }
 
-        public void Initialize()
-        {
-            this._mediatorService.Register(this, "I18N", OnLocaleChange);
-
-            this._contextMenu = new();
-            InitContextMenu();
+            this._contextMenu.Items.Add(this._settingMenuItem);
+            this._contextMenu.Items.Add(this._exitMenuItem);
 
             this._toolTip = new();
             this._toolTip.Content = Program.AppDisplayName;

@@ -12,6 +12,7 @@ using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Contracts.Views;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Services;
+using YukiBox.Desktop.Tasks;
 using YukiBox.Desktop.ViewModels;
 using YukiBox.Desktop.Views;
 
@@ -50,23 +51,25 @@ namespace YukiBox.Desktop
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ITrayIconService, TrayIconService>();
             services.AddSingleton<IMediatorService, MediatorService>();
-            services.AddSingleton<ISearchboxService, SearchboxService>();
             services.AddSingleton<IFileStoreService, FileStoreService>();
-            services.AddSingleton<IConfigService, ConfigService>();
+            //services.AddSingleton<IConfigService, ConfigService>();
 
             // Configure Shell Window
             services.AddSingleton<IShellWindow, ShellWindow>();
             services.AddSingleton<ShellViewModel>();
 
             // Configure View & ViewModel
-            services.AddSingleton<HomeView>();
-            services.AddSingleton<HomeViewModel>();
+            services.AddSingleton<TaskbarView>();
+            services.AddSingleton<TaskbarViewModel>();
 
             services.AddSingleton<AboutView>();
             services.AddSingleton<AboutViewModel>();
 
             services.AddSingleton<SettingView>();
             services.AddSingleton<SettingViewModel>();
+
+            // Configure Background Task
+            services.AddSingleton<IBackgroundTask, SearchboxTask>();
 
             return services.BuildServiceProvider();
         }
@@ -83,13 +86,19 @@ namespace YukiBox.Desktop
         public void OnExit(ExitEventArgs e)
         {
             this._trayIconService?.Dispose();
+
+            var tasks = Ioc.Default.GetServices<IBackgroundTask>();
+            foreach (var task in tasks)
+            {
+                task.Dispose();
+            }
         }
 
         private void ConfigurePages()
         {
             this._pageService = Ioc.Default.GetService<IPageService>();
 
-            this._pageService.Configure<HomeViewModel, HomeView>();
+            this._pageService.Configure<TaskbarViewModel, TaskbarView>();
 
             this._pageService.Configure<AboutViewModel, AboutView>();
             this._pageService.Configure<SettingViewModel, SettingView>();
@@ -99,6 +108,12 @@ namespace YukiBox.Desktop
         {
             this._trayIconService = Ioc.Default.GetService<ITrayIconService>();
             this._trayIconService.Initialize();
+
+            var tasks = Ioc.Default.GetServices<IBackgroundTask>();
+            foreach (var task in tasks)
+            {
+                task.Init();
+            }
         }
 
         public void ShowShellWindow()

@@ -1,18 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+
+using YukiBox.Desktop.Helpers;
 
 namespace YukiBox.Desktop.Models
 {
-    public class NavMenuItemBase { }
+    public class NavMenuItemBase : ObservableObject { }
 
     public class NavMenuItem : NavMenuItemBase
     {
-        public String Name { get; set; }
+        private readonly String _nameResourceName;
+        private String _name;
 
-        public String Tooltip { get; set; }
+        public String Name
+        {
+            get => this._name;
+            set => SetProperty(ref this._name, value);
+        }
+
+        private readonly String _tooltipResourceName;
+        private String _tooltip;
+
+        public String Tooltip
+        {
+            get => this._tooltip;
+            set => SetProperty(ref this._tooltip, value);
+        }
 
         public String Glyph { get; set; }
 
@@ -24,26 +38,20 @@ namespace YukiBox.Desktop.Models
 
         public NavMenuItem(String name, String toolTip, String glyph, Type targetType)
         {
-            Name = name;
-            Tooltip = toolTip;
+            this._nameResourceName = name;
+            this._tooltipResourceName = toolTip;
+
             Glyph = glyph;
             TargetType = targetType;
+            UpdateNameAndTooltip();
+        }
+
+        public void UpdateNameAndTooltip()
+        {
+            Name = I18NSource.Instance[this._nameResourceName];
+            Tooltip = I18NSource.Instance[this._tooltipResourceName];
         }
     }
 
     public class Separator : NavMenuItemBase { }
-
-    public class Header : NavMenuItemBase
-    {
-        public String Name { get; set; }
-
-        public Header()
-        {
-        }
-
-        public Header(String name)
-        {
-            Name = name;
-        }
-    }
 }

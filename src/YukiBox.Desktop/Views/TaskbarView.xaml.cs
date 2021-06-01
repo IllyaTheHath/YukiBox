@@ -21,11 +21,11 @@ namespace YukiBox.Desktop.Views
     /// <summary>
     /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class HomeView
+    public partial class TaskbarView
     {
-        public HomeViewModel ViewModel => ViewModelLocator.Current.HomeViewModel;
+        public TaskbarViewModel ViewModel => ViewModelLocator.Current.TaskbarViewModel;
 
-        public HomeView()
+        public TaskbarView()
         {
             InitializeComponent();
             DataContext = ViewModel;

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
 using YukiBox.Desktop.Contracts.Services;
-using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Models;
 
 namespace YukiBox.Desktop.ViewModels
@@ -40,46 +34,33 @@ namespace YukiBox.Desktop.ViewModels
             NavMenuItems = new ObservableCollection<NavMenuItemBase>();
             FooterNavMenuItems = new ObservableCollection<NavMenuItemBase>();
 
-            InitMenu();
-        }
+            var taskbar = new NavMenuItem("Nav.Taskbar", "Nav.Taskbar.Tooltip", FontIconSymbol.SIPRedock, typeof(TaskbarViewModel));
+            NavMenuItems.Add(taskbar);
 
-        private void InitMenu(Type current = null)
-        {
-            NavMenuItems.Clear();
-            FooterNavMenuItems.Clear();
-
-            NavMenuItem home = new(I18NSource.Instance["Nav.Home"], I18NSource.Instance["Nav.Home.Tooltip"], FontIconSymbol.Home, typeof(HomeViewModel));
-            NavMenuItems.Add(home);
-
-            NavMenuItem about = new(I18NSource.Instance["Nav.About"], I18NSource.Instance["Nav.Home.Tooltip"], FontIconSymbol.Info, typeof(AboutViewModel));
-            NavMenuItem setting = new(I18NSource.Instance["Nav.Setting"], I18NSource.Instance["Nav.Setting.Tooltip"], FontIconSymbol.Setting, typeof(SettingViewModel));
+            var about = new NavMenuItem("Nav.About", "Nav.About.Tooltip", FontIconSymbol.Info, typeof(AboutViewModel));
+            var setting = new NavMenuItem("Nav.Setting", "Nav.Setting.Tooltip", FontIconSymbol.Setting, typeof(SettingViewModel));
             FooterNavMenuItems.Add(about);
             FooterNavMenuItems.Add(setting);
 
-            if (current is not null)
-            {
-                var item = NavMenuItems.Union(FooterNavMenuItems).FirstOrDefault(x =>
-                {
-                    if (x is NavMenuItem nav)
-                    {
-                        if (nav.TargetType == current)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-                SelectedItem = item as NavMenuItem;
-            }
-            else
-            {
-                SelectedItem = about;
-            }
+            SelectedItem = about;
         }
 
         private void OnLocaleChange(Object obj)
         {
-            InitMenu(SelectedItem.TargetType);
+            foreach (NavMenuItem item in NavMenuItems)
+            {
+                if (item is NavMenuItem nav)
+                {
+                    nav.UpdateNameAndTooltip();
+                }
+            }
+            foreach (NavMenuItem item in FooterNavMenuItems)
+            {
+                if (item is NavMenuItem nav)
+                {
+                    nav.UpdateNameAndTooltip();
+                }
+            }
         }
 
         public void TryNavigate()

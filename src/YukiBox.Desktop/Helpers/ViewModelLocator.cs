@@ -18,7 +18,7 @@ namespace YukiBox.Desktop.Helpers
 
         public ShellViewModel ShellViewModel => Ioc.Default.GetService<ShellViewModel>();
 
-        public HomeViewModel HomeViewModel => Ioc.Default.GetService<HomeViewModel>();
+        public TaskbarViewModel TaskbarViewModel => Ioc.Default.GetService<TaskbarViewModel>();
 
         public AboutViewModel AboutViewModel => Ioc.Default.GetService<AboutViewModel>();
         public SettingViewModel SettingViewModel => Ioc.Default.GetService<SettingViewModel>();

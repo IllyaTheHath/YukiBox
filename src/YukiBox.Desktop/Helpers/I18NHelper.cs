@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
@@ -71,7 +67,6 @@ namespace YukiBox.Desktop.Helpers
     public class I18NSource : INotifyPropertyChanged
     {
         private readonly IMediatorService _mediatorService;
-        private readonly IConfigService _configService;
 
         private static readonly Lazy<I18NSource> lazy = new(() => new I18NSource());
 
@@ -81,8 +76,17 @@ namespace YukiBox.Desktop.Helpers
         {
             get
             {
-                var a = this.resManager.GetString(key, CurrentLanguage?.CultureInfo);
-                return a;
+                if (CurrentLanguage?.CultureInfo is null)
+                {
+                    var cultureInfo = CultureInfo.CurrentUICulture;
+                    var j = CultureInfo.GetCultureInfo("jp");
+                    var a = this.resManager.GetString(key, cultureInfo);
+                    return this.resManager.GetString(key, cultureInfo);
+                }
+                else
+                {
+                    return this.resManager.GetString(key, CurrentLanguage?.CultureInfo);
+                }
             }
         }
 
@@ -102,7 +106,7 @@ namespace YukiBox.Desktop.Helpers
                     this._currentLanguage = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(String.Empty));
                     this._mediatorService.BroadcastMessage("I18N", null);
-                    this._configService.CurrentConfig.System.Language = value.LanguageName;
+                    ConfigHelper.CurrentConfig.System.Language = value.LanguageName;
                 }
             }
         }
@@ -112,7 +116,6 @@ namespace YukiBox.Desktop.Helpers
         private I18NSource()
         {
             this._mediatorService = Ioc.Default.GetService<IMediatorService>();
-            this._configService = Ioc.Default.GetService<IConfigService>();
         }
 
         public void Initialize()
@@ -120,7 +123,7 @@ namespace YukiBox.Desktop.Helpers
             var systemUICulture = CultureInfo.CurrentUICulture;
             SupportedLanguages = GetAllSupportedLanguages();
             //var language = systemUICulture.Name;
-            var language = this._configService.CurrentConfig.System.Language;
+            var language = ConfigHelper.CurrentConfig.System.Language;
             CurrentLanguage = SupportedLanguages.FirstOrDefault(x => x.LanguageName == language);
             if (CurrentLanguage is null)
             {

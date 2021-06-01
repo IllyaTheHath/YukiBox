@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 using PInvoke;
 
-using YukiBox.Desktop.Contracts.Services;
-
-namespace YukiBox.Desktop.Services
+namespace YukiBox.Desktop.Helpers
 {
-    public class SearchboxService : ISearchboxService
+    public static class SearchboxHelper
     {
-        public String GetSearchboxText()
+        public static String GetSearchboxText()
         {
             var taskbarHWnd = User32.FindWindow("Shell_TrayWnd", null);
             if (taskbarHWnd == IntPtr.Zero)
@@ -36,7 +34,7 @@ namespace YukiBox.Desktop.Services
             return searchboxText;
         }
 
-        public Boolean SetSearchboxText(String text)
+        public static Boolean SetSearchboxText(String text)
         {
             var taskbarHWnd = User32.FindWindow("Shell_TrayWnd", null);
             if (taskbarHWnd == IntPtr.Zero)

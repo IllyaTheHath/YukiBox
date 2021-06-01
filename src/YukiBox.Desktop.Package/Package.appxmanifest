@@ -8,13 +8,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="453c798a-75ba-4e66-a85c-d819357caa2b"
+    Name="9025B0AA0E8F.YukiBox"
     Publisher="CN=KaguraChiyuki"
     Version="1.0.1.0" />
 
   <Properties>
     <DisplayName>YukiBox</DisplayName>
-    <PublisherDisplayName>KaguraChiyuki</PublisherDisplayName>
+    <PublisherDisplayName>神楽千雪</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -34,7 +34,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="YukiBox"
+        DisplayName="YukiBox (Preview)"
         Description="An application thats contains sort of tools."
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
@@ -45,7 +45,7 @@
       <Extensions>
         <uap5:Extension
             Category="windows.startupTask"
-            Executable="YukiBox.exe"
+            Executable="YukiBox.Desktop\YukiBox.exe"
             EntryPoint="Windows.FullTrustApplication">
           <uap5:StartupTask
             TaskId="YukiBox.Desktop"

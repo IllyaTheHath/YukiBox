@@ -35,8 +35,11 @@ namespace YukiBox.Desktop.Helpers
         {
             try
             {
-                ApplicationData.Current.LocalSettings.Values[key] = value.ToString();
-                return true;
+                if (value is not null)
+                {
+                    ApplicationData.Current.LocalSettings.Values[key] = value.ToString();
+                    return true;
+                }
             }
             catch { }
             return false;

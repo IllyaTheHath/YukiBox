@@ -6,17 +6,19 @@
     <UseWPF>true</UseWPF>
     <StartupObject>YukiBox.Desktop.Program</StartupObject>
     <AssemblyName>YukiBox</AssemblyName>
-    <Platforms>x64</Platforms>
+    <Platforms>x64;x86</Platforms>
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <Authors>Kagura Chiyuki</Authors>
     <Description>An application thats contains sort of tools.</Description>
     <Copyright>Copyright © 2021 Kagura Chiyuki</Copyright>
     <PackageProjectUrl>https://github.com/IllyaTheHath/YukiBox</PackageProjectUrl>
     <PackageLicenseExpression>https://github.com/IllyaTheHath/YukiBox/blob/main/LICENSE</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/IllyaTheHath/YukiBox</RepositoryUrl>
+    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="FluentWPF" Version="0.9.0" />-->
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.1" />

@@ -23,8 +23,6 @@ namespace YukiBox.Desktop.ViewModels
 {
     public class SettingViewModel : ViewModelBase
     {
-        private readonly IConfigService _configService;
-
         public LanguageInfo CurrentLanguage
         {
             get => I18NSource.Instance.CurrentLanguage;
@@ -55,9 +53,8 @@ namespace YukiBox.Desktop.ViewModels
             }
         }
 
-        public SettingViewModel(IConfigService configService)
+        public SettingViewModel()
         {
-            this._configService = configService;
             InitGetEnableStartUp();
 
             async void InitGetEnableStartUp() => EnableStartUp = await GetEnableStartUp();
@@ -77,7 +74,7 @@ namespace YukiBox.Desktop.ViewModels
 
         public async Task ResetSetting()
         {
-            await this._configService.Clear();
+            await ConfigHelper.Clear();
             var dialog = new ContentDialog
             {
                 Title = Program.AppDisplayName,

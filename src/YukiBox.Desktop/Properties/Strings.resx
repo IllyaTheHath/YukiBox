@@ -126,11 +126,11 @@
   <data name="System.Language.Default" xml:space="preserve">
     <value>System Default</value>
   </data>
-  <data name="Nav.Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="Nav.Taskbar" xml:space="preserve">
+    <value>Taskbar Tweak</value>
   </data>
-  <data name="Nav.Home.Tooltip" xml:space="preserve">
-    <value>Home Page</value>
+  <data name="Nav.Taskbar.Tooltip" xml:space="preserve">
+    <value>Taskbar Tweak Page</value>
   </data>
   <data name="Nav.About" xml:space="preserve">
     <value>About</value>
@@ -171,10 +171,10 @@
   <data name="System.RunAtStartUp" xml:space="preserve">
     <value>Run at startup</value>
   </data>
-  <data name="System.RunAtStartUp.On" xml:space="preserve">
+  <data name="ToggleButton.On" xml:space="preserve">
     <value>On</value>
   </data>
-  <data name="System.RunAtStartUp.Off" xml:space="preserve">
+  <data name="ToggleButton.Off" xml:space="preserve">
     <value>Off</value>
   </data>
   <data name="System.RunAtStartUp.Error" xml:space="preserve">
@@ -200,5 +200,23 @@
   </data>
   <data name="System.About.Feedback.Des" xml:space="preserve">
     <value>Send me an issues</value>
+  </data>
+  <data name="Taskbar.Player.QQMusic" xml:space="preserve">
+    <value>QQMusic</value>
+  </data>
+  <data name="Taskbar.Player.CloudMusic" xml:space="preserve">
+    <value>NetEase Cloud Music</value>
+  </data>
+  <data name="Taskbar.Searchbox.EnableMusicUpdate" xml:space="preserve">
+    <value>Enable Searchbox Music Name Display</value>
+  </data>
+  <data name="Taskbar.Searchbox.DefaultText" xml:space="preserve">
+    <value>Default Text When No Music Playing:</value>
+  </data>
+  <data name="Taskbar.Searchbox.CheckingPlayer" xml:space="preserve">
+    <value>Check Follow Music Player:</value>
+  </data>
+  <data name="Taskbar.Searchbox" xml:space="preserve">
+    <value>Searchbox</value>
   </data>
 </root>

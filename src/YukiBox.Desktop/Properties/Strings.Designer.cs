@@ -115,24 +115,6 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
-        /// </summary>
-        public static string Nav_Home {
-            get {
-                return ResourceManager.GetString("Nav.Home", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Home Page.
-        /// </summary>
-        public static string Nav_Home_Tooltip {
-            get {
-                return ResourceManager.GetString("Nav.Home.Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Setting.
         /// </summary>
         public static string Nav_Setting {
@@ -147,6 +129,24 @@ namespace YukiBox.Desktop.Properties {
         public static string Nav_Setting_Tooltip {
             get {
                 return ResourceManager.GetString("Nav.Setting.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Tweak.
+        /// </summary>
+        public static string Nav_Taskbar {
+            get {
+                return ResourceManager.GetString("Nav.Taskbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Tweak Page.
+        /// </summary>
+        public static string Nav_Taskbar_Tooltip {
+            get {
+                return ResourceManager.GetString("Nav.Taskbar.Tooltip", resourceCulture);
             }
         }
         
@@ -259,20 +259,74 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NetEase Cloud Music.
+        /// </summary>
+        public static string Taskbar_Player_CloudMusic {
+            get {
+                return ResourceManager.GetString("Taskbar.Player.CloudMusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QQMusic.
+        /// </summary>
+        public static string Taskbar_Player_QQMusic {
+            get {
+                return ResourceManager.GetString("Taskbar.Player.QQMusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searchbox.
+        /// </summary>
+        public static string Taskbar_Searchbox {
+            get {
+                return ResourceManager.GetString("Taskbar.Searchbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Follow Music Player:.
+        /// </summary>
+        public static string Taskbar_Searchbox_CheckingPlayer {
+            get {
+                return ResourceManager.GetString("Taskbar.Searchbox.CheckingPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Text When No Music Playing:.
+        /// </summary>
+        public static string Taskbar_Searchbox_DefaultText {
+            get {
+                return ResourceManager.GetString("Taskbar.Searchbox.DefaultText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Searchbox Music Name Display.
+        /// </summary>
+        public static string Taskbar_Searchbox_EnableMusicUpdate {
+            get {
+                return ResourceManager.GetString("Taskbar.Searchbox.EnableMusicUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
-        public static string System_RunAtStartUp_Off {
+        public static string ToggleButton_Off {
             get {
-                return ResourceManager.GetString("System.RunAtStartUp.Off", resourceCulture);
+                return ResourceManager.GetString("ToggleButton.Off", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to On.
         /// </summary>
-        public static string System_RunAtStartUp_On {
+        public static string ToggleButton_On {
             get {
-                return ResourceManager.GetString("System.RunAtStartUp.On", resourceCulture);
+                return ResourceManager.GetString("ToggleButton.On", resourceCulture);
             }
         }
         
