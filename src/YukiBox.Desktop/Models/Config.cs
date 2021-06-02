@@ -45,6 +45,12 @@ namespace YukiBox.Desktop.Models
             set => LocalSettingHelper.Set(value);
         }
 
+        public Boolean CompatibleStartIsBack
+        {
+            get => LocalSettingHelper.Get<Boolean>();
+            set => LocalSettingHelper.Set(value);
+        }
+
         public String MusicPlayer
         {
             get => LocalSettingHelper.Get<String>();

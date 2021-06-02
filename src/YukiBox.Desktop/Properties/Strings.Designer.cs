@@ -259,6 +259,24 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset all settings to default.
+        /// </summary>
+        public static string System_Setting_Restore {
+            get {
+                return ResourceManager.GetString("System.Setting.Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Settings.
+        /// </summary>
+        public static string System_Setting_Save {
+            get {
+                return ResourceManager.GetString("System.Setting.Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NetEase Cloud Music.
         /// </summary>
         public static string Taskbar_Player_CloudMusic {
@@ -291,6 +309,15 @@ namespace YukiBox.Desktop.Properties {
         public static string Taskbar_Searchbox_CheckingPlayer {
             get {
                 return ResourceManager.GetString("Taskbar.Searchbox.CheckingPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to StartIsBack++ Compatibility Mode.
+        /// </summary>
+        public static string Taskbar_Searchbox_CompatibleStartIsBack {
+            get {
+                return ResourceManager.GetString("Taskbar.Searchbox.CompatibleStartIsBack", resourceCulture);
             }
         }
         

@@ -219,4 +219,13 @@
   <data name="Taskbar.Searchbox" xml:space="preserve">
     <value>Searchbox</value>
   </data>
+  <data name="System.Setting.Save" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="System.Setting.Restore" xml:space="preserve">
+    <value>Reset all settings to default</value>
+  </data>
+  <data name="Taskbar.Searchbox.CompatibleStartIsBack" xml:space="preserve">
+    <value>StartIsBack++ Compatibility Mode</value>
+  </data>
 </root>

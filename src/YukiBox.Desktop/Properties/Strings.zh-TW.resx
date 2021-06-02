@@ -219,4 +219,13 @@
   <data name="Taskbar.Searchbox" xml:space="preserve">
     <value>搜索欄</value>
   </data>
+  <data name="System.Setting.Restore" xml:space="preserve">
+    <value>重置為默認設置</value>
+  </data>
+  <data name="System.Setting.Save" xml:space="preserve">
+    <value>保存設置</value>
+  </data>
+  <data name="Taskbar.Searchbox.CompatibleStartIsBack" xml:space="preserve">
+    <value>StartIsBack++兼容模式</value>
+  </data>
 </root>

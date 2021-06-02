@@ -34,7 +34,7 @@ namespace YukiBox.Desktop.Helpers
             return searchboxText;
         }
 
-        public static Boolean SetSearchboxText(String text)
+        public static Boolean SetSearchboxText(String text, Boolean compatibleStartIsBack)
         {
             var taskbarHWnd = User32.FindWindow("Shell_TrayWnd", null);
             if (taskbarHWnd == IntPtr.Zero)
@@ -54,8 +54,16 @@ namespace YukiBox.Desktop.Helpers
             User32.SetWindowText(searchBoxTextHWnd, text);
 
             // force refresh searchbox for the changes to take effect
-            User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_HIDE);
-            User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_SHOWNOACTIVATE);
+            if (compatibleStartIsBack)
+            {
+                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_SHOWNOACTIVATE);
+                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_HIDE);
+            }
+            else
+            {
+                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_HIDE);
+                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_SHOWNOACTIVATE);
+            }
             return true;
         }
     }

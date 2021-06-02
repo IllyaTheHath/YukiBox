@@ -38,7 +38,7 @@
             </GroupBox>
             <GroupBox Header="Additional">
                 <StackPanel HorizontalAlignment="Left">
-                    <Button Command="{Binding ResetSettingCommand}" Content="Reset all settings to default" />
+                    <Button Command="{Binding ResetSettingCommand}" Content="{helpers:I18N System.Setting.Restore}" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

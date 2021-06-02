@@ -9,6 +9,8 @@ using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Models;
 using YukiBox.Desktop.Tasks;
+using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace YukiBox.Desktop.ViewModels
 {
@@ -19,34 +21,40 @@ namespace YukiBox.Desktop.ViewModels
 
         public ObservableCollection<MusicPlayer> MusicPlayers { get; set; }
 
+        private MusicPlayer _selectedPlayer;
+
         public MusicPlayer SelectedPlayer
         {
-            get => MusicPlayers.FirstOrDefault(x => x.Name == ConfigHelper.CurrentConfig.Taskbar.MusicPlayer);
-            set => ConfigHelper.CurrentConfig.Taskbar.MusicPlayer = value?.Name;
+            get => this._selectedPlayer;
+            set => SetProperty(ref this._selectedPlayer, value);
         }
+
+        private Boolean _enableMusicUpdate;
 
         public Boolean EnableMusicUpdate
         {
-            get => ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable;
-            set
-            {
-                ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = value;
-                if (EnableMusicUpdate)
-                {
-                    this._task?.Run();
-                }
-                else
-                {
-                    this._task?.Stop();
-                }
-            }
+            get => this._enableMusicUpdate;
+            set => SetProperty(ref this._enableMusicUpdate, value);
         }
+
+        private Boolean _compatibleStartIsBack;
+
+        public Boolean CompatibleStartIsBack
+        {
+            get => this._compatibleStartIsBack;
+            set => SetProperty(ref this._compatibleStartIsBack, value);
+        }
+
+        public String _searchBoxTextDefault;
 
         public String SearchBoxTextDefault
         {
-            get => ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
-            set => ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault = value;
+            get => this._searchBoxTextDefault;
+            set => SetProperty(ref this._searchBoxTextDefault, value);
         }
+
+        private ICommand _saveChangeSearchbox;
+        public ICommand SaveChangeSearchbox => this._saveChangeSearchbox ??= new RelayCommand(PerformSaveChangeSearchbox);
 
         public TaskbarViewModel()
         {
@@ -56,14 +64,16 @@ namespace YukiBox.Desktop.ViewModels
             this._mediatorService.Register(this, "I18N", OnLocaleChange);
 
             MusicPlayers = new ObservableCollection<MusicPlayer>();
-
             InitMenu();
+
+            SelectedPlayer = MusicPlayers.FirstOrDefault(x => x.Name == ConfigHelper.CurrentConfig.Taskbar.MusicPlayer);
+            CompatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
+            SearchBoxTextDefault = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
+            EnableMusicUpdate = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable;
         }
 
         private void InitMenu()
         {
-            MusicPlayers.Clear();
-
             var qqMusic = new QQMusicPlayer();
             MusicPlayers.Add(qqMusic);
 
@@ -76,6 +86,28 @@ namespace YukiBox.Desktop.ViewModels
             foreach (var item in MusicPlayers)
             {
                 item.UpdateDisplayName();
+            }
+        }
+
+        private void PerformSaveChangeSearchbox()
+        {
+            ConfigHelper.CurrentConfig.Taskbar.MusicPlayer = SelectedPlayer?.Name;
+            ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack = CompatibleStartIsBack;
+            ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault = SearchBoxTextDefault;
+            ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = EnableMusicUpdate;
+
+            if (EnableMusicUpdate)
+            {
+                this._task?.Run();
+            }
+            else
+            {
+                this._task?.Stop();
+            }
+
+            if (this._task is SearchboxTask st)
+            {
+                st.ChangeSettings(SelectedPlayer, SearchBoxTextDefault, CompatibleStartIsBack);
             }
         }
 

@@ -26,6 +26,12 @@
                         IsOn="{Binding EnableMusicUpdate}"
                         OffContent="{helpers:I18N ToggleButton.Off}"
                         OnContent="{helpers:I18N ToggleButton.On}" />
+                    <ui:ToggleSwitch
+                        FontSize="14"
+                        Header="{helpers:I18N Taskbar.Searchbox.CompatibleStartIsBack}"
+                        IsOn="{Binding CompatibleStartIsBack}"
+                        OffContent="{helpers:I18N ToggleButton.Off}"
+                        OnContent="{helpers:I18N ToggleButton.On}" />
                     <TextBox
                         ui:ControlHelper.Header="{helpers:I18N Taskbar.Searchbox.DefaultText}"
                         FontSize="14"
@@ -42,6 +48,7 @@
                             </DataTemplate>
                         </ui:RadioButtons.ItemTemplate>
                     </ui:RadioButtons>
+                    <Button Command="{Binding SaveChangeSearchbox}" Content="{helpers:I18N System.Setting.Save}" />
                 </ui:SimpleStackPanel>
             </GroupBox>
         </ui:SimpleStackPanel>

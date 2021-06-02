@@ -16,6 +16,8 @@ namespace YukiBox.Desktop.Tasks
 
         public Int32 RunCount { get; init; }
 
+        public Boolean IsRunning { get; private set; }
+
         public BackgroundTaskBase(TimeSpan interval, Int32 runCount = 0)
         {
             Interval = interval;
@@ -35,12 +37,14 @@ namespace YukiBox.Desktop.Tasks
         {
             this._timer.Enabled = true;
             this._timer.Start();
+            IsRunning = true;
         }
 
         public void Stop()
         {
             this._timer.Stop();
             this._timer.Enabled = false;
+            IsRunning = false;
         }
 
         private async Task TickAction()
@@ -64,6 +68,7 @@ namespace YukiBox.Desktop.Tasks
         {
             this._timer.Stop();
             this._timer.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }
