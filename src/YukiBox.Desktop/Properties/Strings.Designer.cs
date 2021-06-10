@@ -259,6 +259,24 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional.
+        /// </summary>
+        public static string System_Setting_Additional {
+            get {
+                return ResourceManager.GetString("System.Setting.Additional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Behavior.
+        /// </summary>
+        public static string System_Setting_General {
+            get {
+                return ResourceManager.GetString("System.Setting.General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset all settings to default.
         /// </summary>
         public static string System_Setting_Restore {
@@ -336,6 +354,24 @@ namespace YukiBox.Desktop.Properties {
         public static string Taskbar_Searchbox_EnableMusicUpdate {
             get {
                 return ResourceManager.GetString("Taskbar.Searchbox.EnableMusicUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar.
+        /// </summary>
+        public static string Taskbar_Taskbar {
+            get {
+                return ResourceManager.GetString("Taskbar.Taskbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse wheel adjusts the volume when pointer hover over taskbar.
+        /// </summary>
+        public static string Taskbar_Taskbar_WheelVolume {
+            get {
+                return ResourceManager.GetString("Taskbar.Taskbar.WheelVolume", resourceCulture);
             }
         }
         

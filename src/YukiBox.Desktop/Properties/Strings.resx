@@ -228,4 +228,16 @@
   <data name="Taskbar.Searchbox.CompatibleStartIsBack" xml:space="preserve">
     <value>StartIsBack++ Compatibility Mode</value>
   </data>
+  <data name="Taskbar.Taskbar" xml:space="preserve">
+    <value>Taskbar</value>
+  </data>
+  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+    <value>Mouse wheel adjusts the volume when pointer hover over taskbar</value>
+  </data>
+  <data name="System.Setting.General" xml:space="preserve">
+    <value>General Behavior</value>
+  </data>
+  <data name="System.Setting.Additional" xml:space="preserve">
+    <value>Additional</value>
+  </data>
 </root>

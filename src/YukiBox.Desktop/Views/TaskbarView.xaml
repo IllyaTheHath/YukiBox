@@ -51,6 +51,14 @@
                     <Button Command="{Binding SaveChangeSearchbox}" Content="{helpers:I18N System.Setting.Save}" />
                 </ui:SimpleStackPanel>
             </GroupBox>
+            <GroupBox Header="{helpers:I18N Taskbar.Taskbar}">
+                <ui:ToggleSwitch
+                    FontSize="14"
+                    Header="{helpers:I18N Taskbar.Taskbar.WheelVolume}"
+                    IsOn="{Binding EnableWheelVolume}"
+                    OffContent="{helpers:I18N ToggleButton.Off}"
+                    OnContent="{helpers:I18N ToggleButton.On}" />
+            </GroupBox>
         </ui:SimpleStackPanel>
     </ScrollViewer>
 </ui:Page>

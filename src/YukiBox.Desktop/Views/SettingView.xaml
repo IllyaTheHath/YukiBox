@@ -17,7 +17,7 @@
 
     <ScrollViewer c:FluentScrollViewer.Enabled="True">
         <StackPanel Margin="5">
-            <GroupBox Header="General Behavior">
+            <GroupBox Header="{helpers:I18N System.Setting.General}">
                 <ui:SimpleStackPanel Spacing="10">
                     <ui:ToggleSwitch
                         Header="{helpers:I18N System.RunAtStartUp}"
@@ -36,7 +36,7 @@
                     </ComboBox>
                 </ui:SimpleStackPanel>
             </GroupBox>
-            <GroupBox Header="Additional">
+            <GroupBox Header="{helpers:I18N System.Setting.Additional}">
                 <StackPanel HorizontalAlignment="Left">
                     <Button Command="{Binding ResetSettingCommand}" Content="{helpers:I18N System.Setting.Restore}" />
                 </StackPanel>

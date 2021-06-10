@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +8,8 @@ using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Contracts.Views;
 using YukiBox.Desktop.Helpers;
+using YukiBox.Desktop.Hooks;
+using YukiBox.Desktop.Interop;
 using YukiBox.Desktop.Services;
 using YukiBox.Desktop.Tasks;
 using YukiBox.Desktop.ViewModels;
@@ -80,7 +79,16 @@ namespace YukiBox.Desktop
 
             I18NSource.Instance.Initialize();
 
-            HandleActivation();
+            this._trayIconService = Ioc.Default.GetService<ITrayIconService>();
+            this._trayIconService.Initialize();
+
+            var tasks = Ioc.Default.GetServices<IBackgroundTask>();
+            foreach (var task in tasks)
+            {
+                task.Init();
+            }
+
+            HooksHelper.Instance.Initialize();
         }
 
         public void OnExit(ExitEventArgs e)
@@ -92,6 +100,8 @@ namespace YukiBox.Desktop
             {
                 task.Dispose();
             }
+
+            HooksHelper.Instance.Dispose();
         }
 
         private void ConfigurePages()
@@ -102,18 +112,6 @@ namespace YukiBox.Desktop
 
             this._pageService.Configure<AboutViewModel, AboutView>();
             this._pageService.Configure<SettingViewModel, SettingView>();
-        }
-
-        private void HandleActivation()
-        {
-            this._trayIconService = Ioc.Default.GetService<ITrayIconService>();
-            this._trayIconService.Initialize();
-
-            var tasks = Ioc.Default.GetServices<IBackgroundTask>();
-            foreach (var task in tasks)
-            {
-                task.Init();
-            }
         }
 
         public void ShowShellWindow()

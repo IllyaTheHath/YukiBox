@@ -52,11 +52,13 @@ namespace YukiBox.Desktop.ViewModels
             var behavior = new AboutThirdPartyItem("Microsoft.Xaml.Behaviors.Wpf", "https://github.com/microsoft/XamlBehaviorsWpf", "https://github.com/microsoft/XamlBehaviorsWpf/blob/master/LICENSE");
             var modernWpf = new AboutThirdPartyItem("ModernWpf", "https://github.com/Kinnara/ModernWpf", "https://github.com/Kinnara/ModernWpf/blob/master/LICENSE");
             var pinvoke = new AboutThirdPartyItem("PInvoke.User32", "https://github.com/dotnet/pinvoke", "https://github.com/dotnet/pinvoke/blob/master/LICENSE");
+            var naudio = new AboutThirdPartyItem("NAudio", "https://github.com/naudio/NAudio", "https://github.com/naudio/NAudio/blob/master/license.txt");
             ThirdParties.Add(notifyIcon);
             ThirdParties.Add(mvvm);
             ThirdParties.Add(behavior);
             ThirdParties.Add(modernWpf);
             ThirdParties.Add(pinvoke);
+            ThirdParties.Add(naudio);
         }
 
         private void OnLocaleChange(Object obj)

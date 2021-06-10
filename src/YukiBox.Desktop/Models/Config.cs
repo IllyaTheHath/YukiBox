@@ -56,5 +56,11 @@ namespace YukiBox.Desktop.Models
             get => LocalSettingHelper.Get<String>();
             set => LocalSettingHelper.Set(value);
         }
+
+        public Boolean WheelVolumeEnable
+        {
+            get => LocalSettingHelper.Get<Boolean>();
+            set => LocalSettingHelper.Set(value);
+        }
     }
 }

@@ -228,4 +228,16 @@
   <data name="Taskbar.Searchbox.CompatibleStartIsBack" xml:space="preserve">
     <value>StartIsBack++兼容模式</value>
   </data>
+  <data name="Taskbar.Taskbar" xml:space="preserve">
+    <value>任務欄</value>
+  </data>
+  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+    <value>鼠標指針懸停在任務欄上時滾輪調節音量</value>
+  </data>
+  <data name="System.Setting.General" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="System.Setting.Additional" xml:space="preserve">
+    <value>額外設置</value>
+  </data>
 </root>

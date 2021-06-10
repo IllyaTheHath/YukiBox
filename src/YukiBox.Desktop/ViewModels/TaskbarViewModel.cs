@@ -11,6 +11,7 @@ using YukiBox.Desktop.Models;
 using YukiBox.Desktop.Tasks;
 using System.Windows.Input;
 using Microsoft.Toolkit.Mvvm.Input;
+using YukiBox.Desktop.Hooks;
 
 namespace YukiBox.Desktop.ViewModels
 {
@@ -56,6 +57,20 @@ namespace YukiBox.Desktop.ViewModels
         private ICommand _saveChangeSearchbox;
         public ICommand SaveChangeSearchbox => this._saveChangeSearchbox ??= new RelayCommand(PerformSaveChangeSearchbox);
 
+        private Boolean _enableWheelVolume;
+
+        public Boolean EnableWheelVolume
+        {
+            get => this._enableWheelVolume;
+            set
+            {
+                if (SetProperty(ref this._enableWheelVolume, value))
+                {
+                    HooksHelper.Instance.WheelVolumeHookHelper.IsEnabled = EnableWheelVolume;
+                }
+            }
+        }
+
         public TaskbarViewModel()
         {
             this._mediatorService = Ioc.Default.GetService<IMediatorService>();
@@ -70,6 +85,8 @@ namespace YukiBox.Desktop.ViewModels
             CompatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
             SearchBoxTextDefault = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
             EnableMusicUpdate = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable;
+
+            EnableWheelVolume = ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable;
         }
 
         private void InitMenu()
