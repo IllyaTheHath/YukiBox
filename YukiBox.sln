@@ -1,21 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31025.218
+VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YukiBox.Desktop", "src\YukiBox.Desktop\YukiBox.Desktop.csproj", "{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YukiBox.Desktop", "src\YukiBox.Desktop\YukiBox.Desktop.csproj", "{DE6F4F67-DD36-4F6F-861F-B15A4428F684}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "YukiBox.Desktop.Package", "src\YukiBox.Desktop.Package\YukiBox.Desktop.Package.wapproj", "{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6646E947-DF5C-413E-8AAC-A4BECD3A659D}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		LICENSE = LICENSE
-		Privavy.md = Privavy.md
-		Readme.md = Readme.md
-	EndProjectSection
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "YukiBox.Desktop.Package", "src\YukiBox.Desktop.Package\YukiBox.Desktop.Package.wapproj", "{07470070-FA3E-4C3F-A37E-21F91E57E42C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,31 +15,31 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Debug|x64.ActiveCfg = Debug|x64
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Debug|x64.Build.0 = Debug|x64
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Debug|x86.ActiveCfg = Debug|x86
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Debug|x86.Build.0 = Debug|x86
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Release|x64.ActiveCfg = Release|x64
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Release|x64.Build.0 = Release|x64
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Release|x86.ActiveCfg = Release|x86
-		{B7101DCC-1C2B-4CBD-AB17-E99EF4DBFD29}.Release|x86.Build.0 = Release|x86
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Debug|x64.ActiveCfg = Debug|x64
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Debug|x64.Build.0 = Debug|x64
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Debug|x64.Deploy.0 = Debug|x64
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Debug|x86.ActiveCfg = Debug|x86
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Debug|x86.Build.0 = Debug|x86
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Debug|x86.Deploy.0 = Debug|x86
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Release|x64.ActiveCfg = Release|x64
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Release|x64.Build.0 = Release|x64
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Release|x64.Deploy.0 = Release|x64
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Release|x86.ActiveCfg = Release|x86
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Release|x86.Build.0 = Release|x86
-		{8B230BA9-3D45-4FF1-86A4-59DFFFC71251}.Release|x86.Deploy.0 = Release|x86
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Debug|x64.ActiveCfg = Debug|x64
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Debug|x64.Build.0 = Debug|x64
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Debug|x86.ActiveCfg = Debug|x86
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Debug|x86.Build.0 = Debug|x86
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Release|x64.ActiveCfg = Release|x64
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Release|x64.Build.0 = Release|x64
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Release|x86.ActiveCfg = Release|x86
+		{DE6F4F67-DD36-4F6F-861F-B15A4428F684}.Release|x86.Build.0 = Release|x86
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Debug|x64.ActiveCfg = Debug|x64
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Debug|x64.Build.0 = Debug|x64
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Debug|x64.Deploy.0 = Debug|x64
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Debug|x86.ActiveCfg = Debug|x86
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Debug|x86.Build.0 = Debug|x86
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Debug|x86.Deploy.0 = Debug|x86
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Release|x64.ActiveCfg = Release|x64
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Release|x64.Build.0 = Release|x64
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Release|x64.Deploy.0 = Release|x64
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Release|x86.ActiveCfg = Release|x86
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Release|x86.Build.0 = Release|x86
+		{07470070-FA3E-4C3F-A37E-21F91E57E42C}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7B451544-66FE-42AD-AA39-015ADF09F5EF}
+		SolutionGuid = {1ACC9D2F-6E86-44AA-A05A-D8AEA2E3B54B}
 	EndGlobalSection
 EndGlobal

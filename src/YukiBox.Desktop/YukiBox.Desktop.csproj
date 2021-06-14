@@ -7,10 +7,11 @@
     <StartupObject>YukiBox.Desktop.Program</StartupObject>
     <AssemblyName>YukiBox</AssemblyName>
     <Platforms>x64;x86</Platforms>
-    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-x64;win10-x86</RuntimeIdentifiers>
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
+    <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
     <Authors>Kagura Chiyuki</Authors>
     <Description>An application thats contains sort of tools.</Description>
     <Copyright>Copyright © 2021 Kagura Chiyuki</Copyright>
@@ -28,7 +29,7 @@
     <None Remove="Assets\Images\logo_white.png" />
   </ItemGroup>
 
-   <ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.1" />
@@ -52,7 +53,7 @@
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>  
-
+    
   <ItemGroup>
     <Resource Include="Assets\Images\logo.ico" />
     <Resource Include="Assets\Images\logo.png" />

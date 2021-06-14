@@ -21,30 +21,17 @@ namespace YukiBox.Desktop
         [STAThread]
         private static void Main(String[] args)
         {
-            try
+            var thread = new Thread(() =>
             {
-                var thread = new Thread(() =>
+                AppLifecycleManager.StartApplication(() =>
                 {
-                    AppLifecycleManager.StartApplication(() =>
-                    {
-                        //I18NSource.Instance.Initialize();
-
-                        var app = new App();
-                        app.Run();
-                    });
+                    var app = new App();
+                    app.Run();
                 });
+            });
 
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                AppLifecycleManager.ReleaseMutex();
-            }
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         public static String AppVersion
