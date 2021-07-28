@@ -139,7 +139,7 @@ namespace YukiBox.Desktop.Helpers
             };
 
             var resourceManager = Properties.Strings.ResourceManager;
-            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+            var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
             foreach (var culture in cultures)
             {
                 try

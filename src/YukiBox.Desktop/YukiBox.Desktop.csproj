@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>YukiBox.Desktop.Program</StartupObject>
     <AssemblyName>YukiBox</AssemblyName>
@@ -18,9 +18,9 @@
     <PackageProjectUrl>https://github.com/IllyaTheHath/YukiBox</PackageProjectUrl>
     <PackageLicenseExpression>https://github.com/IllyaTheHath/YukiBox/blob/main/LICENSE</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/IllyaTheHath/YukiBox</RepositoryUrl>
-    <FileVersion>1.0.1.0</FileVersion>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <Version>1.0.1</Version>
+    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,11 +31,11 @@
 
   <ItemGroup>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.6.21352.12" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
-    <PackageReference Include="NAudio" Version="2.0.0" />
+    <PackageReference Include="NAudio" Version="2.0.1" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
   </ItemGroup>
 
@@ -59,5 +59,4 @@
     <Resource Include="Assets\Images\logo.png" />
     <Resource Include="Assets\Images\logo_white.png" />
   </ItemGroup>
-
 </Project>
