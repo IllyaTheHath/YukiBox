@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+
+using Microsoft.UI.Xaml;
 
 namespace YukiBox.Desktop.Controls
 {
@@ -173,8 +174,38 @@ namespace YukiBox.Desktop.Controls
                 button,
                 icon,
                 defaultResult);
-            window.ShowDialog();
+            window.Activate();
             return window.Result;
         }
+    }
+
+    public enum MessageBoxResult
+    {
+        None = 0,
+        OK = 1,
+        Cancel = 2,
+        Yes = 6,
+        No = 7
+    }
+
+    public enum MessageBoxButton
+    {
+        OK = 0,
+        OKCancel = 1,
+        YesNoCancel = 3,
+        YesNo = 4
+    }
+
+    public enum MessageBoxImage
+    {
+        None = 0,
+        Error = 0x10,
+        Hand = 0x10,
+        Stop = 0x10,
+        Question = 0x20,
+        Exclamation = 48,
+        Warning = 48,
+        Asterisk = 0x40,
+        Information = 0x40
     }
 }

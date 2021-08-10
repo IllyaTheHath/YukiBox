@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 using YukiBox.Desktop.Contracts.Services;
 
@@ -48,6 +49,11 @@ namespace YukiBox.Desktop.Services
 
         public void NavigateTo(String pageKey, Object parameter)
         {
+            if (this._frame is null)
+            {
+                return;
+            }
+
             var pageType = this._pageService.GetPageType(pageKey);
 
             if (pageType is null)
@@ -62,7 +68,7 @@ namespace YukiBox.Desktop.Services
                 {
                     return;
                 }
-                var navigated = this._frame.Navigate(page, parameter);
+                var navigated = this._frame.Navigate(page.GetType(), parameter);
                 if (navigated)
                 {
                     this._lastParameterUsed = parameter;

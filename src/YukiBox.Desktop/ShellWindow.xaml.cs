@@ -1,20 +1,26 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+
+using WinUIEx;
 
 using YukiBox.Desktop.Contracts.Views;
 using YukiBox.Desktop.Helpers;
+using YukiBox.Desktop.Models;
 using YukiBox.Desktop.ViewModels;
 
 namespace YukiBox.Desktop
@@ -30,7 +36,15 @@ namespace YukiBox.Desktop
         public ShellWindow()
         {
             InitializeComponent();
-            DataContext = ViewModel;
+            navigationView.DataContext = ViewModel;
+
+            this.Closed += ShellWindow_Closed;
+        }
+
+        private void ShellWindow_Closed(object sender, WindowEventArgs args)
+        {
+            this.HideWindow();
+            args.Handled = true;
         }
 
         public Frame GetNavigationFrame()
@@ -38,9 +52,9 @@ namespace YukiBox.Desktop
             return this.shellFrame;
         }
 
-        public void ShowWindow()
+        public void Show()
         {
-            Show();
+            this.ShowWindow();
         }
 
         public void CloseWindow()
@@ -48,15 +62,12 @@ namespace YukiBox.Desktop
             Close();
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        private void NavigateView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            Hide();
-            e.Cancel = true;
-        }
-
-        private void NavigateView(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            ViewModel.TryNavigate();
+            if (args.SelectedItem is NavMenuItem nav)
+            {
+                ViewModel.TryNavigate(nav);
+            }
         }
     }
 }

@@ -5,13 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-
-using ModernWpf.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 using Windows.ApplicationModel;
 
@@ -77,7 +75,7 @@ namespace YukiBox.Desktop.ViewModels
             await ConfigHelper.Clear();
             var dialog = new ContentDialog
             {
-                Title = Program.AppDisplayName,
+                Title = App.AppDisplayName,
                 Content = I18NSource.Instance["System.Restart"],
                 CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
             };
@@ -88,7 +86,7 @@ namespace YukiBox.Desktop.ViewModels
         {
             try
             {
-                var startupTask = await StartupTask.GetAsync(Program.AppName);
+                var startupTask = await StartupTask.GetAsync(App.AppName);
                 var state = startupTask.State;
                 return state == StartupTaskState.Enabled;
             }
@@ -102,14 +100,14 @@ namespace YukiBox.Desktop.ViewModels
         {
             try
             {
-                var startupTask = await StartupTask.GetAsync(Program.AppName);
+                var startupTask = await StartupTask.GetAsync(App.AppName);
                 if (enableStartUp)
                 {
                     if (startupTask.State == StartupTaskState.DisabledByUser)
                     {
                         var dialog = new ContentDialog
                         {
-                            Title = Program.AppDisplayName,
+                            Title = App.AppDisplayName,
                             Content = I18NSource.Instance["System.RunAtStartUp.Disabled"],
                             CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
                         };
@@ -127,7 +125,7 @@ namespace YukiBox.Desktop.ViewModels
             {
                 var dialog = new ContentDialog
                 {
-                    Title = Program.AppDisplayName,
+                    Title = App.AppDisplayName,
                     Content = I18NSource.Instance["System.RunAtStartUp.Error"],
                     CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
                 };

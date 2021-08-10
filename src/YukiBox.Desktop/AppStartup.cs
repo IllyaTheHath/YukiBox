@@ -73,7 +73,7 @@ namespace YukiBox.Desktop
             return services.BuildServiceProvider();
         }
 
-        public void OnStartup(StartupEventArgs e)
+        public void OnStartup()
         {
             ConfigurePages();
 
@@ -91,7 +91,7 @@ namespace YukiBox.Desktop
             HooksHelper.Instance.Initialize();
         }
 
-        public void OnExit(ExitEventArgs e)
+        public void OnExit()
         {
             this._trayIconService?.Dispose();
 
@@ -123,18 +123,18 @@ namespace YukiBox.Desktop
                 this._shellWindow = Ioc.Default.GetService<IShellWindow>();
                 //this._shellWindow = new ShellWindow();
                 this._navigationService.Initialize(this._shellWindow.GetNavigationFrame());
-                this._shellWindow.ShowWindow();
+                this._shellWindow.Show();
                 //this._navigationService.NavigateTo(typeof(AboutViewModel).FullName);
             }
             else
             {
-                this._shellWindow.ShowWindow();
+                this._shellWindow.Show();
             }
         }
 
         public void Exit()
         {
-            App.Current.Shutdown();
+            App.Exit();
         }
     }
 }

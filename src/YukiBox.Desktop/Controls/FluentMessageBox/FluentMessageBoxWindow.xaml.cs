@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -15,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.UI.Xaml;
 
 using YukiBox.Desktop.Models;
 
@@ -25,19 +25,19 @@ namespace YukiBox.Desktop.Controls
     /// </summary>
     public partial class FluentMessageBoxWindow : Window
     {
-        public String Glyph { get; set; }
+        public String Glyph { get; private set; }
 
-        public String MessageBoxText { get; init; }
+        public String MessageBoxText { get; private set; }
 
-        public Visibility IconVisibility { get; init; }
+        public Visibility IconVisibility { get; private set; }
 
-        public Visibility BtnOkVisibility { get; init; }
+        public Visibility BtnOkVisibility { get; private set; }
 
-        public Visibility BtnYesVisibility { get; init; }
+        public Visibility BtnYesVisibility { get; private set; }
 
-        public Visibility BtnNoVisibility { get; init; }
+        public Visibility BtnNoVisibility { get; private set; }
 
-        public Visibility BtnCancelVisibility { get; init; }
+        public Visibility BtnCancelVisibility { get; private set; }
 
         public MessageBoxResult Result { get; private set; }
 
@@ -47,7 +47,7 @@ namespace YukiBox.Desktop.Controls
         private FluentMessageBoxWindow()
         {
             InitializeComponent();
-            DataContext = this;
+            panel.DataContext = this;
         }
 
         public FluentMessageBoxWindow(
@@ -58,13 +58,8 @@ namespace YukiBox.Desktop.Controls
             MessageBoxImage icon,
             MessageBoxResult defaultResult) : this()
         {
-            if (owner is not null)
-            {
-                Owner = owner;
-            }
-            WindowStartupLocation = Owner is null ? WindowStartupLocation.CenterScreen : WindowStartupLocation.CenterOwner;
             MessageBoxText = messageBoxText;
-            Title = !String.IsNullOrEmpty(caption) ? caption : Program.AppDisplayName;
+            Title = !String.IsNullOrEmpty(caption) ? caption : App.AppDisplayName;
 
             IconVisibility = icon is MessageBoxImage.None ? Visibility.Collapsed : Visibility.Visible;
             Glyph = icon switch

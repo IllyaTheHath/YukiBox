@@ -9,7 +9,7 @@ namespace YukiBox.Desktop.Helpers
 {
     public static class AppLifecycleManager
     {
-        private static readonly Mutex mutex = new(true, Program.AppUuid);
+        private static readonly Mutex mutex = new(true, App.AppUuid);
 
         public static void StartApplication(Action action)
         {
@@ -20,7 +20,7 @@ namespace YukiBox.Desktop.Helpers
             else
             {
                 //Environment.Exit(0);
-                App.Current.Shutdown();
+                App.Exit();
             }
         }
 

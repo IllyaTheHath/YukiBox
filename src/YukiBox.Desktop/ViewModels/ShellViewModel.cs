@@ -63,9 +63,9 @@ namespace YukiBox.Desktop.ViewModels
             }
         }
 
-        public void TryNavigate()
+        public void TryNavigate(NavMenuItem nav)
         {
-            var pageKey = SelectedItem.TargetType.FullName;
+            var pageKey = nav.TargetType.FullName;
             this._navigationService.NavigateTo(pageKey);
         }
 

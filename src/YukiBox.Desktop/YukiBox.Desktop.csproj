@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <StartupObject>YukiBox.Desktop.Program</StartupObject>
+    <UseWinUI>true</UseWinUI>
+    <StartupObject></StartupObject>
     <AssemblyName>YukiBox</AssemblyName>
     <Platforms>x64;x86</Platforms>
     <RuntimeIdentifiers>win10-x64;win10-x86</RuntimeIdentifiers>
@@ -32,11 +32,17 @@
   <ItemGroup>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.6.21352.12" />
+    <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.0" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="ModernWpfUI" Version="0.9.4" />
+    <!--<PackageReference Include="ModernWpfUI" Version="0.9.4" />-->
     <PackageReference Include="NAudio" Version="2.0.1" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\WinUIEx\src\WinUIEx\WinUIEx.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,5 +64,17 @@
     <Resource Include="Assets\Images\logo.ico" />
     <Resource Include="Assets\Images\logo.png" />
     <Resource Include="Assets\Images\logo_white.png" />
+  </ItemGroup>  
+    
+  <ItemGroup>
+    <Content Update="Assets\Images\logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\logo_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

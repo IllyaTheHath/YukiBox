@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
 using Microsoft.Toolkit.Mvvm.Input;
 
-using ModernWpf;
-using ModernWpf.Controls;
+using WinUIEx;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
@@ -48,7 +46,7 @@ namespace YukiBox.Desktop.Services
             this._contextMenu.Items.Clear();
             this._settingMenuItem = new MenuItem()
             {
-                Icon = new SymbolIcon(Symbol.Setting),
+                Icon = new Microsoft.UI.Xaml.Controls.SymbolIcon(Microsoft.UI.Xaml.Controls.Symbol.Setting),
                 Header = I18NSource.Instance["TrayIcon.Main"],
                 ToolTip = I18NSource.Instance["TrayIcon.Main.Tooltip"],
                 Command = new RelayCommand(() =>
@@ -58,7 +56,7 @@ namespace YukiBox.Desktop.Services
             };
             this._exitMenuItem = new MenuItem()
             {
-                Icon = new SymbolIcon(Symbol.Cancel),
+                Icon = new Microsoft.UI.Xaml.Controls.SymbolIcon(Microsoft.UI.Xaml.Controls.Symbol.Cancel),
                 Header = I18NSource.Instance["TrayIcon.Exit"],
                 ToolTip = I18NSource.Instance["TrayIcon.Exit.Tooltip"],
                 Command = new RelayCommand(() =>
@@ -71,7 +69,7 @@ namespace YukiBox.Desktop.Services
             this._contextMenu.Items.Add(this._exitMenuItem);
 
             this._toolTip = new();
-            this._toolTip.Content = Program.AppDisplayName;
+            this._toolTip.Content = App.AppDisplayName;
 
             this._taskbarIcon = new();
             this._taskbarIcon.ContextMenu = this._contextMenu;
@@ -81,11 +79,19 @@ namespace YukiBox.Desktop.Services
                 AppStartup.Instance.ShowShellWindow();
             });
 
-            var iconUri = CommonUtils.GetAbsoluteUri(@"Assets\Images\logo.ico");
-            this._taskbarIcon.IconSource = BitmapFrame.Create(iconUri);
+            //BitmapImage image = new BitmapImage();
+            //image.UriSource = new Uri("ms-appx:///Assets/Images/logo.ico");
+            //this._taskbarIcon.IconSource = image;
 
-            ThemeManager.SetRequestedTheme(this._contextMenu, ElementTheme.Default);
-            ThemeManager.SetRequestedTheme(this._toolTip, ElementTheme.Default);
+            //var iconUri = CommonUtils.GetAbsoluteUri(@"Assets/Images/logo.ico");
+            //var iconUri = new Uri("ms-appx:///Assets/Images/logo.ico");
+            //var names = App.Current.GetType().Assembly.GetManifestResourceNames();
+            var stream = App.Current.GetType().Assembly.GetManifestResourceStream("YukiBox.Desktop.Assets.Images.logo.ico");
+            //this._taskbarIcon.IconSource = BitmapFrame.Create(iconUri);
+            this._taskbarIcon.Icon = new System.Drawing.Icon(stream);
+
+            //ThemeManager.SetRequestedTheme(this._contextMenu, ElementTheme.Default);
+            //ThemeManager.SetRequestedTheme(this._toolTip, ElementTheme.Default);
         }
 
         public void Dispose()

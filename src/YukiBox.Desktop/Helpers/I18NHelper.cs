@@ -7,17 +7,29 @@ using System.Resources;
 using System.Windows.Data;
 
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.UI.Xaml.Markup;
 
 using YukiBox.Desktop.Contracts.Services;
 
 namespace YukiBox.Desktop.Helpers
 {
-    public class I18NExtension : Binding
+    [MarkupExtensionReturnType(ReturnType = typeof(String))]
+    public class I18N : MarkupExtension
     {
-        public I18NExtension(String name) : base("[" + name + "]")
+        public String Name { get; set; }
+
+        public I18N() : base()
         {
-            Mode = BindingMode.OneWay;
-            Source = I18NSource.Instance;
+        }
+
+        public I18N(String name) : base()
+        {
+            Name = name;
+        }
+
+        protected override Object ProvideValue()
+        {
+            return !String.IsNullOrEmpty(Name) ? I18NSource.Instance[Name] : String.Empty;
         }
     }
 
@@ -88,6 +100,11 @@ namespace YukiBox.Desktop.Helpers
                     return this.resManager.GetString(key, CurrentLanguage?.CultureInfo);
                 }
             }
+        }
+
+        public static String Get(String key)
+        {
+            return Instance[key];
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -2,16 +2,13 @@
     x:Class="YukiBox.Desktop.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:YukiBox.Desktop"
-    xmlns:ui="http://schemas.modernwpf.com/2019"
-    ShutdownMode="OnExplicitShutdown">
+    xmlns:local="using:YukiBox.Desktop">
     <Application.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="SystemAccentColorBrush" Color="{StaticResource SystemAccentColor}" />
 
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemeResources />
-                <ui:XamlControlsResources />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
