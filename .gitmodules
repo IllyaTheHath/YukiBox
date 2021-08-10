@@ -1,0 +1,3 @@
+[submodule "WinUIEx"]
+	path = ThirdParty/WinUIEx
+	url = https://github.com/dotMorten/WinUIEx
