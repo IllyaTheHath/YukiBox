@@ -58,19 +58,13 @@ namespace YukiBox.Desktop.ViewModels
             async void InitGetEnableStartUp() => EnableStartUp = await GetEnableStartUp();
         }
 
-        private ICommand _showMessageCommand;
-        public ICommand ShowMessageCommand => this._showMessageCommand ??= new RelayCommand(ShowMessageBox);
-
         private ICommand _resetSettingCommand;
         public ICommand ResetSettingCommand => this._resetSettingCommand ??= new AsyncRelayCommand(ResetSetting);
 
-        public void ShowMessageBox()
-        {
-            var result = FluentMessageBox.Show("test text", null, MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
-            FluentMessageBox.Show($"You clicked {result}", null, MessageBoxButton.YesNoCancel);
-        }
+        private ICommand _appExitCommand;
+        public ICommand AppExitCommand => this._appExitCommand ??= new RelayCommand(ExitApp);
 
-        public async Task ResetSetting()
+        private async Task ResetSetting()
         {
             await ConfigHelper.Clear();
             var dialog = new ContentDialog
@@ -80,6 +74,11 @@ namespace YukiBox.Desktop.ViewModels
                 CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
             };
             await dialog.ShowAsync();
+        }
+
+        private void ExitApp()
+        {
+            App.Exit();
         }
 
         private async Task<Boolean> GetEnableStartUp()

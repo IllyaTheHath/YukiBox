@@ -8,6 +8,11 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 namespace YukiBox.Desktop
 {
@@ -21,6 +26,8 @@ namespace YukiBox.Desktop
         public const String AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
 
         private static readonly Mutex mutex = new(true, AppUuid);
+
+        public static Boolean Exiting { get; private set; }
 
         public static String AppVersion
         {
@@ -46,8 +53,13 @@ namespace YukiBox.Desktop
             AppStartup.Instance.OnStartup();
         }
 
+        /// <summary>
+        /// Override App Exit
+        /// </summary>
         public static new void Exit()
         {
+            Exiting = true;
+
             AppStartup.Instance.OnExit();
 
             mutex.ReleaseMutex();

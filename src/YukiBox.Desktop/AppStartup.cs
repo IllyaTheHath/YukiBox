@@ -4,6 +4,7 @@ using System.Windows;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Input;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Contracts.Views;
@@ -124,7 +125,7 @@ namespace YukiBox.Desktop
                 //this._shellWindow = new ShellWindow();
                 this._navigationService.Initialize(this._shellWindow.GetNavigationFrame());
                 this._shellWindow.Show();
-                //this._navigationService.NavigateTo(typeof(AboutViewModel).FullName);
+                this._navigationService.NavigateTo(typeof(AboutViewModel).FullName);
             }
             else
             {

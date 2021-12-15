@@ -7,37 +7,38 @@
     xmlns:local="using:YukiBox.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:YukiBox.Desktop.Models"
-    xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="using:YukiBox.Desktop.ViewModels"
     Title="{x:Bind helpers:I18NSource.Get('System.AppName')}"
     mc:Ignorable="d">
 
-    <NavigationView
-        x:Name="navigationView"
-        d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
-        AlwaysShowHeader="True"
-        CompactModeThresholdWidth="350"
-        ExpandedModeThresholdWidth="800"
-        FooterMenuItemsSource="{Binding FooterNavMenuItems, Mode=OneWay}"
-        Header="{Binding SelectedItem.Name, Mode=OneWay}"
-        IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="False"
-        IsTabStop="False"
-        IsTitleBarAutoPaddingEnabled="True"
-        MenuItemsSource="{Binding NavMenuItems, Mode=OneWay}"
-        OpenPaneLength="240"
-        PaneDisplayMode="Auto"
-        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-        SelectionChanged="NavigateView">
-        <NavigationView.MenuItemTemplate>
-            <DataTemplate>
-                <NavigationViewItem Content="{Binding Name, Mode=OneWay}" ToolTipService.ToolTip="{Binding Tooltip, Mode=OneWay}">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="{Binding Glyph, Mode=OneWay}" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-            </DataTemplate>
-        </NavigationView.MenuItemTemplate>
-        <Frame x:Name="shellFrame" Margin="10,0" />
-    </NavigationView>
+    <Grid>
+        <NavigationView
+            x:Name="navigationView"
+            d:DataContext="{d:DesignInstance Type=vm:ShellViewModel}"
+            AlwaysShowHeader="True"
+            CompactModeThresholdWidth="350"
+            ExpandedModeThresholdWidth="800"
+            FooterMenuItemsSource="{Binding FooterNavMenuItems, Mode=OneWay}"
+            Header="{Binding SelectedItem.Name, Mode=OneWay}"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            IsTabStop="False"
+            IsTitleBarAutoPaddingEnabled="True"
+            MenuItemsSource="{Binding NavMenuItems, Mode=OneWay}"
+            OpenPaneLength="240"
+            PaneDisplayMode="Auto"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            SelectionChanged="NavigateView">
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate>
+                    <NavigationViewItem Content="{Binding Name, Mode=OneWay}" ToolTipService.ToolTip="{Binding Tooltip, Mode=OneWay}">
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="{Binding Glyph, Mode=OneWay}" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+            <Frame x:Name="shellFrame" Margin="10,0" />
+        </NavigationView>
+    </Grid>
 </Window>

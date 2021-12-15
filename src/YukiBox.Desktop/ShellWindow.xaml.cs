@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI;
+using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -13,13 +15,15 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
-using WinUIEx;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 using YukiBox.Desktop.Contracts.Views;
 using YukiBox.Desktop.Helpers;
+using YukiBox.Desktop.Interop;
 using YukiBox.Desktop.Models;
 using YukiBox.Desktop.ViewModels;
 
@@ -36,15 +40,25 @@ namespace YukiBox.Desktop
         public ShellWindow()
         {
             InitializeComponent();
-            navigationView.DataContext = ViewModel;
+            this.navigationView.DataContext = ViewModel;
 
-            this.Closed += ShellWindow_Closed;
+            // WinUI 3 doesn't provide API to change window icon, so using Win32 API here
+            this.SetIcon(@"Assets\Images\logo.ico");
+
+            //var appWindow = this.GetAppWindow();
+            //appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+
+            Closed += ShellWindow_Closed;
         }
 
-        private void ShellWindow_Closed(object sender, WindowEventArgs args)
+
+        private void ShellWindow_Closed(Object sender, WindowEventArgs args)
         {
             this.HideWindow();
-            args.Handled = true;
+            if (!App.Exiting)
+            {
+                args.Handled = true;
+            }
         }
 
         public Frame GetNavigationFrame()
@@ -54,6 +68,7 @@ namespace YukiBox.Desktop
 
         public void Show()
         {
+            //Activate();
             this.ShowWindow();
         }
 

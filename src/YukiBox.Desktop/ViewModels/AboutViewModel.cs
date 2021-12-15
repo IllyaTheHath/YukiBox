@@ -66,6 +66,8 @@ namespace YukiBox.Desktop.ViewModels
             InitMenu();
         }
 
+
+
         public void Dispose()
         {
             this._mediatorService.UnRegister(this, "I18N");

@@ -240,4 +240,7 @@
   <data name="System.Setting.Additional" xml:space="preserve">
     <value>額外設置</value>
   </data>
+  <data name="System.Setting.AppExit" xml:space="preserve">
+    <value>關閉 YukiBox</value>
+  </data>
 </root>

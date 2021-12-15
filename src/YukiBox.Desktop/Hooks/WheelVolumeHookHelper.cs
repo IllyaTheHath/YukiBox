@@ -8,6 +8,8 @@ using System.Windows;
 
 using PInvoke;
 
+using Windows.Foundation;
+
 using YukiBox.Desktop.Helpers;
 
 using static PInvoke.User32;
@@ -80,7 +82,7 @@ namespace YukiBox.Desktop.Hooks
         private Boolean IsMouseOverTaskbar(Double x, Double y)
         {
             var taskbarRect = GetTaskbarLocation();
-            return taskbarRect.Contains(x, y);
+            return taskbarRect.Contains(new Point(x, y));
         }
 
         private Rect GetTaskbarLocation()

@@ -1,3 +1,3 @@
-[submodule "WinUIEx"]
-	path = ThirdParty/WinUIEx
-	url = https://github.com/dotMorten/WinUIEx
+[submodule "NotifyIcon.FSharp"]
+	path = ThirdParty/NotifyIcon.FSharp
+	url = https://github.com/IllyaTheHath/NotifyIcon.FSharp.git

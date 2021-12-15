@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  xmlns:uap7="http://schemas.microsoft.com/appx/manifest/uap/windows10/7"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="9025B0AA0E8F.YukiBox"
+    Publisher="CN=B5FC0DFB-DFBC-4C19-ADF4-B68849FD2A7C"
+    Version="1.0.2.0" />
+
+  <Properties>
+    <DisplayName>YukiBox</DisplayName>
+    <PublisherDisplayName>神楽千雪</PublisherDisplayName>
+    <Logo>Assets\PackageImages\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19041.0" MaxVersionTested="10.0.22000.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.22000.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-US" />
+    <Resource Language="zh-Hans" />
+    <Resource Language="zh-Hant" />
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="YukiBox (Preview)"
+        Description="An application thats contains sort of tools."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\PackageImages\Square150x150Logo.png"
+        Square44x44Logo="Assets\PackageImages\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\PackageImages\Wide310x150Logo.png"  Square71x71Logo="Assets\PackageImages\SmallTile.png" Square310x310Logo="Assets\PackageImages\LargeTile.png" />
+        <uap:SplashScreen Image="Assets\PackageImages\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap5:Extension
+            Category="windows.startupTask"
+            Executable="YukiBox.exe"
+            EntryPoint="Windows.FullTrustApplication">
+          <uap5:StartupTask
+            TaskId="YukiBox.Desktop"
+            Enabled="true"
+            DisplayName="YukiBox" />
+        </uap5:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
