@@ -45,8 +45,10 @@ namespace YukiBox.Desktop
             // WinUI 3 doesn't provide API to change window icon, so using Win32 API here
             this.SetIcon(@"Assets\Images\logo.ico");
 
-            //var appWindow = this.GetAppWindow();
-            //appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            // WinUI 3 ExtendsContentIntoTitleBar is still broken
+            var appWindow = this.GetAppWindow();
+            appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            SetTitleBar(appTitleBar);
 
             Closed += ShellWindow_Closed;
         }

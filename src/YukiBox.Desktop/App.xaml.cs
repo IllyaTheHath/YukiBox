@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Windows.AppLifecycle;
 
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
@@ -25,10 +27,7 @@ namespace YukiBox.Desktop
         public const String AppDisplayName = "YukiBox";
         public const String AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
 
-        private static readonly Mutex mutex = new(true, AppUuid);
-
         public static Boolean Exiting { get; private set; }
-
         public static String AppVersion
         {
             get => Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -36,9 +35,13 @@ namespace YukiBox.Desktop
 
         public App()
         {
-            if (!mutex.WaitOne(TimeSpan.Zero, true))
+            var appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+            var instance = AppInstance.FindOrRegisterForKey(AppUuid);
+            if (!instance.IsCurrent)
             {
-                App.Current.Exit();
+                instance.RedirectActivationToAsync(appArgs).GetResults();
+                Process.GetCurrentProcess().Kill();
+                return;
             }
 
             InitializeComponent();
@@ -61,8 +64,6 @@ namespace YukiBox.Desktop
             Exiting = true;
 
             AppStartup.Instance.OnExit();
-
-            mutex.ReleaseMutex();
 
             App.Current.Exit();
         }

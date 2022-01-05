@@ -5,10 +5,10 @@
     xmlns:local="using:YukiBox.Desktop">
     <Application.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="SystemAccentColorBrush" Color="{StaticResource SystemAccentColor}" />
-
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="Themes/Theme.xaml" />
+                <ResourceDictionary Source="Controls/ControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

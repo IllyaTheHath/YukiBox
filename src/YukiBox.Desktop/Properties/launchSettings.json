@@ -4,13 +4,13 @@
       "commandName": "MsixPackage",
       "remoteDebugEnabled": true,
       "authenticationMode": "Windows",
-      "remoteDebugMachine": "Chiyuki-VM10"
+      "remoteDebugMachine": "Chiyuki-VM11"
     },
     "YukiBox.Desktop (Unpackaged)": {
       "commandName": "Project",
       "remoteDebugEnabled": true,
       "authenticationMode": "Windows",
-      "remoteDebugMachine": "Chiyuki-VM10"
+      "remoteDebugMachine": "Chiyuki-VM11"
     }
   }
 }

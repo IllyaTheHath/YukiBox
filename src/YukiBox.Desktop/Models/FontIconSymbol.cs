@@ -23,12 +23,15 @@ namespace YukiBox.Desktop.Models
         public const String Down = "\xE74B";
         public const String Save = "\xE74E";
         public const String SIPRedock = "\xE75B";
+        public const String UpdateRestore = "\xE777";
         public const String Error = "\xE783";
         public const String Warning = "\xE78A";
         public const String PowerButton = "\xE7E8";
         public const String Home = "\xE80F";
         public const String Help = "\xE897";
+        public const String Completed = "\xE930";
         public const String Info = "\xE946";
         public const String Feedback = "\xED15";
+        public const String LocaleLanguage = "\xF2B7";
     }
 }

@@ -38,6 +38,11 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\logo.ico" />
+    <None Remove="Controls\ControlStyles.xaml" />
+    <None Remove="Controls\SettingsGroup\SettingsGroup.xaml" />
+    <None Remove="Controls\Setting\Setting.xaml" />
+    <None Remove="Themes\Generic.xaml" />
+    <None Remove="Themes\Theme.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -96,12 +101,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />-->
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.1" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.8" />
-    <!--<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.37" />-->
-    <!--<PackageReference Include="ModernWpfUI" Version="0.9.4" />-->
     <PackageReference Include="NAudio" Version="2.0.1" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196" />
@@ -144,4 +146,34 @@
 <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
   </ItemGroup>
+
+<ItemGroup>
+  <Page Update="Themes\Theme.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
+</ItemGroup>
+
+<ItemGroup>
+  <Page Update="Controls\ControlStyles.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
+</ItemGroup>
+
+<ItemGroup>
+  <Page Update="Controls\Setting\Setting.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
+</ItemGroup>
+
+<ItemGroup>
+  <Page Update="Controls\SettingsGroup\SettingsGroup.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
+</ItemGroup>
+
+<ItemGroup>
+  <Page Update="Themes\Generic.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
+</ItemGroup>
 </Project>
