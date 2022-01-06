@@ -15,7 +15,7 @@ namespace YukiBox.Desktop.Interop
     {
         public static AppWindow GetAppWindow(this Window window)
         {
-            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+            var windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
 
             return GetAppWindowFromWindowHandle(windowHandle);
         }

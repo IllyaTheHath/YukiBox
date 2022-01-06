@@ -1,6 +1,8 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
+
+using System;
 using System.ComponentModel;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -14,8 +16,8 @@ namespace YukiBox.Desktop.Controls
     [TemplatePart(Name = PartDescriptionPresenter, Type = typeof(ContentPresenter))]
     public class Setting : ContentControl
     {
-        private const string PartIconPresenter = "IconPresenter";
-        private const string PartDescriptionPresenter = "DescriptionPresenter";
+        private const String PartIconPresenter = "IconPresenter";
+        private const String PartDescriptionPresenter = "DescriptionPresenter";
         private ContentPresenter _iconPresenter;
         private ContentPresenter _descriptionPresenter;
         private Setting _setting;
@@ -28,9 +30,9 @@ namespace YukiBox.Desktop.Controls
         protected override void OnApplyTemplate()
         {
             IsEnabledChanged -= Setting_IsEnabledChanged;
-            _setting = (Setting)this;
-            _iconPresenter = (ContentPresenter)_setting.GetTemplateChild(PartIconPresenter);
-            _descriptionPresenter = (ContentPresenter)_setting.GetTemplateChild(PartDescriptionPresenter);
+            this._setting = (Setting)this;
+            this._iconPresenter = (ContentPresenter)this._setting.GetTemplateChild(PartIconPresenter);
+            this._descriptionPresenter = (ContentPresenter)this._setting.GetTemplateChild(PartDescriptionPresenter);
             Update();
             SetEnabledState();
             IsEnabledChanged += Setting_IsEnabledChanged;
@@ -39,51 +41,51 @@ namespace YukiBox.Desktop.Controls
 
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
            "Header",
-           typeof(string),
+           typeof(String),
            typeof(Setting),
-           new PropertyMetadata(default(string), OnHeaderChanged));
+           new PropertyMetadata(default(String), OnHeaderChanged));
 
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
             "Description",
-            typeof(object),
+            typeof(Object),
             typeof(Setting),
             new PropertyMetadata(null, OnDescriptionChanged));
 
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
             "Icon",
-            typeof(object),
+            typeof(Object),
             typeof(Setting),
-            new PropertyMetadata(default(string), OnIconChanged));
+            new PropertyMetadata(default(String), OnIconChanged));
 
         public static readonly DependencyProperty ActionContentProperty = DependencyProperty.Register(
             "ActionContent",
-            typeof(object),
+            typeof(Object),
             typeof(Setting),
             null);
 
         [Localizable(true)]
-        public string Header
+        public String Header
         {
-            get => (string)GetValue(HeaderProperty);
+            get => (String)GetValue(HeaderProperty);
             set => SetValue(HeaderProperty, value);
         }
 
         [Localizable(true)]
-        public object Description
+        public Object Description
         {
-            get => (object)GetValue(DescriptionProperty);
+            get => GetValue(DescriptionProperty);
             set => SetValue(DescriptionProperty, value);
         }
 
-        public object Icon
+        public Object Icon
         {
-            get => (object)GetValue(IconProperty);
+            get => GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
 
-        public object ActionContent
+        public Object ActionContent
         {
-            get => (object)GetValue(ActionContentProperty);
+            get => GetValue(ActionContentProperty);
             set => SetValue(ActionContentProperty, value);
         }
 
@@ -102,7 +104,7 @@ namespace YukiBox.Desktop.Controls
             ((Setting)d).Update();
         }
 
-        private void Setting_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Setting_IsEnabledChanged(Object sender, DependencyPropertyChangedEventArgs e)
         {
             SetEnabledState();
         }
@@ -114,42 +116,42 @@ namespace YukiBox.Desktop.Controls
 
         private void Update()
         {
-            if (_setting == null)
+            if (this._setting == null)
             {
                 return;
             }
 
-            if (_setting.ActionContent != null)
+            if (this._setting.ActionContent != null)
             {
-                if (_setting.ActionContent.GetType() != typeof(Button))
+                if (this._setting.ActionContent.GetType() != typeof(Button))
                 {
                     // We do not want to override the default AutomationProperties.Name of a button. Its Content property already describes what it does.
-                    if (!string.IsNullOrEmpty(_setting.Header))
+                    if (!String.IsNullOrEmpty(this._setting.Header))
                     {
-                        AutomationProperties.SetName((UIElement)_setting.ActionContent, _setting.Header);
+                        AutomationProperties.SetName((UIElement)this._setting.ActionContent, this._setting.Header);
                     }
                 }
             }
 
-            if (_setting._iconPresenter != null)
+            if (this._setting._iconPresenter != null)
             {
-                if (_setting.Icon == null)
+                if (this._setting.Icon == null)
                 {
-                    _setting._iconPresenter.Visibility = Visibility.Collapsed;
+                    this._setting._iconPresenter.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    _setting._iconPresenter.Visibility = Visibility.Visible;
+                    this._setting._iconPresenter.Visibility = Visibility.Visible;
                 }
             }
 
-            if (_setting.Description == null)
+            if (this._setting.Description == null)
             {
-                _setting._descriptionPresenter.Visibility = Visibility.Collapsed;
+                this._setting._descriptionPresenter.Visibility = Visibility.Collapsed;
             }
             else
             {
-                _setting._descriptionPresenter.Visibility = Visibility.Visible;
+                this._setting._descriptionPresenter.Visibility = Visibility.Visible;
             }
         }
 

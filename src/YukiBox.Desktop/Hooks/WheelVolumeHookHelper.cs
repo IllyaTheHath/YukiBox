@@ -68,7 +68,9 @@ namespace YukiBox.Desktop.Hooks
             var shellHwnd = GetShellWindow();
             var desktopHwnd = GetDesktopWindow();
             if (hwnd == shellHwnd || hwnd == desktopHwnd)
+            {
                 return false;
+            }
             return IsWindowsFullScreen(hwnd);
         }
 

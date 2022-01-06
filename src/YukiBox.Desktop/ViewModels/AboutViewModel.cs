@@ -18,19 +18,11 @@ namespace YukiBox.Desktop.ViewModels
 {
     public class AboutViewModel : ViewModelBase
     {
-        private readonly INavigationService _navigationService;
-        private readonly IMediatorService _mediatorService;
-
         public ObservableCollection<AboutListItem> AboutLists { get; set; }
         public ObservableCollection<AboutThirdPartyItem> ThirdParties { get; set; }
 
         public AboutViewModel()
         {
-            this._navigationService = Ioc.Default.GetService<INavigationService>();
-            this._mediatorService = Ioc.Default.GetService<IMediatorService>();
-
-            this._mediatorService.Register(this, "I18N", OnLocaleChange);
-
             AboutLists = new ObservableCollection<AboutListItem>();
             ThirdParties = new ObservableCollection<AboutThirdPartyItem>();
 
@@ -57,19 +49,6 @@ namespace YukiBox.Desktop.ViewModels
             ThirdParties.Add(pinvoke);
             ThirdParties.Add(naudio);
             ThirdParties.Add(powertoys);
-        }
-
-        private void OnLocaleChange(Object obj)
-        {
-            InitMenu();
-        }
-
-
-
-        public void Dispose()
-        {
-            this._mediatorService.UnRegister(this, "I18N");
-            GC.SuppressFinalize(this);
         }
     }
 }

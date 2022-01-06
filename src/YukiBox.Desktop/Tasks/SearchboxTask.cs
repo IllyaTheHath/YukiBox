@@ -93,6 +93,7 @@ namespace YukiBox.Desktop.Tasks
         {
             this._player = null;
             base.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

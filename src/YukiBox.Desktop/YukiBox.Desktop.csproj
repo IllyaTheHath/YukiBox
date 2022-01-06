@@ -40,6 +40,7 @@
     <None Remove="Assets\Images\logo.ico" />
     <None Remove="Controls\ControlStyles.xaml" />
     <None Remove="Controls\SettingsGroup\SettingsGroup.xaml" />
+    <None Remove="Controls\SettingsPageControl\SettingsPageControl.xaml" />
     <None Remove="Controls\Setting\Setting.xaml" />
     <None Remove="Themes\Generic.xaml" />
     <None Remove="Themes\Theme.xaml" />
@@ -173,6 +174,12 @@
 
 <ItemGroup>
   <Page Update="Themes\Generic.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
+</ItemGroup>
+
+<ItemGroup>
+  <Page Update="Controls\SettingsPageControl\SettingsPageControl.xaml">
     <Generator>MSBuild:Compile</Generator>
   </Page>
 </ItemGroup>

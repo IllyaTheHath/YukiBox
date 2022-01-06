@@ -16,21 +16,21 @@ namespace YukiBox.Desktop.Controls
         public SettingExpander()
         {
             DefaultStyleKey = typeof(Expander);
-            this.Style = (Style)App.Current.Resources["SettingExpanderStyle"];
-            this.RegisterPropertyChangedCallback(Expander.HeaderProperty, OnHeaderChanged);
+            Style = (Style)App.Current.Resources["SettingExpanderStyle"];
+            RegisterPropertyChangedCallback(Expander.HeaderProperty, OnHeaderChanged);
         }
 
         private static void OnHeaderChanged(DependencyObject d, DependencyProperty dp)
         {
-            SettingExpander self = (SettingExpander)d;
+            var self = (SettingExpander)d;
             if (self.Header != null)
             {
                 if (self.Header.GetType() == typeof(Setting))
                 {
-                    Setting selfSetting = (Setting)self.Header;
+                    var selfSetting = (Setting)self.Header;
                     selfSetting.Style = (Style)App.Current.Resources["ExpanderHeaderSettingStyle"];
 
-                    if (!string.IsNullOrEmpty(selfSetting.Header))
+                    if (!String.IsNullOrEmpty(selfSetting.Header))
                     {
                         AutomationProperties.SetName(self, selfSetting.Header);
                     }

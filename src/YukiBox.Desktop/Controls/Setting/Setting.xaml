@@ -83,7 +83,7 @@
                             VerticalAlignment="Center"
                             Content="{TemplateBinding ActionContent}">
                             <ContentPresenter.Resources>
-                                <Style TargetType="ToggleSwitch">
+                                <Style BasedOn="{StaticResource RightAlignedToggleSwitchStyle}" TargetType="ToggleSwitch">
                                     <Style.Setters>
                                         <Setter Property="MinWidth" Value="0" />
                                     </Style.Setters>

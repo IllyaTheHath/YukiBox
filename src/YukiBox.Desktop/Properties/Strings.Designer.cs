@@ -367,6 +367,15 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Only Support Windows 10 的本地化字符串。
+        /// </summary>
+        public static string Taskbar_Searchbox_Windows10 {
+            get {
+                return ResourceManager.GetString("Taskbar.Searchbox.Windows10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Taskbar 的本地化字符串。
         /// </summary>
         public static string Taskbar_Taskbar {
@@ -376,11 +385,20 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Mouse wheel adjusts the volume when pointer hover over taskbar 的本地化字符串。
+        ///   查找类似 Mouse Wheel Volume 的本地化字符串。
         /// </summary>
         public static string Taskbar_Taskbar_WheelVolume {
             get {
                 return ResourceManager.GetString("Taskbar.Taskbar.WheelVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Mouse wheel adjusts the volume when pointer hover over taskbar 的本地化字符串。
+        /// </summary>
+        public static string Taskbar_Taskbar_WheelVolume_Desc {
+            get {
+                return ResourceManager.GetString("Taskbar.Taskbar.WheelVolume.Desc", resourceCulture);
             }
         }
         

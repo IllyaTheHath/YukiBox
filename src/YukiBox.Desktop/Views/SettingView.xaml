@@ -14,31 +14,41 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <StackPanel>
-        <c:SettingsGroup Margin="0,-20,0,0" Header="{x:Bind helpers:I18NSource.Get('System.Setting.General')}">
-            <c:Setting Header="{x:Bind helpers:I18NSource.Get('System.RunAtStartUp')}" Icon="{x:Bind m:FontIconSymbol.Completed}">
-                <c:Setting.ActionContent>
-                    <ToggleSwitch
-                        IsOn="{x:Bind ViewModel.EnableStartUp, Mode=TwoWay}"
-                        OffContent="{x:Bind helpers:I18NSource.Get('ToggleButton.Off')}"
-                        OnContent="{x:Bind helpers:I18NSource.Get('ToggleButton.On')}" />
-                </c:Setting.ActionContent>
-            </c:Setting>
-            <c:Setting Header="{x:Bind helpers:I18NSource.Get('System.Language')}" Icon="{x:Bind m:FontIconSymbol.LocaleLanguage}">
-                <c:Setting.ActionContent>
-                    <ComboBox ItemsSource="{x:Bind ViewModel.SupportedLanguages}" SelectedItem="{x:Bind ViewModel.CurrentLanguage, Mode=TwoWay}" />
-                </c:Setting.ActionContent>
-            </c:Setting>
-            <c:Setting Header="{x:Bind helpers:I18NSource.Get('System.Setting.Restore')}" Icon="{x:Bind m:FontIconSymbol.UpdateRestore}">
-                <c:Setting.ActionContent>
-                    <Button Command="{x:Bind ViewModel.ResetSettingCommand}" Content="{x:Bind helpers:I18NSource.Get('System.Setting.Restore')}" />
-                </c:Setting.ActionContent>
-            </c:Setting>
-            <c:Setting Header="{x:Bind helpers:I18NSource.Get('System.Setting.AppExit')}" Icon="{x:Bind m:FontIconSymbol.PowerButton}">
-                <c:Setting.ActionContent>
-                    <Button Command="{x:Bind ViewModel.AppExitCommand}" Content="{x:Bind helpers:I18NSource.Get('System.Setting.AppExit')}" />
-                </c:Setting.ActionContent>
-            </c:Setting>
-        </c:SettingsGroup>
-    </StackPanel>
+    <c:SettingsPageControl>
+        <c:SettingsPageControl.ModuleContent>
+            <StackPanel>
+                <c:SettingsGroup Margin="0,-20,0,0" Header="{helpers:I18N Code='System.Setting.General'}">
+                    <c:Setting Header="{helpers:I18N Code='System.RunAtStartUp'}" Icon="{x:Bind m:FontIconSymbol.Completed}">
+                        <c:Setting.ActionContent>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.EnableStartUp, Mode=TwoWay}"
+                                OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                                OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting
+                        Description="{helpers:I18N Code='System.Restart'}"
+                        Header="{helpers:I18N Code='System.Language'}"
+                        Icon="{x:Bind m:FontIconSymbol.LocaleLanguage}">
+                        <c:Setting.ActionContent>
+                            <ComboBox ItemsSource="{x:Bind helpers:I18NSource.Instance.SupportedLanguages}" SelectedItem="{x:Bind helpers:I18NSource.Instance.CurrentLanguage, Mode=TwoWay}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting
+                        Description="{helpers:I18N Code='System.Restart'}"
+                        Header="{helpers:I18N Code='System.Setting.Restore'}"
+                        Icon="{x:Bind m:FontIconSymbol.UpdateRestore}">
+                        <c:Setting.ActionContent>
+                            <Button Command="{x:Bind ViewModel.ResetSettingCommand}" Content="{helpers:I18N Code='System.Setting.Restore'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting Header="{helpers:I18N Code='System.Setting.AppExit'}" Icon="{x:Bind m:FontIconSymbol.PowerButton}">
+                        <c:Setting.ActionContent>
+                            <Button Command="{x:Bind ViewModel.AppExitCommand}" Content="{helpers:I18N Code='System.Setting.AppExit'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                </c:SettingsGroup>
+            </StackPanel>
+        </c:SettingsPageControl.ModuleContent>
+    </c:SettingsPageControl>
 </Page>

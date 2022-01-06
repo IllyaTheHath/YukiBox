@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:YukiBox.Desktop.Models"
     xmlns:vm="using:YukiBox.Desktop.ViewModels"
-    Title="{x:Bind helpers:I18NSource.Get('System.AppName')}"
     mc:Ignorable="d">
 
     <Grid>
@@ -73,11 +72,7 @@
                     </NavigationViewItem>
                 </DataTemplate>
             </NavigationView.MenuItemTemplate>
-            <ScrollViewer Padding="0,0,0,48">
-                <StackPanel Margin="0,0,20,0">
-                    <Frame x:Name="shellFrame" />
-                </StackPanel>
-            </ScrollViewer>
+            <Frame x:Name="shellFrame" />
         </NavigationView>
     </Grid>
 </Window>

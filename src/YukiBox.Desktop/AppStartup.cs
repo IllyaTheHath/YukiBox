@@ -52,6 +52,7 @@ namespace YukiBox.Desktop
             services.AddSingleton<ITrayIconService, TrayIconService>();
             services.AddSingleton<IMediatorService, MediatorService>();
             services.AddSingleton<IFileStoreService, FileStoreService>();
+            services.AddSingleton<IContentDialogService, ContentDialogService>();
             //services.AddSingleton<IConfigService, ConfigService>();
 
             // Configure Shell Window

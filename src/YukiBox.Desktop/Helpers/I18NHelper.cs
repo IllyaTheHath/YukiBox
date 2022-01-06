@@ -15,20 +15,20 @@ namespace YukiBox.Desktop.Helpers
     [MarkupExtensionReturnType(ReturnType = typeof(String))]
     public class I18N : MarkupExtension
     {
-        public String Name { get; set; }
+        public String Code { get; set; }
 
         public I18N() : base()
         {
         }
 
-        public I18N(String name) : base()
+        public I18N(String code) : base()
         {
-            Name = name;
+            Code = code;
         }
 
         protected override Object ProvideValue()
         {
-            return !String.IsNullOrEmpty(Name) ? I18NSource.Instance[Name] : String.Empty;
+            return !String.IsNullOrEmpty(Code) ? I18NSource.Instance[Code] : String.Empty;
         }
     }
 
@@ -75,10 +75,8 @@ namespace YukiBox.Desktop.Helpers
         }
     }
 
-    public class I18NSource : INotifyPropertyChanged
+    public class I18NSource
     {
-        private readonly IMediatorService _mediatorService;
-
         private static readonly Lazy<I18NSource> lazy = new(() => new I18NSource());
 
         public static I18NSource Instance { get { return lazy.Value; } }
@@ -90,8 +88,6 @@ namespace YukiBox.Desktop.Helpers
                 if (CurrentLanguage?.CultureInfo is null)
                 {
                     var cultureInfo = CultureInfo.CurrentUICulture;
-                    var j = CultureInfo.GetCultureInfo("jp");
-                    var a = this.resManager.GetString(key, cultureInfo);
                     return this.resManager.GetString(key, cultureInfo);
                 }
                 else
@@ -100,13 +96,6 @@ namespace YukiBox.Desktop.Helpers
                 }
             }
         }
-
-        public static String Get(String key)
-        {
-            return Instance[key];
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly ResourceManager resManager = Properties.Strings.ResourceManager;
 
@@ -120,8 +109,6 @@ namespace YukiBox.Desktop.Helpers
                 if (this._currentLanguage != value)
                 {
                     this._currentLanguage = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(String.Empty));
-                    this._mediatorService.BroadcastMessage("I18N", null);
                     ConfigHelper.CurrentConfig.System.Language = value.LanguageName;
                 }
             }
@@ -131,7 +118,6 @@ namespace YukiBox.Desktop.Helpers
 
         private I18NSource()
         {
-            this._mediatorService = Ioc.Default.GetService<IMediatorService>();
         }
 
         public void Initialize()

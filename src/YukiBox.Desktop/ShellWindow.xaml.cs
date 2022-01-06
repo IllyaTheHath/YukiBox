@@ -1,4 +1,5 @@
-﻿using Microsoft.UI;
+﻿using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -21,6 +22,7 @@ using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 
+using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Contracts.Views;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Interop;
@@ -35,7 +37,6 @@ namespace YukiBox.Desktop
     public partial class ShellWindow : Window, IShellWindow
     {
         public ShellViewModel ViewModel => ViewModelLocator.Current.ShellViewModel;
-        //public ShellViewModel ViewModel => new ();
 
         public ShellWindow()
         {
@@ -48,11 +49,18 @@ namespace YukiBox.Desktop
             // WinUI 3 ExtendsContentIntoTitleBar is still broken
             var appWindow = this.GetAppWindow();
             appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-            SetTitleBar(appTitleBar);
+            SetTitleBar(this.appTitleBar);
 
             Closed += ShellWindow_Closed;
+            (Content as FrameworkElement).Loaded += ShellWindow_Loaded;
         }
 
+        private void ShellWindow_Loaded(Object sender, RoutedEventArgs e)
+        {
+            // Set ContentDialog XamlRoot here
+            var contentDialogService = Ioc.Default.GetService<IContentDialogService>();
+            contentDialogService.SetMainXamlRoot(Content.XamlRoot);
+        }
 
         private void ShellWindow_Closed(Object sender, WindowEventArgs args)
         {
