@@ -231,7 +231,7 @@
   <data name="Taskbar.Taskbar" xml:space="preserve">
     <value>任務欄</value>
   </data>
-  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+  <data name="Taskbar.Taskbar.WheelVolume.Desc" xml:space="preserve">
     <value>鼠標指針懸停在任務欄上時滾輪調節音量</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
@@ -239,5 +239,14 @@
   </data>
   <data name="System.Setting.Additional" xml:space="preserve">
     <value>額外設置</value>
+  </data>
+  <data name="System.Setting.AppExit" xml:space="preserve">
+    <value>關閉 YukiBox</value>
+  </data>
+  <data name="Taskbar.Searchbox.Windows10" xml:space="preserve">
+    <value>僅支持 Windows 10</value>
+  </data>
+  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+    <value>滾輪音量調節</value>
   </data>
 </root>

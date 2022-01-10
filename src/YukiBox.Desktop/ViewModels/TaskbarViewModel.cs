@@ -15,9 +15,8 @@ using YukiBox.Desktop.Hooks;
 
 namespace YukiBox.Desktop.ViewModels
 {
-    public class TaskbarViewModel : ViewModelBase, IDisposable
+    public class TaskbarViewModel : ViewModelBase
     {
-        private readonly IMediatorService _mediatorService;
         private readonly IBackgroundTask _task;
 
         public ObservableCollection<MusicPlayer> MusicPlayers { get; set; }
@@ -73,10 +72,7 @@ namespace YukiBox.Desktop.ViewModels
 
         public TaskbarViewModel()
         {
-            this._mediatorService = Ioc.Default.GetService<IMediatorService>();
             this._task = Ioc.Default.GetServices<IBackgroundTask>().FirstOrDefault(x => x.Name == typeof(SearchboxTask).FullName);
-
-            this._mediatorService.Register(this, "I18N", OnLocaleChange);
 
             MusicPlayers = new ObservableCollection<MusicPlayer>();
             InitMenu();
@@ -96,14 +92,6 @@ namespace YukiBox.Desktop.ViewModels
 
             var cloudMusic = new CloudMusicPlayer();
             MusicPlayers.Add(cloudMusic);
-        }
-
-        private void OnLocaleChange(Object obj)
-        {
-            foreach (var item in MusicPlayers)
-            {
-                item.UpdateDisplayName();
-            }
         }
 
         private void PerformSaveChangeSearchbox()
@@ -126,12 +114,6 @@ namespace YukiBox.Desktop.ViewModels
             {
                 st.ChangeSettings(SelectedPlayer, SearchBoxTextDefault, CompatibleStartIsBack);
             }
-        }
-
-        public void Dispose()
-        {
-            this._mediatorService.UnRegister(this, "I18N");
-            GC.SuppressFinalize(this);
         }
     }
 }

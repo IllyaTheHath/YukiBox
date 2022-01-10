@@ -5,13 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
-
-using ModernWpf.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 using Windows.ApplicationModel;
 
@@ -23,16 +22,7 @@ namespace YukiBox.Desktop.ViewModels
 {
     public class SettingViewModel : ViewModelBase
     {
-        public LanguageInfo CurrentLanguage
-        {
-            get => I18NSource.Instance.CurrentLanguage;
-            set => I18NSource.Instance.CurrentLanguage = value;
-        }
-
-        public ObservableCollection<LanguageInfo> SupportedLanguages
-        {
-            get => I18NSource.Instance.SupportedLanguages;
-        }
+        private readonly IContentDialogService _contentDialogService;
 
         private Boolean _enableStartUp;
 
@@ -55,40 +45,35 @@ namespace YukiBox.Desktop.ViewModels
 
         public SettingViewModel()
         {
+            this._contentDialogService = Ioc.Default.GetService<IContentDialogService>();
+
             InitGetEnableStartUp();
 
             async void InitGetEnableStartUp() => EnableStartUp = await GetEnableStartUp();
         }
 
-        private ICommand _showMessageCommand;
-        public ICommand ShowMessageCommand => this._showMessageCommand ??= new RelayCommand(ShowMessageBox);
-
         private ICommand _resetSettingCommand;
         public ICommand ResetSettingCommand => this._resetSettingCommand ??= new AsyncRelayCommand(ResetSetting);
 
-        public void ShowMessageBox()
-        {
-            var result = FluentMessageBox.Show("test text", null, MessageBoxButton.YesNoCancel, MessageBoxImage.Error);
-            FluentMessageBox.Show($"You clicked {result}", null, MessageBoxButton.YesNoCancel);
-        }
+        private ICommand _appExitCommand;
+        public ICommand AppExitCommand => this._appExitCommand ??= new RelayCommand(ExitApp);
 
-        public async Task ResetSetting()
+        private async Task ResetSetting()
         {
             await ConfigHelper.Clear();
-            var dialog = new ContentDialog
-            {
-                Title = Program.AppDisplayName,
-                Content = I18NSource.Instance["System.Restart"],
-                CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
-            };
-            await dialog.ShowAsync();
+            await this._contentDialogService.ShowAsync(App.AppDisplayName, I18NSource.Instance["System.Restart"], I18NSource.Instance["MsgBox.Ok"]);
+        }
+
+        private void ExitApp()
+        {
+            App.Exit();
         }
 
         private async Task<Boolean> GetEnableStartUp()
         {
             try
             {
-                var startupTask = await StartupTask.GetAsync(Program.AppName);
+                var startupTask = await StartupTask.GetAsync(App.AppName);
                 var state = startupTask.State;
                 return state == StartupTaskState.Enabled;
             }
@@ -102,18 +87,15 @@ namespace YukiBox.Desktop.ViewModels
         {
             try
             {
-                var startupTask = await StartupTask.GetAsync(Program.AppName);
+                var startupTask = await StartupTask.GetAsync(App.AppName);
                 if (enableStartUp)
                 {
                     if (startupTask.State == StartupTaskState.DisabledByUser)
                     {
-                        var dialog = new ContentDialog
-                        {
-                            Title = Program.AppDisplayName,
-                            Content = I18NSource.Instance["System.RunAtStartUp.Disabled"],
-                            CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
-                        };
-                        await dialog.ShowAsync();
+                        await this._contentDialogService.ShowAsync(
+                            App.AppDisplayName,
+                            I18NSource.Instance["System.RunAtStartUp.Disabled"],
+                            I18NSource.Instance["MsgBox.Ok"]);
                     }
                     await startupTask.RequestEnableAsync();
                 }
@@ -125,13 +107,10 @@ namespace YukiBox.Desktop.ViewModels
             }
             catch
             {
-                var dialog = new ContentDialog
-                {
-                    Title = Program.AppDisplayName,
-                    Content = I18NSource.Instance["System.RunAtStartUp.Error"],
-                    CloseButtonText = I18NSource.Instance["MsgBox.Ok"]
-                };
-                await dialog.ShowAsync();
+                await this._contentDialogService.ShowAsync(
+                            App.AppDisplayName,
+                            I18NSource.Instance["System.RunAtStartUp.Error"],
+                            I18NSource.Instance["MsgBox.Ok"]);
                 return false;
             }
         }

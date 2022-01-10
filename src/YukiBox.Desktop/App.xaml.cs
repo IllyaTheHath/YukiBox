@@ -2,9 +2,19 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.Windows.AppLifecycle;
+
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 
 namespace YukiBox.Desktop
 {
@@ -13,25 +23,49 @@ namespace YukiBox.Desktop
     /// </summary>
     public partial class App : Application
     {
+        public const String AppName = "YukiBox.Desktop";
+        public const String AppDisplayName = "YukiBox";
+        public const String AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
+
+        public static Boolean Exiting { get; private set; }
+        public static String AppVersion
+        {
+            get => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
         public App()
         {
+            var appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+            var instance = AppInstance.FindOrRegisterForKey(AppUuid);
+            if (!instance.IsCurrent)
+            {
+                instance.RedirectActivationToAsync(appArgs).GetResults();
+                Process.GetCurrentProcess().Kill();
+                return;
+            }
+
             InitializeComponent();
 
             AppStartup.Instance.Initialize();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            base.OnStartup(e);
+            base.OnLaunched(args);
 
-            AppStartup.Instance.OnStartup(e);
+            AppStartup.Instance.OnStartup();
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        /// <summary>
+        /// Override App Exit
+        /// </summary>
+        public static new void Exit()
         {
-            base.OnExit(e);
+            Exiting = true;
 
-            AppStartup.Instance.OnExit(e);
+            AppStartup.Instance.OnExit();
+
+            App.Current.Exit();
         }
     }
 }

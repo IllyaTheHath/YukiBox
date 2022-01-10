@@ -1,64 +1,95 @@
-﻿<ui:Page
+﻿<Page
     x:Class="YukiBox.Desktop.Views.TaskbarView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:c="clr-namespace:YukiBox.Desktop.Controls"
+    xmlns:c="using:YukiBox.Desktop.Controls"
+    xmlns:co="using:YukiBox.Desktop.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:YukiBox.Desktop.Helpers"
-    xmlns:local="clr-namespace:YukiBox.Desktop.Views"
+    xmlns:helpers="using:YukiBox.Desktop.Helpers"
+    xmlns:local="using:YukiBox.Desktop.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:model="clr-namespace:YukiBox.Desktop.Models"
-    xmlns:ui="http://schemas.modernwpf.com/2019"
-    xmlns:vm="clr-namespace:YukiBox.Desktop.ViewModels"
-    Title="TaskbarView"
+    xmlns:model="using:YukiBox.Desktop.Models"
+    xmlns:vm="using:YukiBox.Desktop.ViewModels"
     d:DataContext="{d:DesignInstance Type=vm:TaskbarViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ScrollViewer c:FluentScrollViewer.Enabled="True">
-        <ui:SimpleStackPanel Margin="5">
-            <GroupBox Header="{helpers:I18N Taskbar.Searchbox}">
-                <ui:SimpleStackPanel Margin="10,0" Spacing="10">
-                    <ui:ToggleSwitch
-                        FontSize="14"
-                        Header="{helpers:I18N Taskbar.Searchbox.EnableMusicUpdate}"
-                        IsOn="{Binding EnableMusicUpdate}"
-                        OffContent="{helpers:I18N ToggleButton.Off}"
-                        OnContent="{helpers:I18N ToggleButton.On}" />
-                    <ui:ToggleSwitch
-                        FontSize="14"
-                        Header="{helpers:I18N Taskbar.Searchbox.CompatibleStartIsBack}"
-                        IsOn="{Binding CompatibleStartIsBack}"
-                        OffContent="{helpers:I18N ToggleButton.Off}"
-                        OnContent="{helpers:I18N ToggleButton.On}" />
-                    <TextBox
-                        ui:ControlHelper.Header="{helpers:I18N Taskbar.Searchbox.DefaultText}"
-                        FontSize="14"
-                        Text="{Binding SearchBoxTextDefault}" />
-                    <ui:RadioButtons
-                        ui:ControlHelper.Header="{helpers:I18N Taskbar.Searchbox.CheckingPlayer}"
-                        FontSize="14"
-                        ItemsSource="{Binding MusicPlayers}"
-                        MaxColumns="5"
-                        SelectedItem="{Binding SelectedPlayer}">
-                        <ui:RadioButtons.ItemTemplate>
-                            <DataTemplate DataType="{x:Type model:MusicPlayer}">
-                                <TextBlock Text="{Binding DisplayName}" />
-                            </DataTemplate>
-                        </ui:RadioButtons.ItemTemplate>
-                    </ui:RadioButtons>
-                    <Button Command="{Binding SaveChangeSearchbox}" Content="{helpers:I18N System.Setting.Save}" />
-                </ui:SimpleStackPanel>
-            </GroupBox>
-            <GroupBox Header="{helpers:I18N Taskbar.Taskbar}">
-                <ui:ToggleSwitch
-                    FontSize="14"
-                    Header="{helpers:I18N Taskbar.Taskbar.WheelVolume}"
-                    IsOn="{Binding EnableWheelVolume}"
-                    OffContent="{helpers:I18N ToggleButton.Off}"
-                    OnContent="{helpers:I18N ToggleButton.On}" />
-            </GroupBox>
-        </ui:SimpleStackPanel>
-    </ScrollViewer>
-</ui:Page>
+    <Page.Resources>
+        <co:Windows11ToBoolConverter x:Key="windows10ToBoolConverter" Reverse="True" />
+        <co:Windows11ToVisibleConverter x:Key="windows11ToVisibleConverter" />
+    </Page.Resources>
+
+    <c:SettingsPageControl>
+        <c:SettingsPageControl.ModuleContent>
+            <StackPanel>
+                <c:SettingsGroup
+                    Margin="0,-20,0,0"
+                    Header="{helpers:I18N Code='Taskbar.Searchbox'}"
+                    IsEnabled="{x:Bind helpers:CommonUtils.WindowsVersion, Converter={StaticResource windows10ToBoolConverter}}">
+                    <c:SettingsGroup.Description>
+                        <TextBlock Text="{helpers:I18N Code='Taskbar.Searchbox.Windows10'}" Visibility="{x:Bind helpers:CommonUtils.WindowsVersion, Converter={StaticResource windows11ToVisibleConverter}}" />
+                    </c:SettingsGroup.Description>
+                    <c:Setting Header="{helpers:I18N Code='Taskbar.Searchbox.EnableMusicUpdate'}">
+                        <c:Setting.ActionContent>
+                            <ToggleSwitch
+                                FontSize="14"
+                                IsOn="{x:Bind ViewModel.EnableMusicUpdate, Mode=TwoWay}"
+                                OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                                OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting Header="{helpers:I18N Code='Taskbar.Searchbox.CompatibleStartIsBack'}">
+                        <c:Setting.ActionContent>
+                            <ToggleSwitch
+                                FontSize="14"
+                                IsOn="{x:Bind ViewModel.CompatibleStartIsBack, Mode=TwoWay}"
+                                OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                                OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting Header="{helpers:I18N Code='Taskbar.Searchbox.DefaultText'}">
+                        <c:Setting.ActionContent>
+                            <TextBox
+                                MinWidth="128"
+                                FontSize="14"
+                                Text="{x:Bind ViewModel.SearchBoxTextDefault, Mode=TwoWay}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting Header="{helpers:I18N Code='Taskbar.Searchbox.CheckingPlayer'}">
+                        <c:Setting.ActionContent>
+                            <RadioButtons
+                                FontSize="14"
+                                Header=""
+                                ItemsSource="{x:Bind ViewModel.MusicPlayers}"
+                                MaxColumns="5"
+                                SelectedItem="{x:Bind ViewModel.SelectedPlayer, Mode=TwoWay}">
+                                <RadioButtons.ItemTemplate>
+                                    <DataTemplate x:DataType="model:MusicPlayer">
+                                        <TextBlock Text="{x:Bind DisplayName}" />
+                                    </DataTemplate>
+                                </RadioButtons.ItemTemplate>
+                            </RadioButtons>
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                    <c:Setting Header="{helpers:I18N Code='System.Setting.Save'}">
+                        <c:Setting.ActionContent>
+                            <Button Command="{x:Bind ViewModel.SaveChangeSearchbox}" Content="{helpers:I18N Code='System.Setting.Save'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                </c:SettingsGroup>
+                <c:SettingsGroup Header="{helpers:I18N Code='Taskbar.Taskbar'}">
+                    <c:Setting Description="{helpers:I18N Code='Taskbar.Taskbar.WheelVolume.Desc'}" Header="{helpers:I18N Code='Taskbar.Taskbar.WheelVolume'}">
+                        <c:Setting.ActionContent>
+                            <ToggleSwitch
+                                FontSize="14"
+                                IsOn="{x:Bind ViewModel.EnableWheelVolume, Mode=TwoWay}"
+                                OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                                OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                        </c:Setting.ActionContent>
+                    </c:Setting>
+                </c:SettingsGroup>
+            </StackPanel>
+        </c:SettingsPageControl.ModuleContent>
+    </c:SettingsPageControl>
+</Page>

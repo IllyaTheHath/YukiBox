@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace YukiBox.Desktop.Models
 {
@@ -18,6 +21,9 @@ namespace YukiBox.Desktop.Models
 
         public String Url { get; set; }
 
+        private ICommand _openUrlCommand;
+        public ICommand OpenUrlCommand => this._openUrlCommand ??= new RelayCommand(OpenUrl_);
+
         public AboutListItem()
         {
         }
@@ -29,6 +35,15 @@ namespace YukiBox.Desktop.Models
             Glyph = glyph;
             OpenUrl = openUrl;
             Url = url;
+        }
+
+
+        private void OpenUrl_()
+        {
+            if(OpenUrl && !String.IsNullOrEmpty(Url))
+            {
+                System.Diagnostics.Process.Start(Url);
+            }
         }
     }
 }

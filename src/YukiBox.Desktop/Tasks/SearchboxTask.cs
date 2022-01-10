@@ -39,7 +39,7 @@ namespace YukiBox.Desktop.Tasks
                 this._compatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
             }
             catch { }
-            if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable)
+            if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
             {
                 Run();
             }
@@ -65,7 +65,7 @@ namespace YukiBox.Desktop.Tasks
 
         protected override async Task Action()
         {
-            if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable)
+            if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
             {
                 var musicName = this._player?.GetMusicName();
                 if (String.IsNullOrEmpty(musicName))
@@ -83,6 +83,7 @@ namespace YukiBox.Desktop.Tasks
             else
             {
                 Stop();
+                ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = false;
             }
 
             await Task.CompletedTask;
@@ -92,6 +93,7 @@ namespace YukiBox.Desktop.Tasks
         {
             this._player = null;
             base.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

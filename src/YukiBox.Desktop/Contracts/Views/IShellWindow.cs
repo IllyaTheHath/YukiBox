@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace YukiBox.Desktop.Contracts.Views
 {
@@ -11,7 +7,7 @@ namespace YukiBox.Desktop.Contracts.Views
     {
         Frame GetNavigationFrame();
 
-        void ShowWindow();
+        void Show();
 
         void CloseWindow();
     }

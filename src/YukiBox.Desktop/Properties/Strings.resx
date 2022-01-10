@@ -231,7 +231,7 @@
   <data name="Taskbar.Taskbar" xml:space="preserve">
     <value>Taskbar</value>
   </data>
-  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+  <data name="Taskbar.Taskbar.WheelVolume.Desc" xml:space="preserve">
     <value>Mouse wheel adjusts the volume when pointer hover over taskbar</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
@@ -239,5 +239,14 @@
   </data>
   <data name="System.Setting.Additional" xml:space="preserve">
     <value>Additional</value>
+  </data>
+  <data name="System.Setting.AppExit" xml:space="preserve">
+    <value>Exit YukiBox</value>
+  </data>
+  <data name="Taskbar.Searchbox.Windows10" xml:space="preserve">
+    <value>Only Support Windows 10</value>
+  </data>
+  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+    <value>Mouse Wheel Volume</value>
   </data>
 </root>

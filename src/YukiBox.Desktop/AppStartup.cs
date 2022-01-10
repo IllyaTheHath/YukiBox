@@ -4,6 +4,7 @@ using System.Windows;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Input;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Contracts.Views;
@@ -51,6 +52,7 @@ namespace YukiBox.Desktop
             services.AddSingleton<ITrayIconService, TrayIconService>();
             services.AddSingleton<IMediatorService, MediatorService>();
             services.AddSingleton<IFileStoreService, FileStoreService>();
+            services.AddSingleton<IContentDialogService, ContentDialogService>();
             //services.AddSingleton<IConfigService, ConfigService>();
 
             // Configure Shell Window
@@ -73,7 +75,7 @@ namespace YukiBox.Desktop
             return services.BuildServiceProvider();
         }
 
-        public void OnStartup(StartupEventArgs e)
+        public void OnStartup()
         {
             ConfigurePages();
 
@@ -91,7 +93,7 @@ namespace YukiBox.Desktop
             HooksHelper.Instance.Initialize();
         }
 
-        public void OnExit(ExitEventArgs e)
+        public void OnExit()
         {
             this._trayIconService?.Dispose();
 
@@ -123,18 +125,18 @@ namespace YukiBox.Desktop
                 this._shellWindow = Ioc.Default.GetService<IShellWindow>();
                 //this._shellWindow = new ShellWindow();
                 this._navigationService.Initialize(this._shellWindow.GetNavigationFrame());
-                this._shellWindow.ShowWindow();
-                //this._navigationService.NavigateTo(typeof(AboutViewModel).FullName);
+                this._shellWindow.Show();
+                this._navigationService.NavigateTo(typeof(AboutViewModel).FullName);
             }
             else
             {
-                this._shellWindow.ShowWindow();
+                this._shellWindow.Show();
             }
         }
 
         public void Exit()
         {
-            App.Current.Shutdown();
+            App.Exit();
         }
     }
 }

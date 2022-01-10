@@ -6,27 +6,17 @@ using YukiBox.Desktop.Helpers;
 
 namespace YukiBox.Desktop.Models
 {
-    public class NavMenuItemBase : ObservableObject { }
+    public class NavMenuItemBase { }
 
     public class NavMenuItem : NavMenuItemBase
     {
         private readonly String _nameResourceName;
-        private String _name;
 
-        public String Name
-        {
-            get => this._name;
-            set => SetProperty(ref this._name, value);
-        }
+        public String Name { get; set; }
 
         private readonly String _tooltipResourceName;
-        private String _tooltip;
 
-        public String Tooltip
-        {
-            get => this._tooltip;
-            set => SetProperty(ref this._tooltip, value);
-        }
+        public String Tooltip { get; set; }
 
         public String Glyph { get; set; }
 
@@ -43,11 +33,6 @@ namespace YukiBox.Desktop.Models
 
             Glyph = glyph;
             TargetType = targetType;
-            UpdateNameAndTooltip();
-        }
-
-        public void UpdateNameAndTooltip()
-        {
             Name = I18NSource.Instance[this._nameResourceName];
             Tooltip = I18NSource.Instance[this._tooltipResourceName];
         }

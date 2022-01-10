@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
-using Hardcodet.Wpf.TaskbarNotification;
-
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
-
-using ModernWpf;
-using ModernWpf.Controls;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
@@ -16,83 +10,30 @@ namespace YukiBox.Desktop.Services
 {
     public class TrayIconService : ITrayIconService
     {
-        private readonly IMediatorService _mediatorService;
-
-        private TaskbarIcon _taskbarIcon;
-
-        private MenuItem _settingMenuItem;
-        private MenuItem _exitMenuItem;
-
-        private ContextMenu _contextMenu;
-
-        private ToolTip _toolTip;
-
-        public TrayIconService(IMediatorService mediatorService)
-        {
-            this._mediatorService = mediatorService;
-        }
-
-        private void OnLocaleChange(Object obj)
-        {
-            this._settingMenuItem.Header = I18NSource.Instance["TrayIcon.Main"];
-            this._settingMenuItem.ToolTip = I18NSource.Instance["TrayIcon.Main.Tooltip"];
-            this._exitMenuItem.Header = I18NSource.Instance["TrayIcon.Exit"];
-            this._exitMenuItem.ToolTip = I18NSource.Instance["TrayIcon.Exit.Tooltip"];
-        }
+        private NotifyIcon.Icon _icon;
+        private NotifyIcon.NotifyIcon _notifyIcon;
 
         public void Initialize()
         {
-            this._mediatorService.Register(this, "I18N", OnLocaleChange);
-
-            this._contextMenu = new();
-            this._contextMenu.Items.Clear();
-            this._settingMenuItem = new MenuItem()
+            var ico = NotifyIcon.Icon.create(@"Assets\Images\logo.ico");
+            if (ico.IsOk)
             {
-                Icon = new SymbolIcon(Symbol.Setting),
-                Header = I18NSource.Instance["TrayIcon.Main"],
-                ToolTip = I18NSource.Instance["TrayIcon.Main.Tooltip"],
-                Command = new RelayCommand(() =>
+                this._icon = ico.ResultValue;
+                this._notifyIcon = NotifyIcon.NotifyIcon.create();
+                this._notifyIcon.setIcon(this._icon);
+                this._notifyIcon.setTooltip(App.AppDisplayName);
+
+                this._notifyIcon.onMouseLeftButtonDoubleClick += (s, a) =>
                 {
                     AppStartup.Instance.ShowShellWindow();
-                })
-            };
-            this._exitMenuItem = new MenuItem()
-            {
-                Icon = new SymbolIcon(Symbol.Cancel),
-                Header = I18NSource.Instance["TrayIcon.Exit"],
-                ToolTip = I18NSource.Instance["TrayIcon.Exit.Tooltip"],
-                Command = new RelayCommand(() =>
-                {
-                    AppStartup.Instance.Exit();
-                })
-            };
-
-            this._contextMenu.Items.Add(this._settingMenuItem);
-            this._contextMenu.Items.Add(this._exitMenuItem);
-
-            this._toolTip = new();
-            this._toolTip.Content = Program.AppDisplayName;
-
-            this._taskbarIcon = new();
-            this._taskbarIcon.ContextMenu = this._contextMenu;
-            this._taskbarIcon.TrayToolTip = this._toolTip;
-            this._taskbarIcon.DoubleClickCommand = new RelayCommand(() =>
-            {
-                AppStartup.Instance.ShowShellWindow();
-            });
-
-            var iconUri = CommonUtils.GetAbsoluteUri(@"Assets\Images\logo.ico");
-            this._taskbarIcon.IconSource = BitmapFrame.Create(iconUri);
-
-            ThemeManager.SetRequestedTheme(this._contextMenu, ElementTheme.Default);
-            ThemeManager.SetRequestedTheme(this._toolTip, ElementTheme.Default);
+                };
+            }
         }
 
         public void Dispose()
         {
-            this._taskbarIcon?.Dispose();
-            this._contextMenu = null;
-            this._toolTip = null;
+            this._notifyIcon.Dispose();
+            this._icon.Dispose();
             GC.SuppressFinalize(this);
         }
     }
