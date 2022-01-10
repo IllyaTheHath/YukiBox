@@ -27,14 +27,26 @@
     <PackageLicenseExpression>https://github.com/IllyaTheHath/YukiBox/blob/main/LICENSE</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>BE2322DA4D36DB024A84DC03FC6D4CDDEE2C2537</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <AppxPackageDir>D:\Project\YukiBox\src\YukiBox.Desktop\bin\AppPackages\</AppxPackageDir>
+    <AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
   </PropertyGroup>
+
+
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Assets\Images\logo.ico" />
@@ -144,43 +156,39 @@
     </Content>
   </ItemGroup>
 
-<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
-    <ProjectCapability Include="Msix" />
+  <ItemGroup>
+    <Page Update="Themes\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
-<ItemGroup>
-  <Page Update="Themes\Theme.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </Page>
-</ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ControlStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
-<ItemGroup>
-  <Page Update="Controls\ControlStyles.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </Page>
-</ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Setting\Setting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
-<ItemGroup>
-  <Page Update="Controls\Setting\Setting.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </Page>
-</ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\SettingsGroup\SettingsGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
-<ItemGroup>
-  <Page Update="Controls\SettingsGroup\SettingsGroup.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </Page>
-</ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
-<ItemGroup>
-  <Page Update="Themes\Generic.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </Page>
-</ItemGroup>
-
-<ItemGroup>
-  <Page Update="Controls\SettingsPageControl\SettingsPageControl.xaml">
-    <Generator>MSBuild:Compile</Generator>
-  </Page>
-</ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\SettingsPageControl\SettingsPageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>
