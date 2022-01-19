@@ -47,9 +47,20 @@ namespace YukiBox.Desktop
             this.SetIcon(@"Assets\Images\logo.ico");
 
             // WinUI 3 ExtendsContentIntoTitleBar is still broken
-            var appWindow = this.GetAppWindow();
-            appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-            SetTitleBar(this.appTitleBar);
+            // Custom TitleBar only works for Windows 11
+            if (AppWindowTitleBar.IsCustomizationSupported())
+            {
+                var appWindow = this.GetAppWindow();
+                appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+                SetTitleBar(this.appTitleBar);
+            }
+            else
+            {
+                this.appTitleBar.Visibility = Visibility.Collapsed;
+                this.Title = App.AppDisplayName;
+                this.navigationView.Margin = new Thickness(0);
+            }
+
 
             Closed += ShellWindow_Closed;
             (Content as FrameworkElement).Loaded += ShellWindow_Loaded;
