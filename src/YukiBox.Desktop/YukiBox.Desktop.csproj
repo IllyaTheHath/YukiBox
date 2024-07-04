@@ -29,9 +29,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateThumbprint>BE2322DA4D36DB024A84DC03FC6D4CDDEE2C2537</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>1EF2DD96149CD02C654D4F76F017994A996C2CA1</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
