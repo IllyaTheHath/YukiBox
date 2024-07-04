@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-using PInvoke;
-
 using Windows.Foundation;
 
 using YukiBox.Desktop.Helpers;
 
-using static PInvoke.User32;
+using Windows.Win32;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
+using Windows.Win32.Foundation;
+
 
 namespace YukiBox.Desktop.Hooks
 {
@@ -47,7 +48,7 @@ namespace YukiBox.Desktop.Hooks
         {
             if (hwnd != IntPtr.Zero)
             {
-                if (GetWindowRect(hwnd, out var rect))
+                if (PInvoke.GetWindowRect(new HWND(hwnd), out var rect))
                 {
                     var screenSize = GetScreenSize();
                     if (rect.top == 0 &&
@@ -64,9 +65,9 @@ namespace YukiBox.Desktop.Hooks
 
         private Boolean IsForegroundWindowFullScreen()
         {
-            var hwnd = GetForegroundWindow();
-            var shellHwnd = GetShellWindow();
-            var desktopHwnd = GetDesktopWindow();
+            var hwnd = PInvoke.GetForegroundWindow();
+            var shellHwnd = PInvoke.GetShellWindow();
+            var desktopHwnd = PInvoke.GetDesktopWindow();
             if (hwnd == shellHwnd || hwnd == desktopHwnd)
             {
                 return false;
@@ -76,8 +77,8 @@ namespace YukiBox.Desktop.Hooks
 
         private Size GetScreenSize()
         {
-            var width = GetSystemMetrics(SystemMetric.SM_CXSCREEN);
-            var height = GetSystemMetrics(SystemMetric.SM_CYSCREEN);
+            var width = PInvoke.GetSystemMetrics(Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX.SM_CXSCREEN);
+            var height = PInvoke.GetSystemMetrics(Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX.SM_CYSCREEN);
             return new Size(width, height);
         }
 
@@ -89,8 +90,8 @@ namespace YukiBox.Desktop.Hooks
 
         private Rect GetTaskbarLocation()
         {
-            var hwnd = FindWindow(_taskbarClassName, null);
-            return GetWindowRect(hwnd, out var rect) ? new Rect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top) : new Rect();
+            var hwnd = PInvoke.FindWindow(_taskbarClassName, null);
+            return PInvoke.GetWindowRect(hwnd, out var rect) ? new Rect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top) : new Rect();
         }
 
         protected override void OnEnabled()

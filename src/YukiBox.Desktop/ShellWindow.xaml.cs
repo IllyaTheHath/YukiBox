@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -44,23 +45,11 @@ namespace YukiBox.Desktop
             this.navigationView.DataContext = ViewModel;
 
             // WinUI 3 doesn't provide API to change window icon, so using Win32 API here
-            this.SetIcon(@"Assets\Images\logo.ico");
+            //this.SetIcon(@"Assets\Images\logo.ico");
 
-            // WinUI 3 ExtendsContentIntoTitleBar is still broken
-            // Custom TitleBar only works for Windows 11
-            if (AppWindowTitleBar.IsCustomizationSupported())
-            {
-                var appWindow = this.GetAppWindow();
-                appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-                SetTitleBar(this.appTitleBar);
-            }
-            else
-            {
-                this.appTitleBar.Visibility = Visibility.Collapsed;
-                this.Title = App.AppDisplayName;
-                this.navigationView.Margin = new Thickness(0);
-            }
-
+            var appWindow = this.GetAppWindow();
+            appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            SetTitleBar(this.appTitleBar);
 
             Closed += ShellWindow_Closed;
             (Content as FrameworkElement).Loaded += ShellWindow_Loaded;

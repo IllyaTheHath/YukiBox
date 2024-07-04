@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 using NAudio.CoreAudioApi;
 
-using PInvoke;
-
-using static PInvoke.User32;
+using Windows.Win32;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 namespace YukiBox.Desktop.Helpers
 {
@@ -71,24 +70,25 @@ namespace YukiBox.Desktop.Helpers
             var kInputs = new INPUT[2];
 
             var kDown = new INPUT();
-            kDown.type = InputType.INPUT_KEYBOARD;
-            kDown.Inputs.ki = new KEYBDINPUT()
+            kDown.type = INPUT_TYPE.INPUT_KEYBOARD;
+            kDown.Anonymous.ki = new KEYBDINPUT()
             {
-                wVk = up ? VirtualKey.VK_VOLUME_UP : VirtualKey.VK_VOLUME_DOWN
+                wVk = up ? VIRTUAL_KEY.VK_VOLUME_UP : VIRTUAL_KEY.VK_VOLUME_DOWN
             };
 
             var kUp = new INPUT();
-            kUp.type = InputType.INPUT_KEYBOARD;
-            kUp.Inputs.ki = new KEYBDINPUT()
+            kUp.type = INPUT_TYPE.INPUT_KEYBOARD;
+            kUp.Anonymous.ki = new KEYBDINPUT()
             {
-                wVk = up ? VirtualKey.VK_VOLUME_UP : VirtualKey.VK_VOLUME_DOWN,
-                dwFlags = KEYEVENTF.KEYEVENTF_KEYUP
+                wVk = up ? VIRTUAL_KEY.VK_VOLUME_UP : VIRTUAL_KEY.VK_VOLUME_DOWN,
+                dwFlags = KEYBD_EVENT_FLAGS.KEYEVENTF_KEYUP
             };
 
             kInputs[0] = kDown;
             kInputs[1] = kUp;
+            Span<INPUT> kInputSpan = kInputs;
 
-            SendInput(kInputs.Length, kInputs, Marshal.SizeOf(typeof(INPUT)));
+            PInvoke.SendInput(kInputSpan, Marshal.SizeOf(typeof(INPUT)));
         }
     }
 }

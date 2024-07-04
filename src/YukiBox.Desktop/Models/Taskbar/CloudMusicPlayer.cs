@@ -1,6 +1,6 @@
 ﻿using System;
 
-using PInvoke;
+using Windows.Win32;
 
 namespace YukiBox.Desktop.Models
 {
@@ -12,13 +12,20 @@ namespace YukiBox.Desktop.Models
 
         public override String GetMusicName()
         {
-            var hWnd = User32.FindWindow("OrpheusBrowserHost", null);
-            if (hWnd == IntPtr.Zero)
+            var hWnd = PInvoke.FindWindow("OrpheusBrowserHost", null);
+            if (hWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return String.Empty;
             }
 
-            return User32.GetWindowText(hWnd);
+
+            Windows.Win32.Foundation.PWSTR name = default;
+            if(PInvoke.GetWindowText(hWnd, name, 0) > 0)
+            {
+                return name.ToString();
+            }
+
+            return String.Empty;
         }
     }
 }

@@ -6,10 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Input;
-
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Models;

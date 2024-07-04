@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Windows;
 
+using CommunityToolkit.Mvvm.DependencyInjection;
+
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Input;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Contracts.Views;
