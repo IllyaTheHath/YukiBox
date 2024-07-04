@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using YukiBox.Desktop.Interop;
-
 namespace YukiBox.Desktop.Hooks
 {
-    public class HooksHelper
+    internal class HooksHelper
     {
         private static readonly Lazy<HooksHelper> lazy = new(() => new HooksHelper());
 

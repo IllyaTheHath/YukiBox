@@ -3,15 +3,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Models;
 using YukiBox.Desktop.Tasks;
 using System.Windows.Input;
-using Microsoft.Toolkit.Mvvm.Input;
 using YukiBox.Desktop.Hooks;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace YukiBox.Desktop.ViewModels
 {

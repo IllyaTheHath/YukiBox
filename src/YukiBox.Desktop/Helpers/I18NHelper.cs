@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Resources;
 
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.UI.Xaml.Markup;
 
 using YukiBox.Desktop.Contracts.Services;

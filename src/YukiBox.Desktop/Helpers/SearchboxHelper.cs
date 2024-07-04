@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using PInvoke;
+using Windows.Win32;
 
 namespace YukiBox.Desktop.Helpers
 {
@@ -12,57 +12,62 @@ namespace YukiBox.Desktop.Helpers
     {
         public static String GetSearchboxText()
         {
-            var taskbarHWnd = User32.FindWindow("Shell_TrayWnd", null);
-            if (taskbarHWnd == IntPtr.Zero)
+            var taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
+            if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return String.Empty;
             }
 
-            var searchBoxHWnd = User32.FindWindowEx(taskbarHWnd, IntPtr.Zero, "TrayDummySearchControl", null);
-            if (searchBoxHWnd == IntPtr.Zero)
+            var searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null , "TrayDummySearchControl", null);
+            if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return String.Empty;
             }
 
-            var searchBoxTextHWnd = User32.FindWindowEx(searchBoxHWnd, IntPtr.Zero, "Static", null);
-            if (searchBoxTextHWnd == IntPtr.Zero)
+            var searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
+            if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return String.Empty;
             }
 
-            var searchboxText = User32.GetWindowText(searchBoxTextHWnd);
-            return searchboxText;
+            Windows.Win32.Foundation.PWSTR text = default;
+            if (PInvoke.GetWindowText(searchBoxTextHWnd, text, 0) > 0)
+            {
+                return text.ToString();
+            }
+
+            return String.Empty;
         }
 
         public static Boolean SetSearchboxText(String text, Boolean compatibleStartIsBack)
         {
-            var taskbarHWnd = User32.FindWindow("Shell_TrayWnd", null);
-            if (taskbarHWnd == IntPtr.Zero)
+            var taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
+            if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return false;
             }
-            var searchBoxHWnd = User32.FindWindowEx(taskbarHWnd, IntPtr.Zero, "TrayDummySearchControl", null);
-            if (searchBoxHWnd == IntPtr.Zero)
+            var searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
+            if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return false;
             }
-            var searchBoxTextHWnd = User32.FindWindowEx(searchBoxHWnd, IntPtr.Zero, "Static", null);
-            if (searchBoxTextHWnd == IntPtr.Zero)
+            var searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
+            if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
             {
                 return false;
             }
-            User32.SetWindowText(searchBoxTextHWnd, text);
+            PInvoke.SetWindowText(searchBoxTextHWnd, text);
 
             // force refresh searchbox for the changes to take effect
             if (compatibleStartIsBack)
             {
-                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_SHOWNOACTIVATE);
-                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_HIDE);
+                PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_SHOWNOACTIVATE);
+                PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_HIDE);
             }
             else
             {
-                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_HIDE);
-                User32.ShowWindow(searchBoxTextHWnd, User32.WindowShowStyle.SW_SHOWNOACTIVATE);
+                PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_HIDE);
+                PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_SHOWNOACTIVATE);
             }
             return true;
         }

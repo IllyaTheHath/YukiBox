@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-
 using YukiBox.Desktop.Helpers;
 
 namespace YukiBox.Desktop.Models

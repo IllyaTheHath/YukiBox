@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 
-using static PInvoke.Kernel32;
-using static PInvoke.User32;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
+using Windows.Win32.UI.WindowsAndMessaging;
 
-namespace YukiBox.Desktop.Interop
+namespace YukiBox.Desktop.Hooks
 {
-    public class MouseHook : IDisposable
+    internal class MouseHook : IDisposable
     {
         private Boolean _disposed;
 
-        private WindowsHookDelegate _hookDelegate;
-        private SafeHookHandle _handle = SafeHookHandle.Null;
+        private UnhookWindowsHookExSafeHandle _handle = new UnhookWindowsHookExSafeHandle(IntPtr.Zero);
+        private HOOKPROC _hookProc;
 
         public delegate void MouseHookCallback(MOUSEINPUT input);
 
@@ -40,8 +43,8 @@ namespace YukiBox.Desktop.Interop
 
         public void Install()
         {
-            this._hookDelegate = new WindowsHookDelegate(MouseProc);
-            this._handle = SetHook(this._hookDelegate);
+            this._hookProc = MouseProc;
+            this._handle = SetHook(this._hookProc);
         }
 
         public void Uninstall()
@@ -52,50 +55,55 @@ namespace YukiBox.Desktop.Interop
             }
         }
 
-        private SafeHookHandle SetHook(WindowsHookDelegate proc)
+        private UnhookWindowsHookExSafeHandle SetHook(HOOKPROC proc)
         {
             using var module = Process.GetCurrentProcess().MainModule;
-            var hMod = GetModuleHandle(module.ModuleName);
-            return SetWindowsHookEx(WindowsHookType.WH_MOUSE_LL, proc, hMod, 0);
+            var hMod = PInvoke.GetModuleHandle(module.ModuleName);
+            return PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, proc, hMod, 0);
         }
 
-        private Int32 MouseProc(int nCode, IntPtr wParam, IntPtr lParam)
+        private LRESULT MouseProc(Int32 nCode, WPARAM wParam, LPARAM lParam)
         {
-            if (nCode >= 0)
+            if (nCode < 0)
             {
-                var mouseEvent = (WindowMessage)wParam;
+                return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
+            }
+
+            if (nCode == PInvoke.HC_ACTION)
+            {
+                var mouseEvent = (UInt32)wParam;
                 var mouseInput = (MOUSEINPUT)Marshal.PtrToStructure(lParam, typeof(MOUSEINPUT));
                 switch (mouseEvent)
                 {
-                    case WindowMessage.WM_LBUTTONDOWN:
+                    case PInvoke.WM_LBUTTONDOWN:
                         LeftButtonDown?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_LBUTTONUP:
+                    case PInvoke.WM_LBUTTONUP:
                         LeftButtonUp?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_RBUTTONDOWN:
+                    case PInvoke.WM_RBUTTONDOWN:
                         RightButtonDown?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_RBUTTONUP:
+                    case PInvoke.WM_RBUTTONUP:
                         RightButtonUp?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_MBUTTONDOWN:
+                    case PInvoke.WM_MBUTTONDOWN:
                         MiddleButtonDown?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_MBUTTONUP:
+                    case PInvoke.WM_MBUTTONUP:
                         MiddleButtonUp?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_MOUSEMOVE:
+                    case PInvoke.WM_MOUSEMOVE:
                         MouseMove?.Invoke(mouseInput);
                         break;
 
-                    case WindowMessage.WM_MOUSEWHEEL:
+                    case PInvoke.WM_MOUSEWHEEL:
                         var delta = (Int16)(mouseInput.mouseData >> 16);
                         MouseWheel?.Invoke(mouseInput, delta);
                         break;
@@ -105,7 +113,7 @@ namespace YukiBox.Desktop.Interop
                 }
             }
 
-            return CallNextHookEx(IntPtr.Zero, nCode, wParam, lParam);
+            return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
         }
 
         public void Dispose()
