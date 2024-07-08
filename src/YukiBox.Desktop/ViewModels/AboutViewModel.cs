@@ -35,15 +35,17 @@ namespace YukiBox.Desktop.ViewModels
             AboutLists.Add(github);
             AboutLists.Add(feedback);
 
-            var mvvm = new AboutThirdPartyItem("Microsoft.Toolkit.Mvvm", "https://github.com/windows-toolkit/WindowsCommunityToolkit", "https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/master/LICENSE");
+            var mvvm = new AboutThirdPartyItem("CommunityToolkit.Mvvm", "https://github.com/CommunityToolkit/dotnet", "https://github.com/CommunityToolkit/dotnet/blob/main/License.md");
             var behavior = new AboutThirdPartyItem("Microsoft.Xaml.Behaviors.WinUI", "https://github.com/Microsoft/XamlBehaviors", "https://github.com/microsoft/XamlBehaviors/blob/master/LICENSE");
-            var pinvoke = new AboutThirdPartyItem("PInvoke.User32", "https://github.com/dotnet/pinvoke", "https://github.com/dotnet/pinvoke/blob/master/LICENSE");
+            var pinvoke = new AboutThirdPartyItem("Microsoft.Windows.CsWin32", "https://github.com/microsoft/CsWin32", "https://github.com/microsoft/CsWin32/blob/main/LICENSE");
             var naudio = new AboutThirdPartyItem("NAudio", "https://github.com/naudio/NAudio", "https://github.com/naudio/NAudio/blob/master/license.txt");
+            var hNotifyIcon = new AboutThirdPartyItem("H.NotifyIcon.WinUI", "https://github.com/HavenDV/H.NotifyIcon", "https://github.com/HavenDV/H.NotifyIcon/blob/master/LICENSE.md");
             var powertoys = new AboutThirdPartyItem("PowerToys", "https://github.com/microsoft/PowerToys", "https://github.com/microsoft/PowerToys/blob/main/LICENSE");
             ThirdParties.Add(mvvm);
             ThirdParties.Add(behavior);
             ThirdParties.Add(pinvoke);
             ThirdParties.Add(naudio);
+            ThirdParties.Add(hNotifyIcon);
             ThirdParties.Add(powertoys);
         }
     }

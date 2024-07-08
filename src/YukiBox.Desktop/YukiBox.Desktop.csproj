@@ -20,9 +20,9 @@
     <Copyright>Copyright © 2024 IllyaTheHath</Copyright>
     <PackageProjectUrl>https://github.com/IllyaTheHath/YukiBox</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IllyaTheHath/YukiBox</RepositoryUrl>
-    <FileVersion>1.3.0.0</FileVersion>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <Version>1.3.0</Version>
+    <FileVersion>1.3.1.0</FileVersion>
+    <AssemblyVersion>1.3.1.0</AssemblyVersion>
+    <Version>1.3.1</Version>
     <PackageIcon>Assets\Images\logo.ico</PackageIcon>
     <PackageLicenseExpression>https://github.com/IllyaTheHath/YukiBox/blob/main/LICENSE</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
