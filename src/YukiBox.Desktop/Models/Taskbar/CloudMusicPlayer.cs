@@ -18,11 +18,16 @@ namespace YukiBox.Desktop.Models
                 return String.Empty;
             }
 
-
-            Windows.Win32.Foundation.PWSTR name = default;
-            if(PInvoke.GetWindowText(hWnd, name, 0) > 0)
+            var bufferSize = PInvoke.GetWindowTextLength(hWnd) + 1;
+            unsafe
             {
-                return name.ToString();
+                fixed (Char* nameChar = new Char[bufferSize])
+                {
+                    if (PInvoke.GetWindowText(hWnd, nameChar, bufferSize) > 0)
+                    {
+                        return new String(nameChar);
+                    }
+                }
             }
 
             return String.Empty;

@@ -9,6 +9,7 @@ GetShellWindow
 GetSystemMetrics
 GetWindowRect
 GetWindowText
+GetWindowTextLength
 LoadImage
 SendInput
 SendMessage
