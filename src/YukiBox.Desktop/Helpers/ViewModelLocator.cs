@@ -8,9 +8,9 @@ namespace YukiBox.Desktop.Helpers
 {
     public class ViewModelLocator
     {
-        private static readonly Lazy<ViewModelLocator> _current = new(() => new ViewModelLocator());
+        private static readonly Lazy<ViewModelLocator> current = new(() => new ViewModelLocator());
 
-        public static ViewModelLocator Current { get { return _current.Value; } }
+        public static ViewModelLocator Current { get { return current.Value; } }
 
         public ShellViewModel ShellViewModel => Ioc.Default.GetService<ShellViewModel>();
 
