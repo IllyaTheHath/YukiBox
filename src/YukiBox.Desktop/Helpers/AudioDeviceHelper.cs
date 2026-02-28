@@ -90,5 +90,59 @@ namespace YukiBox.Desktop.Helpers
 
             PInvoke.SendInput(kInputSpan, Marshal.SizeOf(typeof(INPUT)));
         }
+
+
+        public static void Mute(Boolean useWin32Input = true)
+        {
+            if (useWin32Input)
+            {
+                MuteWin32();
+            }
+            else
+            {
+                MuteNAudio();
+            }
+        }
+
+        private static void MuteNAudio()
+        {
+            var enumerator = new MMDeviceEnumerator();
+
+            var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+            if (speakDevices.Count > 0)
+            {
+                var device = speakDevices.FirstOrDefault();
+                if (device != null)
+                {
+                    device.AudioEndpointVolume.Mute = true;
+                }
+            }
+        }
+
+        private static void MuteWin32() 
+        {
+            var kInputs = new INPUT[2];
+
+            var kDown = new INPUT();
+            kDown.type = INPUT_TYPE.INPUT_KEYBOARD;
+            kDown.Anonymous.ki = new KEYBDINPUT()
+            {
+                wVk = VIRTUAL_KEY.VK_VOLUME_MUTE
+            };
+
+            var kUp = new INPUT();
+            kUp.type = INPUT_TYPE.INPUT_KEYBOARD;
+            kUp.Anonymous.ki = new KEYBDINPUT()
+            {
+                wVk = VIRTUAL_KEY.VK_VOLUME_MUTE,
+                dwFlags = KEYBD_EVENT_FLAGS.KEYEVENTF_KEYUP
+            };
+
+            kInputs[0] = kDown;
+            kInputs[1] = kUp;
+            Span<INPUT> kInputSpan = kInputs;
+
+            PInvoke.SendInput(kInputSpan, Marshal.SizeOf(typeof(INPUT)));
+        }
     }
 }

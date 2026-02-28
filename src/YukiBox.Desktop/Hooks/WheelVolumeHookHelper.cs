@@ -44,6 +44,15 @@ namespace YukiBox.Desktop.Hooks
             }
         }
 
+        private void MouseMiddleButton(MOUSEINPUT input)
+        {
+            var shouldAction = !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
+            if (shouldAction)
+            {
+                AudioDeviceHelper.Mute(true);
+            }
+        }
+
         private Boolean IsWindowsFullScreen(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
@@ -101,6 +110,7 @@ namespace YukiBox.Desktop.Hooks
             if (IsEnabled)
             {
                 HooksHelper.Instance.MouseHook.MouseWheel += MouseWheel;
+                HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButton;
             }
         }
 
@@ -111,6 +121,7 @@ namespace YukiBox.Desktop.Hooks
             if (!IsEnabled)
             {
                 HooksHelper.Instance.MouseHook.MouseWheel -= MouseWheel;
+                HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
             }
         }
     }
