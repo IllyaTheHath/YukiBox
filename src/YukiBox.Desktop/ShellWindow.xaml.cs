@@ -55,14 +55,14 @@ namespace YukiBox.Desktop
             (Content as FrameworkElement).Loaded += ShellWindow_Loaded;
         }
 
-        private void ShellWindow_Loaded(Object sender, RoutedEventArgs e)
+        private void ShellWindow_Loaded(object sender, RoutedEventArgs e)
         {
             // Set ContentDialog XamlRoot here
             var contentDialogService = Ioc.Default.GetService<IContentDialogService>();
             contentDialogService.SetMainXamlRoot(Content.XamlRoot);
         }
 
-        private void ShellWindow_Closed(Object sender, WindowEventArgs args)
+        private void ShellWindow_Closed(object sender, WindowEventArgs args)
         {
             this.HideWindow();
             if (!App.Exiting)

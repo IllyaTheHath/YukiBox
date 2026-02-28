@@ -8,15 +8,15 @@ namespace YukiBox.Desktop.Models
 
     public class NavMenuItem : NavMenuItemBase
     {
-        private readonly String _nameResourceName;
+        private readonly string _nameResourceName;
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        private readonly String _tooltipResourceName;
+        private readonly string _tooltipResourceName;
 
-        public String Tooltip { get; set; }
+        public string Tooltip { get; set; }
 
-        public String Glyph { get; set; }
+        public string Glyph { get; set; }
 
         public Type TargetType { get; set; }
 
@@ -24,7 +24,7 @@ namespace YukiBox.Desktop.Models
         {
         }
 
-        public NavMenuItem(String name, String toolTip, String glyph, Type targetType)
+        public NavMenuItem(string name, string toolTip, string glyph, Type targetType)
         {
             this._nameResourceName = name;
             this._tooltipResourceName = toolTip;

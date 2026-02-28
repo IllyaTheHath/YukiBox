@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace YukiBox.Desktop.Contracts.Services
 {
     public interface IFileStoreService
     {
-        Byte[] Read(String folderPath, String fileName);
+        byte[] Read(string folderPath, string fileName);
 
-        Task<Byte[]> ReadAsync(String folderPath, String fileName);
+        Task<byte[]> ReadAsync(string folderPath, string fileName);
 
-        void Save(String folderPath, String fileName, Byte[] content);
+        void Save(string folderPath, string fileName, byte[] content);
 
-        Task SaveAsync(String folderPath, String fileName, Byte[] content);
+        Task SaveAsync(string folderPath, string fileName, byte[] content);
 
-        void DeleteFile(String folderPath, String fileName);
+        void DeleteFile(string folderPath, string fileName);
 
-        void DeleteFolder(String folderPath);
+        void DeleteFolder(string folderPath);
     }
 }

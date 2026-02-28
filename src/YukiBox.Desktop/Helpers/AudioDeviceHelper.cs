@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 using NAudio.CoreAudioApi;
 
@@ -14,10 +11,10 @@ namespace YukiBox.Desktop.Helpers
 {
     public static class AudioDeviceHelper
     {
-        public static Int32 GetSystemVolume()
+        public static int GetSystemVolume()
         {
-            Int32 volume = -1;
-            var enumerator = new MMDeviceEnumerator();
+            int volume = -1;
+            using var enumerator = new MMDeviceEnumerator();
 
             var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
             if (speakDevices.Count > 0)
@@ -25,13 +22,13 @@ namespace YukiBox.Desktop.Helpers
                 var device = speakDevices.FirstOrDefault();
                 if (device != null)
                 {
-                    volume = (Int32)(device.AudioEndpointVolume.MasterVolumeLevelScalar * 100);
+                    volume = (int)(device.AudioEndpointVolume.MasterVolumeLevelScalar * 100);
                 }
             }
             return volume;
         }
 
-        public static void StepSystemVolume(Boolean up, Boolean useWin32Input = true)
+        public static void StepSystemVolume(bool up, bool useWin32Input = true)
         {
             if (useWin32Input)
             {
@@ -43,9 +40,9 @@ namespace YukiBox.Desktop.Helpers
             }
         }
 
-        private static void StepSystemVolumeNAudio(Boolean up)
+        private static void StepSystemVolumeNAudio(bool up)
         {
-            var enumerator = new MMDeviceEnumerator();
+            using var enumerator = new MMDeviceEnumerator();
 
             var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
             if (speakDevices.Count > 0)
@@ -65,7 +62,7 @@ namespace YukiBox.Desktop.Helpers
             }
         }
 
-        private static void StepSystemVolumeWin32Input(Boolean up)
+        private static void StepSystemVolumeWin32Input(bool up)
         {
             var kInputs = new INPUT[2];
 
@@ -92,7 +89,7 @@ namespace YukiBox.Desktop.Helpers
         }
 
 
-        public static void Mute(Boolean useWin32Input = true)
+        public static void Mute(bool useWin32Input = true)
         {
             if (useWin32Input)
             {
@@ -106,7 +103,7 @@ namespace YukiBox.Desktop.Helpers
 
         private static void MuteNAudio()
         {
-            var enumerator = new MMDeviceEnumerator();
+            using var enumerator = new MMDeviceEnumerator();
 
             var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
             if (speakDevices.Count > 0)

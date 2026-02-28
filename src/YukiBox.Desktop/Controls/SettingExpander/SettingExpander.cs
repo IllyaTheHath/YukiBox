@@ -30,7 +30,7 @@ namespace YukiBox.Desktop.Controls
                     var selfSetting = (Setting)self.Header;
                     selfSetting.Style = (Style)App.Current.Resources["ExpanderHeaderSettingStyle"];
 
-                    if (!String.IsNullOrEmpty(selfSetting.Header))
+                    if (!string.IsNullOrEmpty(selfSetting.Header))
                     {
                         AutomationProperties.SetName(self, selfSetting.Header);
                     }

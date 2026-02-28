@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml.Controls;
 
@@ -10,12 +6,12 @@ namespace YukiBox.Desktop.Contracts.Services
 {
     public interface INavigationService
     {
-        String CurrentPageKey { get; }
+        string CurrentPageKey { get; }
 
         void Initialize(Frame shellFrame);
 
-        void NavigateTo(String pageKey);
+        void NavigateTo(string pageKey);
 
-        void NavigateTo(String pageKey, Object parameter);
+        void NavigateTo(string pageKey, object parameter);
     }
 }

@@ -6,15 +6,15 @@ namespace YukiBox.Desktop.Models
 {
     public abstract class MusicPlayer
     {
-        public virtual String Name => this.GetType().AssemblyQualifiedName;
+        public virtual string Name => this.GetType().AssemblyQualifiedName;
 
-        protected abstract String DisplayNameResourceName { get; }
+        protected abstract string DisplayNameResourceName { get; }
 
-        public String DisplayName => I18NSource.Instance[DisplayNameResourceName];
+        public string DisplayName => I18NSource.Instance[DisplayNameResourceName];
 
-        public abstract String GetMusicName();
+        public abstract string GetMusicName();
 
-        public override String ToString()
+        public override string ToString()
         {
             return DisplayName;
         }

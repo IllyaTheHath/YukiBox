@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Drawing;
 
 using CommunityToolkit.Mvvm.Input;
 
 using H.NotifyIcon;
 
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 
 using YukiBox.Desktop.Contracts.Services;

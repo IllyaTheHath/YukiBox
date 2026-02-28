@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-using YukiBox.Desktop.Controls;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Models;
 
@@ -14,14 +10,14 @@ namespace YukiBox.Desktop.Tasks
     public class SearchboxTask : BackgroundTaskBase
     {
         private MusicPlayer _player;
-        private String _defaultText;
-        private Boolean _compatibleStartIsBack;
+        private string _defaultText;
+        private bool _compatibleStartIsBack;
 
         public SearchboxTask() : this(TimeSpan.FromSeconds(1), 0)
         {
         }
 
-        public SearchboxTask(TimeSpan interval, Int32 runCount = 0) : base(interval, runCount)
+        public SearchboxTask(TimeSpan interval, int runCount = 0) : base(interval, runCount)
         {
         }
 
@@ -30,7 +26,7 @@ namespace YukiBox.Desktop.Tasks
             try
             {
                 var playerName = ConfigHelper.CurrentConfig.Taskbar.MusicPlayer;
-                if (!String.IsNullOrEmpty(playerName) && this._player?.Name != playerName)
+                if (!string.IsNullOrEmpty(playerName) && this._player?.Name != playerName)
                 {
                     var type = Type.GetType(playerName);
                     this._player = Activator.CreateInstance(type) as MusicPlayer;
@@ -45,7 +41,7 @@ namespace YukiBox.Desktop.Tasks
             }
         }
 
-        public void ChangeSettings(MusicPlayer player, String text, Boolean compatibleStartIsBack)
+        public void ChangeSettings(MusicPlayer player, string text, bool compatibleStartIsBack)
         {
             this._player = player;
             this._defaultText = text;
@@ -55,7 +51,7 @@ namespace YukiBox.Desktop.Tasks
             if (IsRunning)
             {
                 var musicName = this._player?.GetMusicName();
-                if (String.IsNullOrEmpty(musicName))
+                if (string.IsNullOrEmpty(musicName))
                 {
                     musicName = this._defaultText;
                 }
@@ -63,12 +59,12 @@ namespace YukiBox.Desktop.Tasks
             }
         }
 
-        protected override async Task Action()
+        protected override Task Action()
         {
             if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
             {
                 var musicName = this._player?.GetMusicName();
-                if (String.IsNullOrEmpty(musicName))
+                if (string.IsNullOrEmpty(musicName))
                 {
                     musicName = this._defaultText;
                 }
@@ -86,7 +82,7 @@ namespace YukiBox.Desktop.Tasks
                 ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = false;
             }
 
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         public override void Dispose()

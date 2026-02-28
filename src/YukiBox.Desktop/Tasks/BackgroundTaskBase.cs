@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -10,15 +7,15 @@ namespace YukiBox.Desktop.Tasks
     public abstract class BackgroundTaskBase : IBackgroundTask
     {
         private readonly Timer _timer;
-        private Int32 _alreadyRunCount;
+        private int _alreadyRunCount;
 
         public TimeSpan Interval { get; init; }
 
-        public Int32 RunCount { get; init; }
+        public int RunCount { get; init; }
 
-        public Boolean IsRunning { get; private set; }
+        public bool IsRunning { get; private set; }
 
-        public BackgroundTaskBase(TimeSpan interval, Int32 runCount = 0)
+        public BackgroundTaskBase(TimeSpan interval, int runCount = 0)
         {
             Interval = interval;
             RunCount = runCount;

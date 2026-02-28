@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 
 namespace YukiBox.Desktop.Hooks
 {
@@ -31,6 +28,7 @@ namespace YukiBox.Desktop.Hooks
 
         public void Dispose()
         {
+            WheelVolumeHookHelper.IsEnabled = false;
             MouseHook.Dispose();
         }
     }

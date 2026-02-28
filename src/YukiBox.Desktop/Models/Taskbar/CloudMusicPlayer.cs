@@ -6,31 +6,31 @@ namespace YukiBox.Desktop.Models
 {
     public class CloudMusicPlayer : MusicPlayer
     {
-        //public override String Name => "CloudMusic";
+        //public override string Name => "CloudMusic";
 
-        protected override String DisplayNameResourceName => "Taskbar.Player.CloudMusic";
+        protected override string DisplayNameResourceName => "Taskbar.Player.CloudMusic";
 
-        public override String GetMusicName()
+        public override string GetMusicName()
         {
             var hWnd = PInvoke.FindWindow("OrpheusBrowserHost", null);
             if (hWnd == Windows.Win32.Foundation.HWND.Null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             var bufferSize = PInvoke.GetWindowTextLength(hWnd) + 1;
             unsafe
             {
-                fixed (Char* nameChar = new Char[bufferSize])
+                fixed (char* nameChar = new char[bufferSize])
                 {
                     if (PInvoke.GetWindowText(hWnd, nameChar, bufferSize) > 0)
                     {
-                        return new String(nameChar);
+                        return new string(nameChar);
                     }
                 }
             }
 
-            return String.Empty;
+            return string.Empty;
         }
     }
 }

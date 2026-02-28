@@ -13,7 +13,7 @@ namespace YukiBox.Desktop.Converter
 {
     public class Windows11ToVisibleConverter : IValueConverter
     {
-        public Object Convert(Object value, Type targetType, Object parameter, String language)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             if(value is WindowsVersion version)
             {
@@ -22,7 +22,7 @@ namespace YukiBox.Desktop.Converter
             return Visibility.Collapsed;
         }
 
-        public Object ConvertBack(Object value, Type targetType, Object parameter, String language)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotSupportedException();
         }

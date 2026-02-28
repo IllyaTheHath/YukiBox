@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -14,11 +10,11 @@ namespace YukiBox.Desktop.Services
     public class NavigationService : INavigationService
     {
         private Frame _frame;
-        private Object _lastParameterUsed;
+        private object _lastParameterUsed;
 
         private readonly IPageService _pageService;
 
-        public String CurrentPageKey
+        public string CurrentPageKey
         {
             get
             {
@@ -27,7 +23,7 @@ namespace YukiBox.Desktop.Services
                     return element.DataContext.GetType().FullName;
                 }
 
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -41,12 +37,12 @@ namespace YukiBox.Desktop.Services
             this._frame = shellFrame;
         }
 
-        public void NavigateTo(String pageKey)
+        public void NavigateTo(string pageKey)
         {
             NavigateTo(pageKey, null);
         }
 
-        public void NavigateTo(String pageKey, Object parameter)
+        public void NavigateTo(string pageKey, object parameter)
         {
             if (this._frame is null)
             {

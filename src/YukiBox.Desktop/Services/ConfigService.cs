@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Windows.Storage;
+﻿using System.Threading.Tasks;
 
 using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;

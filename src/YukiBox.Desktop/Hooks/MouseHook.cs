@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 
 using Windows.Win32;
@@ -12,32 +11,28 @@ namespace YukiBox.Desktop.Hooks
 {
     internal class MouseHook : IDisposable
     {
-        private Boolean _disposed;
+        private bool _disposed;
 
         private UnhookWindowsHookExSafeHandle _handle = new UnhookWindowsHookExSafeHandle(IntPtr.Zero);
         private HOOKPROC _hookProc;
 
-        public delegate void MouseHookCallback(MOUSEINPUT input);
-
-        public delegate void MouseHookWheelCallback(MOUSEINPUT input, Int16 delta);
-
         #region Events
 
-        public event MouseHookCallback LeftButtonDown;
+        public event Action<MOUSEINPUT> LeftButtonDown;
 
-        public event MouseHookCallback LeftButtonUp;
+        public event Action<MOUSEINPUT> LeftButtonUp;
 
-        public event MouseHookCallback RightButtonDown;
+        public event Action<MOUSEINPUT> RightButtonDown;
 
-        public event MouseHookCallback RightButtonUp;
+        public event Action<MOUSEINPUT> RightButtonUp;
 
-        public event MouseHookCallback MiddleButtonDown;
+        public event Action<MOUSEINPUT> MiddleButtonDown;
 
-        public event MouseHookCallback MiddleButtonUp;
+        public event Action<MOUSEINPUT> MiddleButtonUp;
 
-        public event MouseHookCallback MouseMove;
+        public event Action<MOUSEINPUT> MouseMove;
 
-        public event MouseHookWheelCallback MouseWheel;
+        public event Action<MOUSEINPUT, short> MouseWheel;
 
         #endregion Events
 
@@ -62,7 +57,7 @@ namespace YukiBox.Desktop.Hooks
             return PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, proc, hMod, 0);
         }
 
-        private LRESULT MouseProc(Int32 nCode, WPARAM wParam, LPARAM lParam)
+        private LRESULT MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
         {
             if (nCode < 0)
             {
@@ -71,7 +66,7 @@ namespace YukiBox.Desktop.Hooks
 
             if (nCode == PInvoke.HC_ACTION)
             {
-                var mouseEvent = (UInt32)wParam;
+                var mouseEvent = (uint)wParam;
                 var mouseInput = (MOUSEINPUT)Marshal.PtrToStructure(lParam, typeof(MOUSEINPUT));
                 switch (mouseEvent)
                 {
@@ -104,7 +99,7 @@ namespace YukiBox.Desktop.Hooks
                         break;
 
                     case PInvoke.WM_MOUSEWHEEL:
-                        var delta = (Int16)(mouseInput.mouseData >> 16);
+                        var delta = (short)(mouseInput.mouseData >> 16);
                         MouseWheel?.Invoke(mouseInput, delta);
                         break;
 
@@ -122,7 +117,7 @@ namespace YukiBox.Desktop.Hooks
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(Boolean disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!this._disposed)
             {

@@ -1,33 +1,30 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
 
 using Microsoft.UI.Xaml.Markup;
 
-using YukiBox.Desktop.Contracts.Services;
-
 namespace YukiBox.Desktop.Helpers
 {
-    [MarkupExtensionReturnType(ReturnType = typeof(String))]
+    [MarkupExtensionReturnType(ReturnType = typeof(string))]
     public class I18N : MarkupExtension
     {
-        public String Code { get; set; }
+        public string Code { get; set; }
 
         public I18N() : base()
         {
         }
 
-        public I18N(String code) : base()
+        public I18N(string code) : base()
         {
             Code = code;
         }
 
-        protected override Object ProvideValue()
+        protected override object ProvideValue()
         {
-            return !String.IsNullOrEmpty(Code) ? I18NSource.Instance[Code] : String.Empty;
+            return !string.IsNullOrEmpty(Code) ? I18NSource.Instance[Code] : string.Empty;
         }
     }
 
@@ -35,9 +32,9 @@ namespace YukiBox.Desktop.Helpers
     {
         public CultureInfo CultureInfo { get; private set; }
 
-        public String DisplayName { get; private set; }
+        public string DisplayName { get; private set; }
 
-        public String LanguageName { get; private set; }
+        public string LanguageName { get; private set; }
 
         public LanguageInfo(CultureInfo cultureInfo)
         {
@@ -45,9 +42,9 @@ namespace YukiBox.Desktop.Helpers
             Initialize();
         }
 
-        public LanguageInfo(String cultureName)
+        public LanguageInfo(string cultureName)
         {
-            if (!String.IsNullOrEmpty(cultureName))
+            if (!string.IsNullOrEmpty(cultureName))
             {
                 CultureInfo = new CultureInfo(cultureName);
             }
@@ -64,11 +61,11 @@ namespace YukiBox.Desktop.Helpers
             else
             {
                 DisplayName = Properties.Strings.System_Language_Default;
-                LanguageName = String.Empty;
+                LanguageName = string.Empty;
             }
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             return DisplayName;
         }
@@ -80,7 +77,7 @@ namespace YukiBox.Desktop.Helpers
 
         public static I18NSource Instance { get { return lazy.Value; } }
 
-        public String this[String key]
+        public string this[string key]
         {
             get
             {
@@ -136,7 +133,7 @@ namespace YukiBox.Desktop.Helpers
         {
             var supportedLanguages = new ObservableCollection<LanguageInfo>
             {
-                new LanguageInfo(String.Empty)
+                new LanguageInfo(string.Empty)
             };
 
             var resourceManager = Properties.Strings.ResourceManager;

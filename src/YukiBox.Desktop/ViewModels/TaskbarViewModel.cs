@@ -29,25 +29,25 @@ namespace YukiBox.Desktop.ViewModels
             set => SetProperty(ref this._selectedPlayer, value);
         }
 
-        private Boolean _enableMusicUpdate;
+        private bool _enableMusicUpdate;
 
-        public Boolean EnableMusicUpdate
+        public bool EnableMusicUpdate
         {
             get => this._enableMusicUpdate;
             set => SetProperty(ref this._enableMusicUpdate, value);
         }
 
-        private Boolean _compatibleStartIsBack;
+        private bool _compatibleStartIsBack;
 
-        public Boolean CompatibleStartIsBack
+        public bool CompatibleStartIsBack
         {
             get => this._compatibleStartIsBack;
             set => SetProperty(ref this._compatibleStartIsBack, value);
         }
 
-        public String _searchBoxTextDefault;
+        private string _searchBoxTextDefault;
 
-        public String SearchBoxTextDefault
+        public string SearchBoxTextDefault
         {
             get => this._searchBoxTextDefault;
             set => SetProperty(ref this._searchBoxTextDefault, value);
@@ -56,9 +56,9 @@ namespace YukiBox.Desktop.ViewModels
         private ICommand _saveChangeSearchbox;
         public ICommand SaveChangeSearchbox => this._saveChangeSearchbox ??= new RelayCommand(PerformSaveChangeSearchbox);
 
-        private Boolean _enableWheelVolume;
+        private bool _enableWheelVolume;
 
-        public Boolean EnableWheelVolume
+        public bool EnableWheelVolume
         {
             get => this._enableWheelVolume;
             set

@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
-
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 
 namespace YukiBox.Desktop
 {
@@ -23,12 +12,12 @@ namespace YukiBox.Desktop
     /// </summary>
     public partial class App : Application
     {
-        public const String AppName = "YukiBox.Desktop";
-        public const String AppDisplayName = "YukiBox";
-        public const String AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
+        public const string AppName = "YukiBox.Desktop";
+        public const string AppDisplayName = "YukiBox";
+        public const string AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
 
-        public static Boolean Exiting { get; private set; }
-        public static String AppVersion
+        public static bool Exiting { get; private set; }
+        public static string AppVersion
         {
             get => Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }

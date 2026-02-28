@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace YukiBox.Desktop.Models
 {
     public class AboutThirdPartyItem
     {
-        public String ProjectName { get; set; }
+        public string ProjectName { get; set; }
 
-        public String Website { get; set; }
+        public string Website { get; set; }
 
-        public String LicenseUrl { get; set; }
+        public string LicenseUrl { get; set; }
 
         public AboutThirdPartyItem()
         {
         }
 
-        public AboutThirdPartyItem(String projectName, String website, String licenseUrl)
+        public AboutThirdPartyItem(string projectName, string website, string licenseUrl)
         {
             ProjectName = projectName;
             Website = website;

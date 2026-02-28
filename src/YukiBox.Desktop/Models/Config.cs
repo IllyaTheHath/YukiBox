@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using YukiBox.Desktop.Helpers;
-using YukiBox.Desktop.Models;
 
 namespace YukiBox.Desktop.Models
 {
@@ -24,42 +19,42 @@ namespace YukiBox.Desktop.Models
 
     public class Config_System
     {
-        public String Language
+        public string Language
         {
-            get => LocalSettingHelper.Get<String>();
+            get => LocalSettingHelper.Get<string>();
             set => LocalSettingHelper.Set(value);
         }
     }
 
     public class Config_Taskbar
     {
-        public String SearchBoxTextDefault
+        public string SearchBoxTextDefault
         {
-            get => LocalSettingHelper.Get<String>();
+            get => LocalSettingHelper.Get<string>();
             set => LocalSettingHelper.Set(value);
         }
 
-        public Boolean SearchBoxTextUpdateEnable
+        public bool SearchBoxTextUpdateEnable
         {
-            get => LocalSettingHelper.Get<Boolean>();
+            get => LocalSettingHelper.Get<bool>();
             set => LocalSettingHelper.Set(value);
         }
 
-        public Boolean CompatibleStartIsBack
+        public bool CompatibleStartIsBack
         {
-            get => LocalSettingHelper.Get<Boolean>();
+            get => LocalSettingHelper.Get<bool>();
             set => LocalSettingHelper.Set(value);
         }
 
-        public String MusicPlayer
+        public string MusicPlayer
         {
-            get => LocalSettingHelper.Get<String>();
+            get => LocalSettingHelper.Get<string>();
             set => LocalSettingHelper.Set(value);
         }
 
-        public Boolean WheelVolumeEnable
+        public bool WheelVolumeEnable
         {
-            get => LocalSettingHelper.Get<Boolean>();
+            get => LocalSettingHelper.Get<bool>();
             set => LocalSettingHelper.Set(value);
         }
     }

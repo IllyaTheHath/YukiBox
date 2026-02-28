@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -24,9 +19,9 @@ namespace YukiBox.Desktop.ViewModels
     {
         private readonly IContentDialogService _contentDialogService;
 
-        private Boolean _enableStartUp;
+        private bool _enableStartUp;
 
-        public Boolean EnableStartUp
+        public bool EnableStartUp
         {
             get => this._enableStartUp;
             set
@@ -35,7 +30,7 @@ namespace YukiBox.Desktop.ViewModels
                 {
                     SetToggleEnableStartUp(this._enableStartUp);
                 }
-                async void SetToggleEnableStartUp(Boolean flag)
+                async void SetToggleEnableStartUp(bool flag)
                 {
                     var success = await ToggleEnableStartUp(value);
                     SetProperty(ref this._enableStartUp, await GetEnableStartUp());
@@ -69,7 +64,7 @@ namespace YukiBox.Desktop.ViewModels
             App.Exit();
         }
 
-        private async Task<Boolean> GetEnableStartUp()
+        private async Task<bool> GetEnableStartUp()
         {
             try
             {
@@ -83,7 +78,7 @@ namespace YukiBox.Desktop.ViewModels
             }
         }
 
-        private async Task<Boolean> ToggleEnableStartUp(Boolean enableStartUp)
+        private async Task<bool> ToggleEnableStartUp(bool enableStartUp)
         {
             try
             {

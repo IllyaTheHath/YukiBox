@@ -22,13 +22,13 @@ namespace YukiBox.Desktop.Controls
 {
     public sealed partial class SettingsPageControl : UserControl
     {
-        public Object ModuleContent
+        public object ModuleContent
         {
             get { return GetValue(ModuleContentProperty); }
             set { SetValue(ModuleContentProperty, value); }
         }
 
-        public static readonly DependencyProperty ModuleContentProperty = DependencyProperty.Register("ModuleContent", typeof(Object), typeof(SettingsPageControl), new PropertyMetadata(new Grid()));
+        public static readonly DependencyProperty ModuleContentProperty = DependencyProperty.Register("ModuleContent", typeof(object), typeof(SettingsPageControl), new PropertyMetadata(new Grid()));
 
         public SettingsPageControl()
         {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml.Controls;
 
@@ -12,9 +8,9 @@ namespace YukiBox.Desktop.Contracts.Services
 {
     public interface IPageService
     {
-        Type GetPageType(String key);
+        Type GetPageType(string key);
 
-        Page GetPage(String key);
+        Page GetPage(string key);
 
         void Configure<VM, V>()
             where VM : ViewModelBase

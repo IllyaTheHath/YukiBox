@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using YukiBox.Desktop.Contracts.Services;
@@ -11,13 +8,13 @@ namespace YukiBox.Desktop.Services
 {
     public class FileStoreService : IFileStoreService
     {
-        public Byte[] Read(String folderPath, String fileName)
+        public byte[] Read(string folderPath, string fileName)
         {
             var path = Path.Combine(folderPath, fileName);
             if (File.Exists(path))
             {
                 using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                var bytes = new Byte[fs.Length];
+                var bytes = new byte[fs.Length];
                 fs.Read(bytes);
                 return bytes;
             }
@@ -25,13 +22,13 @@ namespace YukiBox.Desktop.Services
             return null;
         }
 
-        public async Task<Byte[]> ReadAsync(String folderPath, String fileName)
+        public async Task<byte[]> ReadAsync(string folderPath, string fileName)
         {
             var path = Path.Combine(folderPath, fileName);
             if (File.Exists(path))
             {
                 using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                var bytes = new Byte[fs.Length];
+                var bytes = new byte[fs.Length];
                 await fs.ReadAsync(bytes);
                 return bytes;
             }
@@ -39,7 +36,7 @@ namespace YukiBox.Desktop.Services
             return null;
         }
 
-        public void Save(String folderPath, String fileName, Byte[] content)
+        public void Save(string folderPath, string fileName, byte[] content)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -51,7 +48,7 @@ namespace YukiBox.Desktop.Services
             fs.Write(content);
         }
 
-        public async Task SaveAsync(String folderPath, String fileName, Byte[] content)
+        public async Task SaveAsync(string folderPath, string fileName, byte[] content)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -63,7 +60,7 @@ namespace YukiBox.Desktop.Services
             await fs.WriteAsync(content);
         }
 
-        public void DeleteFile(String folderPath, String fileName)
+        public void DeleteFile(string folderPath, string fileName)
         {
             var path = Path.Combine(folderPath, fileName);
             if (File.Exists(path))
@@ -72,7 +69,7 @@ namespace YukiBox.Desktop.Services
             }
         }
 
-        public void DeleteFolder(String folderPath)
+        public void DeleteFolder(string folderPath)
         {
             if (Directory.Exists(folderPath))
             {

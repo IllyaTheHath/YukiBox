@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Windows.Win32;
 
@@ -10,36 +6,42 @@ namespace YukiBox.Desktop.Helpers
 {
     public static class SearchboxHelper
     {
-        public static String GetSearchboxText()
+        public static string GetSearchboxText()
         {
             var taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
             if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             var searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null , "TrayDummySearchControl", null);
             if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             var searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
             if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
-            Windows.Win32.Foundation.PWSTR text = default;
-            if (PInvoke.GetWindowText(searchBoxTextHWnd, text, 0) > 0)
+            var bufferSize = PInvoke.GetWindowTextLength(searchBoxTextHWnd) + 1;
+            unsafe
             {
-                return text.ToString();
+                fixed (char* nameChar = new char[bufferSize])
+                {
+                    if (PInvoke.GetWindowText(searchBoxTextHWnd, nameChar, bufferSize) > 0)
+                    {
+                        return new string(nameChar);
+                    }
+                }
             }
 
-            return String.Empty;
+            return string.Empty;
         }
 
-        public static Boolean SetSearchboxText(String text, Boolean compatibleStartIsBack)
+        public static bool SetSearchboxText(string text, bool compatibleStartIsBack)
         {
             var taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
             if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)

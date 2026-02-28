@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.UI.Xaml;
@@ -20,7 +17,7 @@ namespace YukiBox.Desktop.Services
             this._mainXamlRoot = mainXamlRoot;
         }
 
-        public async Task<ContentDialogResult> ShowAsync(String title, String content, String closeButtonText, String primaryButtonText = null, String secondaryButtonText = null)
+        public async Task<ContentDialogResult> ShowAsync(string title, string content, string closeButtonText, string primaryButtonText = null, string secondaryButtonText = null)
         {
             var dialog = new ContentDialog()
             {

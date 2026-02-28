@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -11,9 +7,9 @@ namespace YukiBox.Desktop.Hooks
 {
     public abstract class HookHelperBase : ObservableObject
     {
-        private Boolean _isEnabled;
+        private bool _isEnabled;
 
-        public Boolean IsEnabled
+        public bool IsEnabled
         {
             get => this._isEnabled;
             set

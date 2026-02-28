@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 using Windows.Foundation;
 
@@ -19,7 +13,7 @@ namespace YukiBox.Desktop.Hooks
 {
     public class WheelVolumeHookHelper : HookHelperBase
     {
-        private const String _taskbarClassName = "Shell_TrayWnd";
+        private const string _taskbarClassName = "Shell_TrayWnd";
 
         public override void Initialize()
         {
@@ -30,7 +24,7 @@ namespace YukiBox.Desktop.Hooks
             }
         }
 
-        private void MouseWheel(MOUSEINPUT input, Int16 delta)
+        private void MouseWheel(MOUSEINPUT input, short delta)
         {
             var shouldAction = !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
             if (shouldAction)
@@ -53,7 +47,7 @@ namespace YukiBox.Desktop.Hooks
             }
         }
 
-        private Boolean IsWindowsFullScreen(IntPtr hwnd)
+        private bool IsWindowsFullScreen(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
             {
@@ -72,7 +66,7 @@ namespace YukiBox.Desktop.Hooks
             return false;
         }
 
-        private Boolean IsForegroundWindowFullScreen()
+        private bool IsForegroundWindowFullScreen()
         {
             var hwnd = PInvoke.GetForegroundWindow();
             var shellHwnd = PInvoke.GetShellWindow();
@@ -91,7 +85,7 @@ namespace YukiBox.Desktop.Hooks
             return new Size(width, height);
         }
 
-        private Boolean IsMouseOverTaskbar(Double x, Double y)
+        private bool IsMouseOverTaskbar(double x, double y)
         {
             var taskbarRect = GetTaskbarLocation();
             return taskbarRect.Contains(new Point(x, y));

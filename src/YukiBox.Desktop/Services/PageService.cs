@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using CommunityToolkit.Mvvm.DependencyInjection;
 
@@ -15,14 +13,14 @@ namespace YukiBox.Desktop.Services
 {
     public class PageService : IPageService
     {
-        private readonly Dictionary<String, Type> _pages;
+        private readonly Dictionary<string, Type> _pages;
 
         public PageService()
         {
             this._pages = new();
         }
 
-        public Type GetPageType(String key)
+        public Type GetPageType(string key)
         {
             Type pageType = null;
             lock (this._pages)
@@ -33,7 +31,7 @@ namespace YukiBox.Desktop.Services
             return pageType;
         }
 
-        public Page GetPage(String key)
+        public Page GetPage(string key)
         {
             var pageType = GetPageType(key);
             if (pageType is null)

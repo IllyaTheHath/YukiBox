@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -11,7 +8,7 @@ namespace YukiBox.Desktop.Helpers
 {
     public static class LocalSettingHelper
     {
-        public static T Get<T>([CallerMemberName] String key = "")
+        public static T Get<T>([CallerMemberName] string key = "")
         {
             try
             {
@@ -31,7 +28,7 @@ namespace YukiBox.Desktop.Helpers
             return default;
         }
 
-        public static Boolean Set<T>(T value, [CallerMemberName] String key = "")
+        public static bool Set<T>(T value, [CallerMemberName] string key = "")
         {
             try
             {

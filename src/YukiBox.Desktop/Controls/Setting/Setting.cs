@@ -16,8 +16,8 @@ namespace YukiBox.Desktop.Controls
     [TemplatePart(Name = PartDescriptionPresenter, Type = typeof(ContentPresenter))]
     public class Setting : ContentControl
     {
-        private const String PartIconPresenter = "IconPresenter";
-        private const String PartDescriptionPresenter = "DescriptionPresenter";
+        private const string PartIconPresenter = "IconPresenter";
+        private const string PartDescriptionPresenter = "DescriptionPresenter";
         private ContentPresenter _iconPresenter;
         private ContentPresenter _descriptionPresenter;
         private Setting _setting;
@@ -41,49 +41,49 @@ namespace YukiBox.Desktop.Controls
 
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
            "Header",
-           typeof(String),
+           typeof(string),
            typeof(Setting),
-           new PropertyMetadata(default(String), OnHeaderChanged));
+           new PropertyMetadata(default(string), OnHeaderChanged));
 
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
             "Description",
-            typeof(Object),
+            typeof(object),
             typeof(Setting),
             new PropertyMetadata(null, OnDescriptionChanged));
 
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
             "Icon",
-            typeof(Object),
+            typeof(object),
             typeof(Setting),
-            new PropertyMetadata(default(String), OnIconChanged));
+            new PropertyMetadata(default(string), OnIconChanged));
 
         public static readonly DependencyProperty ActionContentProperty = DependencyProperty.Register(
             "ActionContent",
-            typeof(Object),
+            typeof(object),
             typeof(Setting),
             null);
 
         [Localizable(true)]
-        public String Header
+        public string Header
         {
-            get => (String)GetValue(HeaderProperty);
+            get => (string)GetValue(HeaderProperty);
             set => SetValue(HeaderProperty, value);
         }
 
         [Localizable(true)]
-        public Object Description
+        public object Description
         {
             get => GetValue(DescriptionProperty);
             set => SetValue(DescriptionProperty, value);
         }
 
-        public Object Icon
+        public object Icon
         {
             get => GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
 
-        public Object ActionContent
+        public object ActionContent
         {
             get => GetValue(ActionContentProperty);
             set => SetValue(ActionContentProperty, value);
@@ -104,7 +104,7 @@ namespace YukiBox.Desktop.Controls
             ((Setting)d).Update();
         }
 
-        private void Setting_IsEnabledChanged(Object sender, DependencyPropertyChangedEventArgs e)
+        private void Setting_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             SetEnabledState();
         }
@@ -126,7 +126,7 @@ namespace YukiBox.Desktop.Controls
                 if (this._setting.ActionContent.GetType() != typeof(Button))
                 {
                     // We do not want to override the default AutomationProperties.Name of a button. Its Content property already describes what it does.
-                    if (!String.IsNullOrEmpty(this._setting.Header))
+                    if (!string.IsNullOrEmpty(this._setting.Header))
                     {
                         AutomationProperties.SetName((UIElement)this._setting.ActionContent, this._setting.Header);
                     }

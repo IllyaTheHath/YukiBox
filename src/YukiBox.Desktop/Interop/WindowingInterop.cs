@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.Win32.SafeHandles;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -54,7 +48,7 @@ namespace YukiBox.Desktop.Interop
             }
         }
 
-        public static void SetIcon(this Window window, String icon)
+        public static void SetIcon(this Window window, string icon)
         {
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
             var hIcon = PInvoke.LoadImage(null, icon, Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE.IMAGE_ICON,
