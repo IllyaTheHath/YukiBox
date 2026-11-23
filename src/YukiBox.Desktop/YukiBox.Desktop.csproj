@@ -14,6 +14,13 @@
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <!-- 临时：升级 .NET 10 前关闭从 Directory.Build.props 继承的设置，升级时移除并修复相应代码 -->
+  <PropertyGroup>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
   <PropertyGroup>
     <Authors>IllyaTheHath</Authors>
     <Description>An application thats contains sort of tools.</Description>
@@ -31,8 +38,7 @@
   <PropertyGroup>
     <GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
-    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateThumbprint>221B3804D00D54F604D7CA6545152690F3D2F055</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
@@ -111,26 +117,21 @@
     <Content Include="Assets\PackageImages\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\PackageImages\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\PackageImages\Wide310x150Logo.scale-400.png" />
-    <None Include="YukiBox.Desktop_TemporaryKey.pfx" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.131" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="H.NotifyIcon.WinUI" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Windows.CsWin32">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
-    <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240607001" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" />
+    <PackageReference Include="NAudio" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
     <Manifest Include="$(ApplicationManifest)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ThirdParty\NotifyIcon.FSharp\src\NotifyIcon.FSharp\NotifyIcon.FSharp.fsproj" />
   </ItemGroup>
 
   <ItemGroup>
