@@ -10,12 +10,12 @@
 
   <Identity
     Name="YukiBox"
-    Publisher="CN=神楽千雪"
-    Version="1.3.2.0" />
+    Publisher="CN=IllyaTheHath"
+    Version="2.0.0.0" />
 
   <Properties>
     <DisplayName>YukiBox</DisplayName>
-    <PublisherDisplayName>神楽千雪</PublisherDisplayName>
+    <PublisherDisplayName>IllyaTheHath</PublisherDisplayName>
     <Logo>Assets\PackageImages\StoreLogo.png</Logo>
   </Properties>
 
