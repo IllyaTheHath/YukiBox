@@ -55,6 +55,12 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
 
+  <!-- Debug 使用独立的包标识，避免覆盖已安装的正式版 -->
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" Condition="'$(Configuration)' != 'Debug'" />
+    <AppxManifest Include="Package.Debug.appxmanifest" Condition="'$(Configuration)' == 'Debug'" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Remove="Assets\Images\logo.ico" />
     <None Remove="Controls\ControlStyles.xaml" />
