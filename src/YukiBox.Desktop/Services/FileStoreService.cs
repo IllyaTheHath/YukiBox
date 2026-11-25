@@ -15,7 +15,7 @@ namespace YukiBox.Desktop.Services
             {
                 using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 var bytes = new byte[fs.Length];
-                fs.Read(bytes);
+                fs.ReadExactly(bytes);
                 return bytes;
             }
 
@@ -29,7 +29,7 @@ namespace YukiBox.Desktop.Services
             {
                 using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 var bytes = new byte[fs.Length];
-                await fs.ReadAsync(bytes);
+                await fs.ReadExactlyAsync(bytes);
                 return bytes;
             }
 

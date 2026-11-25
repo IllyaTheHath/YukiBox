@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace YukiBox.Desktop.Tasks
 {

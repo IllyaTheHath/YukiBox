@@ -16,11 +16,9 @@
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <!-- 临时：升级 .NET 10 前关闭从 Directory.Build.props 继承的设置，升级时移除并修复相应代码 -->
+  <!-- 临时：关闭从 Directory.Build.props 继承的 Nullable，调整架构时移除并修复相应代码 -->
   <PropertyGroup>
     <Nullable>disable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup>
