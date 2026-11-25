@@ -1,10 +1,7 @@
-{
+﻿{
   "profiles": {
     "YukiBox.Desktop (Package)": {
       "commandName": "MsixPackage"
-    },
-    "YukiBox.Desktop (Unpackaged)": {
-      "commandName": "Project"
     }
   }
 }

@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <AssemblyName>YukiBox</AssemblyName>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <UseWinUI>true</UseWinUI>
     <Platforms>x64;arm64</Platforms>
     <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
-    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'x64'">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'arm64'">win-arm64</RuntimeIdentifier>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">true</PublishReadyToRun>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -23,35 +25,26 @@
 
   <PropertyGroup>
     <Authors>IllyaTheHath</Authors>
-    <Description>An application thats contains sort of tools.</Description>
-    <Copyright>Copyright © 2024 IllyaTheHath</Copyright>
-    <PackageProjectUrl>https://github.com/IllyaTheHath/YukiBox</PackageProjectUrl>
+    <Description>A collection of small desktop tools.</Description>
+    <Copyright>Copyright © 2026 IllyaTheHath</Copyright>
     <RepositoryUrl>https://github.com/IllyaTheHath/YukiBox</RepositoryUrl>
-    <FileVersion>2.0.0.0</FileVersion>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <Version>2.0.0</Version>
-    <PackageIcon>Assets\Images\logo.ico</PackageIcon>
-    <PackageLicenseExpression>https://github.com/IllyaTheHath/YukiBox/blob/main/LICENSE</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup>
     <GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
-    <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+    <EnableMsixTooling>true</EnableMsixTooling>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
-    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <AppxPackageDir>D:\Project\YukiBox\src\YukiBox.Desktop\bin\AppPackages\</AppxPackageDir>
-    <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
+    <AppxPackageDir>$(ArtifactsPath)\AppPackages\</AppxPackageDir>
   </PropertyGroup>
 
 
-  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
   </ItemGroup>
 
@@ -59,70 +52,6 @@
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" Condition="'$(Configuration)' != 'Debug'" />
     <AppxManifest Include="Package.Debug.appxmanifest" Condition="'$(Configuration)' == 'Debug'" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Assets\Images\logo.ico" />
-    <None Remove="Controls\ControlStyles.xaml" />
-    <None Remove="Controls\SettingsGroup\SettingsGroup.xaml" />
-    <None Remove="Controls\SettingsPageControl\SettingsPageControl.xaml" />
-    <None Remove="Controls\Setting\Setting.xaml" />
-    <None Remove="Themes\Generic.xaml" />
-    <None Remove="Themes\Theme.xaml" />
-    <None Remove="Views\AnimeViewShell.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\PackageImages\LargeTile.scale-100.png" />
-    <Content Include="Assets\PackageImages\LargeTile.scale-125.png" />
-    <Content Include="Assets\PackageImages\LargeTile.scale-150.png" />
-    <Content Include="Assets\PackageImages\LargeTile.scale-200.png" />
-    <Content Include="Assets\PackageImages\LargeTile.scale-400.png" />
-    <Content Include="Assets\PackageImages\SmallTile.scale-100.png" />
-    <Content Include="Assets\PackageImages\SmallTile.scale-125.png" />
-    <Content Include="Assets\PackageImages\SmallTile.scale-150.png" />
-    <Content Include="Assets\PackageImages\SmallTile.scale-200.png" />
-    <Content Include="Assets\PackageImages\SmallTile.scale-400.png" />
-    <Content Include="Assets\PackageImages\SplashScreen.scale-100.png" />
-    <Content Include="Assets\PackageImages\SplashScreen.scale-125.png" />
-    <Content Include="Assets\PackageImages\SplashScreen.scale-150.png" />
-    <Content Include="Assets\PackageImages\SplashScreen.scale-200.png" />
-    <Content Include="Assets\PackageImages\SplashScreen.scale-400.png" />
-    <Content Include="Assets\PackageImages\Square150x150Logo.scale-100.png" />
-    <Content Include="Assets\PackageImages\Square150x150Logo.scale-125.png" />
-    <Content Include="Assets\PackageImages\Square150x150Logo.scale-150.png" />
-    <Content Include="Assets\PackageImages\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\PackageImages\Square150x150Logo.scale-400.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-unplated_targetsize-16.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-unplated_targetsize-256.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-unplated_targetsize-32.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.altform-unplated_targetsize-48.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.scale-100.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.scale-125.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.scale-150.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.scale-400.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.targetsize-16.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.targetsize-24.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.targetsize-256.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.targetsize-32.png" />
-    <Content Include="Assets\PackageImages\Square44x44Logo.targetsize-48.png" />
-    <Content Include="Assets\PackageImages\StoreLogo.scale-100.png" />
-    <Content Include="Assets\PackageImages\StoreLogo.scale-125.png" />
-    <Content Include="Assets\PackageImages\StoreLogo.scale-150.png" />
-    <Content Include="Assets\PackageImages\StoreLogo.scale-200.png" />
-    <Content Include="Assets\PackageImages\StoreLogo.scale-400.png" />
-    <Content Include="Assets\PackageImages\Wide310x150Logo.scale-100.png" />
-    <Content Include="Assets\PackageImages\Wide310x150Logo.scale-125.png" />
-    <Content Include="Assets\PackageImages\Wide310x150Logo.scale-150.png" />
-    <Content Include="Assets\PackageImages\Wide310x150Logo.scale-200.png" />
-    <Content Include="Assets\PackageImages\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -155,52 +84,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Assets\Images\logo.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Assets\Images\logo.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Themes\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Controls\ControlStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Controls\Setting\Setting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Controls\SettingsGroup\SettingsGroup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Controls\SettingsPageControl\SettingsPageControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
 </Project>
