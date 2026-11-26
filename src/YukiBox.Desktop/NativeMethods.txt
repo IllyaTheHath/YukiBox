@@ -1,16 +1,15 @@
 ﻿CallNextHookEx
 DestroyIcon
-FindWindow
-GetDesktopWindow
-GetForegroundWindow
+GetAncestor
+GetClassName
 GetModuleHandle
-GetShellWindow
-GetSystemMetrics
-GetWindowRect
 LoadImage
 SendInput
 SendMessage
 SetWindowsHookEx
+WindowFromPoint
+
+MSLLHOOKSTRUCT
 
 ICON_SMALL
 HC_ACTION

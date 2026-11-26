@@ -1,7 +1,7 @@
-﻿using Windows.Foundation;
+﻿using System.Drawing;
+
 using Windows.Win32;
 using Windows.Win32.Foundation;
-using Windows.Win32.UI.Input.KeyboardAndMouse;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 using YukiBox.Desktop.Helpers;
@@ -11,6 +11,7 @@ namespace YukiBox.Desktop.Hooks;
 public class WheelVolumeHookHelper : HookHelperBase
 {
     private const string TaskbarClassName = "Shell_TrayWnd";
+    private const string SecondaryTaskbarClassName = "Shell_SecondaryTrayWnd";
 
     public bool IsAdjustEnabled { get; set; }
 
@@ -38,9 +39,9 @@ public class WheelVolumeHookHelper : HookHelperBase
         HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
     }
 
-    private void MouseWheel(MOUSEINPUT input, short delta)
+    private void MouseWheel(MSLLHOOKSTRUCT mouseInfo, short delta)
     {
-        bool shouldAction = IsAdjustEnabled && !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
+        bool shouldAction = IsAdjustEnabled && IsPointOverTaskbar(mouseInfo.pt);
         if (shouldAction)
         {
             bool up = (delta > 0) != IsReversed;
@@ -52,65 +53,28 @@ public class WheelVolumeHookHelper : HookHelperBase
         }
     }
 
-    private void MouseMiddleButton(MOUSEINPUT input)
+    private void MouseMiddleButton(MSLLHOOKSTRUCT mouseInfo)
     {
-        bool shouldAction = IsMiddleClickMuteEnabled && !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
+        bool shouldAction = IsMiddleClickMuteEnabled && IsPointOverTaskbar(mouseInfo.pt);
         if (shouldAction)
         {
             AudioDeviceHelper.Mute(true);
         }
     }
 
-    private bool IsWindowsFullScreen(nint hwnd)
+    private bool IsPointOverTaskbar(Point point)
     {
-        if (hwnd != nint.Zero)
-        {
-            if (PInvoke.GetWindowRect(new HWND(hwnd), out RECT rect))
-            {
-                Size screenSize = GetScreenSize();
-                if (rect.top == 0 &&
-                    rect.left == 0 &&
-                    rect.bottom == screenSize.Height &&
-                    rect.right == screenSize.Width)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private bool IsForegroundWindowFullScreen()
-    {
-        HWND hwnd = PInvoke.GetForegroundWindow();
-        HWND shellHwnd = PInvoke.GetShellWindow();
-        HWND desktopHwnd = PInvoke.GetDesktopWindow();
-        if (hwnd == shellHwnd || hwnd == desktopHwnd)
+        HWND hwnd = PInvoke.WindowFromPoint(point);
+        if (hwnd == HWND.Null)
         {
             return false;
         }
-        bool isFullScreen = IsWindowsFullScreen(hwnd);
-        return isFullScreen;
-    }
 
-    private Size GetScreenSize()
-    {
-        int width = PInvoke.GetSystemMetrics(SYSTEM_METRICS_INDEX.SM_CXSCREEN);
-        int height = PInvoke.GetSystemMetrics(SYSTEM_METRICS_INDEX.SM_CYSCREEN);
-        return new Size(width, height);
-    }
-
-    private bool IsMouseOverTaskbar(double x, double y)
-    {
-        Rect taskbarRect = GetTaskbarLocation();
-        bool isOverTaskbar = taskbarRect.Contains(new Point(x, y));
-        return isOverTaskbar;
-    }
-
-    private Rect GetTaskbarLocation()
-    {
-        HWND hwnd = PInvoke.FindWindow(TaskbarClassName, null);
-        bool hasRect = PInvoke.GetWindowRect(hwnd, out RECT rect);
-        return hasRect ? new Rect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top) : new Rect();
+        HWND rootHwnd = PInvoke.GetAncestor(hwnd, GET_ANCESTOR_FLAGS.GA_ROOT);
+        Span<char> buffer = stackalloc char[256];
+        int length = PInvoke.GetClassName(rootHwnd, buffer);
+        string className = new(buffer[..length]);
+        bool isTaskbar = className is TaskbarClassName or SecondaryTaskbarClassName;
+        return isTaskbar;
     }
 }

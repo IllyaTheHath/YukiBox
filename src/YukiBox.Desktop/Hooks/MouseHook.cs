@@ -3,28 +3,27 @@ using System.Runtime.InteropServices;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
-using Windows.Win32.UI.Input.KeyboardAndMouse;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace YukiBox.Desktop.Hooks;
 
 internal class MouseHook : IDisposable
 {
-    public event Action<MOUSEINPUT> LeftButtonDown;
+    public event Action<MSLLHOOKSTRUCT> LeftButtonDown;
 
-    public event Action<MOUSEINPUT> LeftButtonUp;
+    public event Action<MSLLHOOKSTRUCT> LeftButtonUp;
 
-    public event Action<MOUSEINPUT> RightButtonDown;
+    public event Action<MSLLHOOKSTRUCT> RightButtonDown;
 
-    public event Action<MOUSEINPUT> RightButtonUp;
+    public event Action<MSLLHOOKSTRUCT> RightButtonUp;
 
-    public event Action<MOUSEINPUT> MiddleButtonDown;
+    public event Action<MSLLHOOKSTRUCT> MiddleButtonDown;
 
-    public event Action<MOUSEINPUT> MiddleButtonUp;
+    public event Action<MSLLHOOKSTRUCT> MiddleButtonUp;
 
-    public event Action<MOUSEINPUT> MouseMove;
+    public event Action<MSLLHOOKSTRUCT> MouseMove;
 
-    public event Action<MOUSEINPUT, short> MouseWheel;
+    public event Action<MSLLHOOKSTRUCT, short> MouseWheel;
 
     private UnhookWindowsHookExSafeHandle _handle = new(nint.Zero);
     private HOOKPROC _hookProc;
@@ -88,40 +87,40 @@ internal class MouseHook : IDisposable
         if (nCode == PInvoke.HC_ACTION)
         {
             uint mouseEvent = (uint)wParam;
-            var mouseInput = (MOUSEINPUT)Marshal.PtrToStructure(lParam, typeof(MOUSEINPUT));
+            MSLLHOOKSTRUCT mouseInfo = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
             switch (mouseEvent)
             {
                 case PInvoke.WM_LBUTTONDOWN:
-                    LeftButtonDown?.Invoke(mouseInput);
+                    LeftButtonDown?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_LBUTTONUP:
-                    LeftButtonUp?.Invoke(mouseInput);
+                    LeftButtonUp?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_RBUTTONDOWN:
-                    RightButtonDown?.Invoke(mouseInput);
+                    RightButtonDown?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_RBUTTONUP:
-                    RightButtonUp?.Invoke(mouseInput);
+                    RightButtonUp?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_MBUTTONDOWN:
-                    MiddleButtonDown?.Invoke(mouseInput);
+                    MiddleButtonDown?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_MBUTTONUP:
-                    MiddleButtonUp?.Invoke(mouseInput);
+                    MiddleButtonUp?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_MOUSEMOVE:
-                    MouseMove?.Invoke(mouseInput);
+                    MouseMove?.Invoke(mouseInfo);
                     break;
 
                 case PInvoke.WM_MOUSEWHEEL:
-                    short delta = (short)(mouseInput.mouseData >> 16);
-                    MouseWheel?.Invoke(mouseInput, delta);
+                    short delta = (short)(mouseInfo.mouseData >> 16);
+                    MouseWheel?.Invoke(mouseInfo, delta);
                     break;
 
                 default:
