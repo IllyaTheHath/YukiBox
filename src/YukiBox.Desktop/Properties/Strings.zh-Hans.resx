@@ -240,4 +240,10 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc" xml:space="preserve">
     <value>在任务栏按钮上单击中键将不再打开新窗口</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Step" xml:space="preserve">
+    <value>每格调节量</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Step.Desc" xml:space="preserve">
+    <value>滚轮每滚动一格调节的音量</value>
+  </data>
 </root>

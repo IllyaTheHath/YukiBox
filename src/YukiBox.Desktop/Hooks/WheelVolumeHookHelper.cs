@@ -12,20 +12,25 @@ public class WheelVolumeHookHelper : HookHelperBase
 {
     private const string TaskbarClassName = "Shell_TrayWnd";
     private const string SecondaryTaskbarClassName = "Shell_SecondaryTrayWnd";
+    // Windows changes the volume by 2% for each volume key press
+    private const int VolumeKeyStep = 2;
 
     public bool IsAdjustEnabled { get; set; }
 
-    public bool IsMiddleClickMuteEnabled { get; set; }
+    public int VolumeStep { get; set; }
 
     public bool IsReversed { get; set; }
+
+    public bool IsMiddleClickMuteEnabled { get; set; }
 
     private bool _isMiddleButtonDownHandled;
 
     public override void Initialize()
     {
         IsAdjustEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable;
-        IsMiddleClickMuteEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
+        VolumeStep = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeStep;
         IsReversed = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeReverse;
+        IsMiddleClickMuteEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
         IsEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
     }
 
@@ -50,8 +55,9 @@ public class WheelVolumeHookHelper : HookHelperBase
         if (shouldAction)
         {
             bool up = (e.WheelDelta > 0) != IsReversed;
-            int step = Math.Abs(e.WheelDelta) / 120;
-            for (int i = 0; i < step; i++)
+            int notches = Math.Abs(e.WheelDelta) / 120;
+            int keyPresses = notches * (VolumeStep / VolumeKeyStep);
+            for (int i = 0; i < keyPresses; i++)
             {
                 AudioDeviceHelper.StepSystemVolume(up, true);
             }

@@ -124,6 +124,24 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Volume step per notch 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Step {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Volume change for each scroll notch 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Step_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Step.Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Cancel 的本地化字符串。
         /// </summary>
         public static string MsgBox_Cancel {

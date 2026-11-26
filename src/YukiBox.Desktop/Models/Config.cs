@@ -38,15 +38,21 @@ public class Config_AudioEnhancement
         set => LocalSettingHelper.Set(value);
     }
 
-    public bool WheelVolumeMiddleClickMuteEnable
+    public int WheelVolumeStep
     {
-        get => LocalSettingHelper.Get(true);
+        get => LocalSettingHelper.Get(2);
         set => LocalSettingHelper.Set(value);
     }
 
     public bool WheelVolumeReverse
     {
         get => LocalSettingHelper.Get<bool>();
+        set => LocalSettingHelper.Set(value);
+    }
+
+    public bool WheelVolumeMiddleClickMuteEnable
+    {
+        get => LocalSettingHelper.Get(true);
         set => LocalSettingHelper.Set(value);
     }
 }

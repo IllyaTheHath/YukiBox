@@ -240,4 +240,10 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc" xml:space="preserve">
     <value>Middle-clicking a taskbar button no longer opens a new window</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Step" xml:space="preserve">
+    <value>Volume step per notch</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Step.Desc" xml:space="preserve">
+    <value>Volume change for each scroll notch</value>
+  </data>
 </root>

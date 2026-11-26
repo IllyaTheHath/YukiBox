@@ -16,6 +16,7 @@ public class AudioEnhancementViewModel : ViewModelBase
             {
                 ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable = value;
                 HooksHelper.Instance.WheelVolumeHookHelper.IsEnabled = value;
+                OnPropertyChanged(nameof(IsWheelVolumeAdjustAvailable));
             }
         }
     }
@@ -31,21 +32,25 @@ public class AudioEnhancementViewModel : ViewModelBase
             {
                 ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable = value;
                 HooksHelper.Instance.WheelVolumeHookHelper.IsAdjustEnabled = value;
+                OnPropertyChanged(nameof(IsWheelVolumeAdjustAvailable));
             }
         }
     }
 
-    private bool _enableWheelVolumeMiddleClickMute;
+    public bool IsWheelVolumeAdjustAvailable => EnableWheelVolume && EnableWheelVolumeAdjust;
 
-    public bool EnableWheelVolumeMiddleClickMute
+    private double _wheelVolumeStep;
+
+    public double WheelVolumeStep
     {
-        get => _enableWheelVolumeMiddleClickMute;
+        get => _wheelVolumeStep;
         set
         {
-            if (SetProperty(ref _enableWheelVolumeMiddleClickMute, value))
+            if (SetProperty(ref _wheelVolumeStep, value))
             {
-                ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable = value;
-                HooksHelper.Instance.WheelVolumeHookHelper.IsMiddleClickMuteEnabled = value;
+                int step = (int)value;
+                ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeStep = step;
+                HooksHelper.Instance.WheelVolumeHookHelper.VolumeStep = step;
             }
         }
     }
@@ -65,11 +70,27 @@ public class AudioEnhancementViewModel : ViewModelBase
         }
     }
 
+    private bool _enableWheelVolumeMiddleClickMute;
+
+    public bool EnableWheelVolumeMiddleClickMute
+    {
+        get => _enableWheelVolumeMiddleClickMute;
+        set
+        {
+            if (SetProperty(ref _enableWheelVolumeMiddleClickMute, value))
+            {
+                ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable = value;
+                HooksHelper.Instance.WheelVolumeHookHelper.IsMiddleClickMuteEnabled = value;
+            }
+        }
+    }
+
     public AudioEnhancementViewModel()
     {
         _enableWheelVolume = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
         _enableWheelVolumeAdjust = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable;
-        _enableWheelVolumeMiddleClickMute = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
+        _wheelVolumeStep = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeStep;
         _reverseWheelVolume = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeReverse;
+        _enableWheelVolumeMiddleClickMute = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
     }
 }
