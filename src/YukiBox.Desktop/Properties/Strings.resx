@@ -124,37 +124,37 @@
     <value>Language</value>
   </data>
   <data name="System.Language.Default" xml:space="preserve">
-    <value>System Default</value>
+    <value>System default</value>
   </data>
   <data name="Nav.AudioEnhancement" xml:space="preserve">
-    <value>Audio Enhancements</value>
+    <value>Audio tweaks</value>
   </data>
   <data name="Nav.AudioEnhancement.Tooltip" xml:space="preserve">
-    <value>Audio Feature Enhancements</value>
+    <value>Audio tweak settings</value>
   </data>
   <data name="Nav.About" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="Nav.About.Tooltip" xml:space="preserve">
-    <value>About Page</value>
+    <value>About YukiBox</value>
   </data>
   <data name="Nav.Setting" xml:space="preserve">
-    <value>Setting</value>
+    <value>Settings</value>
   </data>
   <data name="Nav.Setting.Tooltip" xml:space="preserve">
-    <value>Setting Page</value>
+    <value>App settings</value>
   </data>
   <data name="TrayIcon.Main" xml:space="preserve">
-    <value>Open Main Window</value>
+    <value>Open main window</value>
   </data>
   <data name="TrayIcon.Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
   <data name="TrayIcon.Exit.Tooltip" xml:space="preserve">
-    <value>Exit</value>
+    <value>Exit YukiBox</value>
   </data>
   <data name="TrayIcon.Main.Tooltip" xml:space="preserve">
-    <value>Open Main Window</value>
+    <value>Open main window</value>
   </data>
   <data name="MsgBox.Ok" xml:space="preserve">
     <value>OK</value>
@@ -178,28 +178,28 @@
     <value>Off</value>
   </data>
   <data name="System.RunAtStartUp.Error" xml:space="preserve">
-    <value>Cannot Toggle Run At StartUp.</value>
+    <value>Unable to change the startup setting.</value>
   </data>
   <data name="System.RunAtStartUp.Disabled" xml:space="preserve">
-    <value>Disabled By User, Please Enable Manually.</value>
+    <value>Startup has been disabled by the user. Please enable it manually in Task Manager or Windows Settings.</value>
   </data>
   <data name="System.Restart" xml:space="preserve">
-    <value>Restart Application To Apply Changes.</value>
+    <value>Restart the app to apply changes.</value>
   </data>
   <data name="System.About.Version" xml:space="preserve">
-    <value>Version: </value>
+    <value>Version:</value>
   </data>
   <data name="System.About.Description" xml:space="preserve">
-    <value>An application thats contains sort of tools. Welcome to use and provide suggestions.</value>
+    <value>A collection of handy little tools. Feel free to use it and share your feedback.</value>
   </data>
   <data name="System.About.Github.Des" xml:space="preserve">
-    <value>Source Code</value>
+    <value>Source code</value>
   </data>
   <data name="System.About.Feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="System.About.Feedback.Des" xml:space="preserve">
-    <value>Send me an issues</value>
+    <value>Report an issue on GitHub</value>
   </data>
   <data name="System.Setting.Restore" xml:space="preserve">
     <value>Reset all settings to default</value>
@@ -208,18 +208,18 @@
     <value>Taskbar</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
-    <value>Mouse wheel adjusts the volume when pointer hover over taskbar</value>
+    <value>Adjust the volume with the mouse wheel while the pointer is over the taskbar</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
-    <value>General Behavior</value>
+    <value>General</value>
   </data>
   <data name="System.Setting.Additional" xml:space="preserve">
-    <value>Additional</value>
+    <value>Other</value>
   </data>
   <data name="System.Setting.AppExit" xml:space="preserve">
     <value>Exit YukiBox</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
-    <value>Mouse Wheel Volume</value>
+    <value>Wheel volume control</value>
   </data>
 </root>

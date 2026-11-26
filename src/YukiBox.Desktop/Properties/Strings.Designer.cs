@@ -70,7 +70,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Mouse Wheel Volume 的本地化字符串。
+        ///   查找类似 Wheel volume control 的本地化字符串。
         /// </summary>
         public static string AudioEnhancement_Taskbar_WheelVolume {
             get {
@@ -79,7 +79,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Mouse wheel adjusts the volume when pointer hover over taskbar 的本地化字符串。
+        ///   查找类似 Adjust the volume with the mouse wheel while the pointer is over the taskbar 的本地化字符串。
         /// </summary>
         public static string AudioEnhancement_Taskbar_WheelVolume_Desc {
             get {
@@ -133,7 +133,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 About Page 的本地化字符串。
+        ///   查找类似 About YukiBox 的本地化字符串。
         /// </summary>
         public static string Nav_About_Tooltip {
             get {
@@ -142,7 +142,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Audio Enhancements 的本地化字符串。
+        ///   查找类似 Audio tweaks 的本地化字符串。
         /// </summary>
         public static string Nav_AudioEnhancement {
             get {
@@ -151,7 +151,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Audio Feature Enhancements 的本地化字符串。
+        ///   查找类似 Audio tweak settings 的本地化字符串。
         /// </summary>
         public static string Nav_AudioEnhancement_Tooltip {
             get {
@@ -160,7 +160,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Setting 的本地化字符串。
+        ///   查找类似 Settings 的本地化字符串。
         /// </summary>
         public static string Nav_Setting {
             get {
@@ -169,7 +169,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Setting Page 的本地化字符串。
+        ///   查找类似 App settings 的本地化字符串。
         /// </summary>
         public static string Nav_Setting_Tooltip {
             get {
@@ -178,7 +178,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 An application thats contains sort of tools. Welcome to use and provide suggestions. 的本地化字符串。
+        ///   查找类似 A collection of handy little tools. Feel free to use it and share your feedback. 的本地化字符串。
         /// </summary>
         public static string System_About_Description {
             get {
@@ -196,7 +196,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Send me an issues 的本地化字符串。
+        ///   查找类似 Report an issue on GitHub 的本地化字符串。
         /// </summary>
         public static string System_About_Feedback_Des {
             get {
@@ -205,7 +205,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Source Code 的本地化字符串。
+        ///   查找类似 Source code 的本地化字符串。
         /// </summary>
         public static string System_About_Github_Des {
             get {
@@ -214,7 +214,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Version:  的本地化字符串。
+        ///   查找类似 Version: 的本地化字符串。
         /// </summary>
         public static string System_About_Version {
             get {
@@ -241,7 +241,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 System Default 的本地化字符串。
+        ///   查找类似 System default 的本地化字符串。
         /// </summary>
         public static string System_Language_Default {
             get {
@@ -250,7 +250,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Restart Application To Apply Changes. 的本地化字符串。
+        ///   查找类似 Restart the app to apply changes. 的本地化字符串。
         /// </summary>
         public static string System_Restart {
             get {
@@ -268,7 +268,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Disabled By User, Please Enable Manually. 的本地化字符串。
+        ///   查找类似 Startup has been disabled by the user. Please enable it manually in Task Manager or Windows Settings. 的本地化字符串。
         /// </summary>
         public static string System_RunAtStartUp_Disabled {
             get {
@@ -277,7 +277,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Cannot Toggle Run At StartUp. 的本地化字符串。
+        ///   查找类似 Unable to change the startup setting. 的本地化字符串。
         /// </summary>
         public static string System_RunAtStartUp_Error {
             get {
@@ -286,7 +286,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Additional 的本地化字符串。
+        ///   查找类似 Other 的本地化字符串。
         /// </summary>
         public static string System_Setting_Additional {
             get {
@@ -304,7 +304,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 General Behavior 的本地化字符串。
+        ///   查找类似 General 的本地化字符串。
         /// </summary>
         public static string System_Setting_General {
             get {
@@ -349,7 +349,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Exit 的本地化字符串。
+        ///   查找类似 Exit YukiBox 的本地化字符串。
         /// </summary>
         public static string TrayIcon_Exit_Tooltip {
             get {
@@ -358,7 +358,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Open Main Window 的本地化字符串。
+        ///   查找类似 Open main window 的本地化字符串。
         /// </summary>
         public static string TrayIcon_Main {
             get {
@@ -367,7 +367,7 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Open Main Window 的本地化字符串。
+        ///   查找类似 Open main window 的本地化字符串。
         /// </summary>
         public static string TrayIcon_Main_Tooltip {
             get {

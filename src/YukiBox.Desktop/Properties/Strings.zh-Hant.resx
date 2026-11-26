@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="System.Language.Default" xml:space="preserve">
-    <value>系統默認</value>
+    <value>系統預設</value>
   </data>
   <data name="System.Language" xml:space="preserve">
     <value>語言</value>
@@ -130,31 +130,31 @@
     <value>關於</value>
   </data>
   <data name="Nav.About.Tooltip" xml:space="preserve">
-    <value>關於頁</value>
+    <value>關於 YukiBox</value>
   </data>
   <data name="Nav.AudioEnhancement" xml:space="preserve">
     <value>音訊功能增強</value>
   </data>
   <data name="Nav.AudioEnhancement.Tooltip" xml:space="preserve">
-    <value>音訊功能增強</value>
+    <value>音訊功能增強設定</value>
   </data>
   <data name="Nav.Setting" xml:space="preserve">
-    <value>設置</value>
+    <value>設定</value>
   </data>
   <data name="Nav.Setting.Tooltip" xml:space="preserve">
-    <value>設置頁</value>
+    <value>應用程式設定</value>
   </data>
   <data name="TrayIcon.Exit" xml:space="preserve">
-    <value>退出</value>
+    <value>結束</value>
   </data>
   <data name="TrayIcon.Main" xml:space="preserve">
-    <value>打開主面板</value>
+    <value>開啟主視窗</value>
   </data>
   <data name="TrayIcon.Exit.Tooltip" xml:space="preserve">
-    <value>退出程序</value>
+    <value>結束 YukiBox</value>
   </data>
   <data name="TrayIcon.Main.Tooltip" xml:space="preserve">
-    <value>打開主面板</value>
+    <value>開啟主視窗</value>
   </data>
   <data name="MsgBox.Ok" xml:space="preserve">
     <value>確定</value>
@@ -169,7 +169,7 @@
     <value>否</value>
   </data>
   <data name="System.RunAtStartUp" xml:space="preserve">
-    <value>開機自動啟動</value>
+    <value>開機時自動啟動</value>
   </data>
   <data name="ToggleButton.On" xml:space="preserve">
     <value>開啟</value>
@@ -178,48 +178,48 @@
     <value>關閉</value>
   </data>
   <data name="System.RunAtStartUp.Error" xml:space="preserve">
-    <value>無法設置開機啟動。</value>
+    <value>無法變更開機啟動設定。</value>
   </data>
   <data name="System.RunAtStartUp.Disabled" xml:space="preserve">
-    <value>啟動項被用戶禁用，請手動開啟。</value>
+    <value>開機啟動已被使用者停用，請在工作管理員或 Windows 設定中手動啟用。</value>
   </data>
   <data name="System.Restart" xml:space="preserve">
-    <value>重新啟動應用以生效。</value>
+    <value>重新啟動應用程式以套用變更。</value>
   </data>
   <data name="System.About.Version" xml:space="preserve">
-    <value>版本： </value>
+    <value>版本：</value>
   </data>
   <data name="System.About.Github.Des" xml:space="preserve">
-    <value>源代碼</value>
+    <value>原始碼</value>
   </data>
   <data name="System.About.Feedback.Des" xml:space="preserve">
-    <value>提出一個問題</value>
+    <value>在 GitHub 上回報問題</value>
   </data>
   <data name="System.About.Feedback" xml:space="preserve">
-    <value>反饋</value>
+    <value>意見回饋</value>
   </data>
   <data name="System.About.Description" xml:space="preserve">
-    <value>一個包含各種小工具的應用，歡迎使用和吐槽 。</value>
+    <value>一個包含各種小工具的應用程式，歡迎使用並提供意見。</value>
   </data>
   <data name="System.Setting.Restore" xml:space="preserve">
-    <value>重置為默認設置</value>
+    <value>將所有設定還原為預設值</value>
   </data>
   <data name="AudioEnhancement.Taskbar" xml:space="preserve">
-    <value>任務欄</value>
+    <value>工作列</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
-    <value>鼠標指針懸停在任務欄上時滾輪調節音量</value>
+    <value>滑鼠指標停留在工作列上時，以滾輪調整音量</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
-    <value>通用</value>
+    <value>一般</value>
   </data>
   <data name="System.Setting.Additional" xml:space="preserve">
-    <value>額外設置</value>
+    <value>其他</value>
   </data>
   <data name="System.Setting.AppExit" xml:space="preserve">
-    <value>關閉 YukiBox</value>
+    <value>結束 YukiBox</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
-    <value>滾輪音量調節</value>
+    <value>滾輪調整音量</value>
   </data>
 </root>

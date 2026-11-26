@@ -130,31 +130,31 @@
     <value>关于</value>
   </data>
   <data name="Nav.About.Tooltip" xml:space="preserve">
-    <value>关于页</value>
+    <value>关于 YukiBox</value>
   </data>
   <data name="Nav.AudioEnhancement" xml:space="preserve">
     <value>音频功能增强</value>
   </data>
   <data name="Nav.AudioEnhancement.Tooltip" xml:space="preserve">
-    <value>音频功能增强</value>
+    <value>音频功能增强设置</value>
   </data>
   <data name="Nav.Setting" xml:space="preserve">
     <value>设置</value>
   </data>
   <data name="Nav.Setting.Tooltip" xml:space="preserve">
-    <value>设置页</value>
+    <value>应用设置</value>
   </data>
   <data name="TrayIcon.Exit" xml:space="preserve">
     <value>退出</value>
   </data>
   <data name="TrayIcon.Main" xml:space="preserve">
-    <value>打开主面板</value>
+    <value>打开主窗口</value>
   </data>
   <data name="TrayIcon.Exit.Tooltip" xml:space="preserve">
-    <value>退出程序</value>
+    <value>退出 YukiBox</value>
   </data>
   <data name="TrayIcon.Main.Tooltip" xml:space="preserve">
-    <value>打开主面板</value>
+    <value>打开主窗口</value>
   </data>
   <data name="MsgBox.Yes" xml:space="preserve">
     <value>是</value>
@@ -178,16 +178,16 @@
     <value>关闭</value>
   </data>
   <data name="System.RunAtStartUp.Error" xml:space="preserve">
-    <value>无法设置开机启动。</value>
+    <value>无法更改开机启动设置。</value>
   </data>
   <data name="System.RunAtStartUp.Disabled" xml:space="preserve">
-    <value>启动项被用户禁用，请手动开启。</value>
+    <value>开机启动已被用户禁用，请在任务管理器或 Windows 设置中手动启用。</value>
   </data>
   <data name="System.Restart" xml:space="preserve">
-    <value>重新启动应用以生效。</value>
+    <value>重新启动应用以使更改生效。</value>
   </data>
   <data name="System.About.Version" xml:space="preserve">
-    <value>版本： </value>
+    <value>版本：</value>
   </data>
   <data name="System.About.Github.Des" xml:space="preserve">
     <value>源代码</value>
@@ -196,30 +196,30 @@
     <value>反馈</value>
   </data>
   <data name="System.About.Feedback.Des" xml:space="preserve">
-    <value>提出一个问题</value>
+    <value>在 GitHub 上提交问题</value>
   </data>
   <data name="System.About.Description" xml:space="preserve">
-    <value>一个包含各种小工具的应用，欢迎使用和吐槽 。</value>
+    <value>一个包含各种小工具的应用，欢迎使用和吐槽。</value>
   </data>
   <data name="System.Setting.Restore" xml:space="preserve">
-    <value>重置为默认设置</value>
+    <value>将所有设置恢复为默认值</value>
   </data>
   <data name="AudioEnhancement.Taskbar" xml:space="preserve">
     <value>任务栏</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
-    <value>鼠标指针悬停在任务栏上时滚轮调节音量</value>
+    <value>鼠标指针悬停在任务栏上时，使用滚轮调节音量</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
     <value>通用</value>
   </data>
   <data name="System.Setting.Additional" xml:space="preserve">
-    <value>额外设置</value>
+    <value>其他</value>
   </data>
   <data name="System.Setting.AppExit" xml:space="preserve">
-    <value>关闭 YukiBox</value>
+    <value>退出 YukiBox</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
-    <value>滚轮音量调节</value>
+    <value>滚轮调节音量</value>
   </data>
 </root>
