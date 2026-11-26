@@ -7,7 +7,6 @@ using YukiBox.Desktop.Contracts.Views;
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Hooks;
 using YukiBox.Desktop.Services;
-using YukiBox.Desktop.Tasks;
 using YukiBox.Desktop.ViewModels;
 using YukiBox.Desktop.Views;
 
@@ -46,24 +45,12 @@ public class AppStartup
         _trayIconService = Ioc.Default.GetService<ITrayIconService>();
         _trayIconService.Initialize();
 
-        IEnumerable<IBackgroundTask> tasks = Ioc.Default.GetServices<IBackgroundTask>();
-        foreach (IBackgroundTask task in tasks)
-        {
-            task.Init();
-        }
-
         HooksHelper.Instance.Initialize();
     }
 
     public void OnExit()
     {
         _trayIconService?.Dispose();
-
-        IEnumerable<IBackgroundTask> tasks = Ioc.Default.GetServices<IBackgroundTask>();
-        foreach (IBackgroundTask task in tasks)
-        {
-            task.Dispose();
-        }
 
         HooksHelper.Instance.Dispose();
     }
@@ -117,9 +104,6 @@ public class AppStartup
 
         services.AddSingleton<SettingView>();
         services.AddSingleton<SettingViewModel>();
-
-        // Configure Background Task
-        services.AddSingleton<IBackgroundTask, SearchboxTask>();
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
         return serviceProvider;

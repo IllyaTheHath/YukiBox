@@ -26,30 +26,6 @@ public class Config_System
 
 public class Config_Taskbar
 {
-    public string SearchBoxTextDefault
-    {
-        get => LocalSettingHelper.Get<string>();
-        set => LocalSettingHelper.Set(value);
-    }
-
-    public bool SearchBoxTextUpdateEnable
-    {
-        get => LocalSettingHelper.Get<bool>();
-        set => LocalSettingHelper.Set(value);
-    }
-
-    public bool CompatibleStartIsBack
-    {
-        get => LocalSettingHelper.Get<bool>();
-        set => LocalSettingHelper.Set(value);
-    }
-
-    public string MusicPlayer
-    {
-        get => LocalSettingHelper.Get<string>();
-        set => LocalSettingHelper.Set(value);
-    }
-
     public bool WheelVolumeEnable
     {
         get => LocalSettingHelper.Get<bool>();

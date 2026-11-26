@@ -201,32 +201,8 @@
   <data name="System.About.Feedback.Des" xml:space="preserve">
     <value>Send me an issues</value>
   </data>
-  <data name="Taskbar.Player.QQMusic" xml:space="preserve">
-    <value>QQMusic</value>
-  </data>
-  <data name="Taskbar.Player.CloudMusic" xml:space="preserve">
-    <value>NetEase Cloud Music</value>
-  </data>
-  <data name="Taskbar.Searchbox.EnableMusicUpdate" xml:space="preserve">
-    <value>Enable Searchbox Music Name Display</value>
-  </data>
-  <data name="Taskbar.Searchbox.DefaultText" xml:space="preserve">
-    <value>Default Text When No Music Playing:</value>
-  </data>
-  <data name="Taskbar.Searchbox.CheckingPlayer" xml:space="preserve">
-    <value>Check Follow Music Player:</value>
-  </data>
-  <data name="Taskbar.Searchbox" xml:space="preserve">
-    <value>Searchbox</value>
-  </data>
-  <data name="System.Setting.Save" xml:space="preserve">
-    <value>Save Settings</value>
-  </data>
   <data name="System.Setting.Restore" xml:space="preserve">
     <value>Reset all settings to default</value>
-  </data>
-  <data name="Taskbar.Searchbox.CompatibleStartIsBack" xml:space="preserve">
-    <value>StartIsBack++ Compatibility Mode</value>
   </data>
   <data name="Taskbar.Taskbar" xml:space="preserve">
     <value>Taskbar</value>
@@ -242,9 +218,6 @@
   </data>
   <data name="System.Setting.AppExit" xml:space="preserve">
     <value>Exit YukiBox</value>
-  </data>
-  <data name="Taskbar.Searchbox.Windows10" xml:space="preserve">
-    <value>Only Support Windows 10</value>
   </data>
   <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
     <value>Mouse Wheel Volume</value>

@@ -201,32 +201,8 @@
   <data name="System.About.Description" xml:space="preserve">
     <value>一個包含各種小工具的應用，歡迎使用和吐槽 。</value>
   </data>
-  <data name="Taskbar.Player.QQMusic" xml:space="preserve">
-    <value>QQ音乐</value>
-  </data>
-  <data name="Taskbar.Player.CloudMusic" xml:space="preserve">
-    <value>网易云音乐</value>
-  </data>
-  <data name="Taskbar.Searchbox.EnableMusicUpdate" xml:space="preserve">
-    <value>搜索欄顯示正在播放的歌曲名</value>
-  </data>
-  <data name="Taskbar.Searchbox.DefaultText" xml:space="preserve">
-    <value>無音樂播放時顯示文字：</value>
-  </data>
-  <data name="Taskbar.Searchbox.CheckingPlayer" xml:space="preserve">
-    <value>對以下播放器啟用：</value>
-  </data>
-  <data name="Taskbar.Searchbox" xml:space="preserve">
-    <value>搜索欄</value>
-  </data>
   <data name="System.Setting.Restore" xml:space="preserve">
     <value>重置為默認設置</value>
-  </data>
-  <data name="System.Setting.Save" xml:space="preserve">
-    <value>保存設置</value>
-  </data>
-  <data name="Taskbar.Searchbox.CompatibleStartIsBack" xml:space="preserve">
-    <value>StartIsBack++兼容模式</value>
   </data>
   <data name="Taskbar.Taskbar" xml:space="preserve">
     <value>任務欄</value>
@@ -242,9 +218,6 @@
   </data>
   <data name="System.Setting.AppExit" xml:space="preserve">
     <value>關閉 YukiBox</value>
-  </data>
-  <data name="Taskbar.Searchbox.Windows10" xml:space="preserve">
-    <value>僅支持 Windows 10</value>
   </data>
   <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
     <value>滾輪音量調節</value>
