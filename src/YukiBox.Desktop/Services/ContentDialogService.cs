@@ -25,12 +25,14 @@ public class ContentDialogService : IContentDialogService
             SecondaryButtonText = secondaryButtonText,
             XamlRoot = _mainXamlRoot
         };
-        return await dialog.ShowAsync();
+        ContentDialogResult result = await dialog.ShowAsync();
+        return result;
     }
 
     public async Task<ContentDialogResult> ShowAsync(ContentDialog dialog)
     {
         dialog.XamlRoot = _mainXamlRoot;
-        return await dialog.ShowAsync();
+        ContentDialogResult result = await dialog.ShowAsync();
+        return result;
     }
 }

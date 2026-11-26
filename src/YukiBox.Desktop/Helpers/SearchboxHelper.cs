@@ -1,4 +1,5 @@
 ﻿using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace YukiBox.Desktop.Helpers;
 
@@ -6,19 +7,19 @@ public static class SearchboxHelper
 {
     public static string GetSearchboxText()
     {
-        var taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
+        HWND taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
         if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
         {
             return string.Empty;
         }
 
-        var searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
+        HWND searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
         if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
         {
             return string.Empty;
         }
 
-        var searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
+        HWND searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
         if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
         {
             return string.Empty;
@@ -41,17 +42,17 @@ public static class SearchboxHelper
 
     public static bool SetSearchboxText(string text, bool compatibleStartIsBack)
     {
-        var taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
+        HWND taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
         if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
         {
             return false;
         }
-        var searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
+        HWND searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
         if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
         {
             return false;
         }
-        var searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
+        HWND searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
         if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
         {
             return false;

@@ -1,4 +1,5 @@
 ﻿using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace YukiBox.Desktop.Models;
 
@@ -10,8 +11,8 @@ public class CloudMusicPlayer : MusicPlayer
 
     public override string GetMusicName()
     {
-        var hWnd = PInvoke.FindWindow("OrpheusBrowserHost", null);
-        if (hWnd == Windows.Win32.Foundation.HWND.Null)
+        HWND hWnd = PInvoke.FindWindow("OrpheusBrowserHost", null);
+        if (hWnd == HWND.Null)
         {
             return string.Empty;
         }

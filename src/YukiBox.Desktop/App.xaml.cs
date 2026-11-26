@@ -24,8 +24,8 @@ public partial class App : Application
 
     public App()
     {
-        var appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
-        var instance = AppInstance.FindOrRegisterForKey(AppUuid);
+        AppActivationArguments appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+        AppInstance instance = AppInstance.FindOrRegisterForKey(AppUuid);
         if (!instance.IsCurrent)
         {
             instance.RedirectActivationToAsync(appArgs).GetResults();
@@ -38,13 +38,6 @@ public partial class App : Application
         AppStartup.Instance.Initialize();
     }
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
-    {
-        base.OnLaunched(args);
-
-        AppStartup.Instance.OnStartup();
-    }
-
     /// <summary>
     /// Override App Exit
     /// </summary>
@@ -55,5 +48,12 @@ public partial class App : Application
         AppStartup.Instance.OnExit();
 
         App.Current.Exit();
+    }
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        base.OnLaunched(args);
+
+        AppStartup.Instance.OnStartup();
     }
 }

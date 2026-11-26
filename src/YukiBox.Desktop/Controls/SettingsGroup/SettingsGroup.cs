@@ -16,13 +16,11 @@ public partial class SettingsGroup : ItemsControl
 {
     private const string PartDescriptionPresenter = "DescriptionPresenter";
 
-    private ContentPresenter _descriptionPresenter;
-    private SettingsGroup _settingsGroup;
-
-    public SettingsGroup()
-    {
-        DefaultStyleKey = typeof(SettingsGroup);
-    }
+    public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+        "Header",
+        typeof(string),
+        typeof(SettingsGroup),
+        new PropertyMetadata(default(string)));
 
     [Localizable(true)]
     public string Header
@@ -31,11 +29,11 @@ public partial class SettingsGroup : ItemsControl
         set => SetValue(HeaderProperty, value);
     }
 
-    public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
-        "Header",
-        typeof(string),
+    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
+        "Description",
+        typeof(object),
         typeof(SettingsGroup),
-        new PropertyMetadata(default(string)));
+        new PropertyMetadata(null, OnDescriptionChanged));
 
     [Localizable(true)]
     public object Description
@@ -44,11 +42,13 @@ public partial class SettingsGroup : ItemsControl
         set => SetValue(DescriptionProperty, value);
     }
 
-    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
-        "Description",
-        typeof(object),
-        typeof(SettingsGroup),
-        new PropertyMetadata(null, OnDescriptionChanged));
+    private ContentPresenter _descriptionPresenter;
+    private SettingsGroup _settingsGroup;
+
+    public SettingsGroup()
+    {
+        DefaultStyleKey = typeof(SettingsGroup);
+    }
 
     protected override void OnApplyTemplate()
     {
@@ -58,6 +58,11 @@ public partial class SettingsGroup : ItemsControl
         SetEnabledState();
         IsEnabledChanged += SettingsGroup_IsEnabledChanged;
         base.OnApplyTemplate();
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+        return new SettingsGroupAutomationPeer(this);
     }
 
     private static void OnDescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -90,10 +95,5 @@ public partial class SettingsGroup : ItemsControl
         {
             _settingsGroup._descriptionPresenter.Visibility = Visibility.Visible;
         }
-    }
-
-    protected override AutomationPeer OnCreateAutomationPeer()
-    {
-        return new SettingsGroupAutomationPeer(this);
     }
 }

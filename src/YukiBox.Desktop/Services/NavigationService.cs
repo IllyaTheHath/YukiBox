@@ -7,23 +7,24 @@ namespace YukiBox.Desktop.Services;
 
 public class NavigationService : INavigationService
 {
-    private Frame _frame;
-    private object _lastParameterUsed;
-
-    private readonly IPageService _pageService;
-
     public string CurrentPageKey
     {
         get
         {
             if (_frame.Content is FrameworkElement element)
             {
-                return element.DataContext.GetType().FullName;
+                string pageKey = element.DataContext.GetType().FullName;
+                return pageKey;
             }
 
             return string.Empty;
         }
     }
+
+    private readonly IPageService _pageService;
+
+    private Frame _frame;
+    private object _lastParameterUsed;
 
     public NavigationService(IPageService pageService)
     {
@@ -47,7 +48,7 @@ public class NavigationService : INavigationService
             return;
         }
 
-        var pageType = _pageService.GetPageType(pageKey);
+        Type pageType = _pageService.GetPageType(pageKey);
 
         if (pageType is null)
         {
@@ -56,7 +57,7 @@ public class NavigationService : INavigationService
 
         if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
         {
-            var page = _pageService.GetPage(pageKey);
+            Page page = _pageService.GetPage(pageKey);
             if (page is null)
             {
                 return;

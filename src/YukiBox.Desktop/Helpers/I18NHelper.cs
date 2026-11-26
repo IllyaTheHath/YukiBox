@@ -22,7 +22,8 @@ public class I18N : MarkupExtension
 
     protected override object ProvideValue()
     {
-        return !string.IsNullOrEmpty(Code) ? I18NSource.Instance[Code] : string.Empty;
+        string value = !string.IsNullOrEmpty(Code) ? I18NSource.Instance[Code] : string.Empty;
+        return value;
     }
 }
 
@@ -49,6 +50,11 @@ public class LanguageInfo
         Initialize();
     }
 
+    public override string ToString()
+    {
+        return DisplayName;
+    }
+
     private void Initialize()
     {
         if (CultureInfo != null)
@@ -62,11 +68,6 @@ public class LanguageInfo
             LanguageName = string.Empty;
         }
     }
-
-    public override string ToString()
-    {
-        return DisplayName;
-    }
 }
 
 public class I18NSource
@@ -74,24 +75,6 @@ public class I18NSource
     private static readonly Lazy<I18NSource> s_lazy = new(() => new I18NSource());
 
     public static I18NSource Instance { get { return s_lazy.Value; } }
-
-    public string this[string key]
-    {
-        get
-        {
-            if (CurrentLanguage?.CultureInfo is null)
-            {
-                var cultureInfo = CultureInfo.CurrentUICulture;
-                return _resManager.GetString(key, cultureInfo);
-            }
-            else
-            {
-                return _resManager.GetString(key, CurrentLanguage?.CultureInfo);
-            }
-        }
-    }
-
-    private readonly ResourceManager _resManager = Properties.Strings.ResourceManager;
 
     private LanguageInfo _currentLanguage;
 
@@ -110,13 +93,33 @@ public class I18NSource
 
     public ObservableCollection<LanguageInfo> SupportedLanguages { get; private set; }
 
+    public string this[string key]
+    {
+        get
+        {
+            if (CurrentLanguage?.CultureInfo is null)
+            {
+                CultureInfo cultureInfo = CultureInfo.CurrentUICulture;
+                string value = _resManager.GetString(key, cultureInfo);
+                return value;
+            }
+            else
+            {
+                string value = _resManager.GetString(key, CurrentLanguage?.CultureInfo);
+                return value;
+            }
+        }
+    }
+
+    private readonly ResourceManager _resManager = Properties.Strings.ResourceManager;
+
     private I18NSource()
     {
     }
 
     public void Initialize()
     {
-        var systemUICulture = CultureInfo.CurrentUICulture;
+        CultureInfo systemUICulture = CultureInfo.CurrentUICulture;
         SupportedLanguages = GetAllSupportedLanguages();
         //var language = systemUICulture.Name;
         string language = ConfigHelper.CurrentConfig.System.Language;
@@ -134,9 +137,9 @@ public class I18NSource
             new(string.Empty)
         };
 
-        var resourceManager = Properties.Strings.ResourceManager;
-        var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
-        foreach (var culture in cultures)
+        ResourceManager resourceManager = Properties.Strings.ResourceManager;
+        CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+        foreach (CultureInfo culture in cultures)
         {
             try
             {
@@ -145,7 +148,7 @@ public class I18NSource
                     continue;
                 }
 
-                var resourceSet = resourceManager.GetResourceSet(culture, true, false);
+                ResourceSet resourceSet = resourceManager.GetResourceSet(culture, true, false);
                 if (resourceSet != null)
                 {
                     supportedLanguages.Add(new LanguageInfo(culture));

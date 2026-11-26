@@ -14,10 +14,10 @@ public static class AudioDeviceHelper
         int volume = -1;
         using var enumerator = new MMDeviceEnumerator();
 
-        var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+        MMDeviceCollection speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
         if (speakDevices.Count > 0)
         {
-            var device = speakDevices.FirstOrDefault();
+            MMDevice device = speakDevices.FirstOrDefault();
             if (device != null)
             {
                 volume = (int)(device.AudioEndpointVolume.MasterVolumeLevelScalar * 100);
@@ -38,14 +38,26 @@ public static class AudioDeviceHelper
         }
     }
 
+    public static void Mute(bool useWin32Input = true)
+    {
+        if (useWin32Input)
+        {
+            MuteWin32();
+        }
+        else
+        {
+            MuteNAudio();
+        }
+    }
+
     private static void StepSystemVolumeNAudio(bool up)
     {
         using var enumerator = new MMDeviceEnumerator();
 
-        var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+        MMDeviceCollection speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
         if (speakDevices.Count > 0)
         {
-            var device = speakDevices.FirstOrDefault();
+            MMDevice device = speakDevices.FirstOrDefault();
             if (device != null)
             {
                 if (up)
@@ -86,26 +98,14 @@ public static class AudioDeviceHelper
         PInvoke.SendInput(kInputSpan, Marshal.SizeOf(typeof(INPUT)));
     }
 
-    public static void Mute(bool useWin32Input = true)
-    {
-        if (useWin32Input)
-        {
-            MuteWin32();
-        }
-        else
-        {
-            MuteNAudio();
-        }
-    }
-
     private static void MuteNAudio()
     {
         using var enumerator = new MMDeviceEnumerator();
 
-        var speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+        MMDeviceCollection speakDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
         if (speakDevices.Count > 0)
         {
-            var device = speakDevices.FirstOrDefault();
+            MMDevice device = speakDevices.FirstOrDefault();
             if (device != null)
             {
                 device.AudioEndpointVolume.Mute = true;

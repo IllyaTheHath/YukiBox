@@ -20,6 +20,28 @@ public class WheelVolumeHookHelper : HookHelperBase
         }
     }
 
+    protected override void OnEnabled()
+    {
+        ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable = IsEnabled;
+
+        if (IsEnabled)
+        {
+            HooksHelper.Instance.MouseHook.MouseWheel += MouseWheel;
+            HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButton;
+        }
+    }
+
+    protected override void OnDisabled()
+    {
+        ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable = IsEnabled;
+
+        if (!IsEnabled)
+        {
+            HooksHelper.Instance.MouseHook.MouseWheel -= MouseWheel;
+            HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
+        }
+    }
+
     private void MouseWheel(MOUSEINPUT input, short delta)
     {
         bool shouldAction = !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
@@ -47,9 +69,9 @@ public class WheelVolumeHookHelper : HookHelperBase
     {
         if (hwnd != IntPtr.Zero)
         {
-            if (PInvoke.GetWindowRect(new HWND(hwnd), out var rect))
+            if (PInvoke.GetWindowRect(new HWND(hwnd), out RECT rect))
             {
-                var screenSize = GetScreenSize();
+                Size screenSize = GetScreenSize();
                 if (rect.top == 0 &&
                     rect.left == 0 &&
                     rect.bottom == screenSize.Height &&
@@ -64,14 +86,15 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     private bool IsForegroundWindowFullScreen()
     {
-        var hwnd = PInvoke.GetForegroundWindow();
-        var shellHwnd = PInvoke.GetShellWindow();
-        var desktopHwnd = PInvoke.GetDesktopWindow();
+        HWND hwnd = PInvoke.GetForegroundWindow();
+        HWND shellHwnd = PInvoke.GetShellWindow();
+        HWND desktopHwnd = PInvoke.GetDesktopWindow();
         if (hwnd == shellHwnd || hwnd == desktopHwnd)
         {
             return false;
         }
-        return IsWindowsFullScreen(hwnd);
+        bool isFullScreen = IsWindowsFullScreen(hwnd);
+        return isFullScreen;
     }
 
     private Size GetScreenSize()
@@ -83,35 +106,15 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     private bool IsMouseOverTaskbar(double x, double y)
     {
-        var taskbarRect = GetTaskbarLocation();
-        return taskbarRect.Contains(new Point(x, y));
+        Rect taskbarRect = GetTaskbarLocation();
+        bool isOverTaskbar = taskbarRect.Contains(new Point(x, y));
+        return isOverTaskbar;
     }
 
     private Rect GetTaskbarLocation()
     {
-        var hwnd = PInvoke.FindWindow(TaskbarClassName, null);
-        return PInvoke.GetWindowRect(hwnd, out var rect) ? new Rect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top) : new Rect();
-    }
-
-    protected override void OnEnabled()
-    {
-        ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable = IsEnabled;
-
-        if (IsEnabled)
-        {
-            HooksHelper.Instance.MouseHook.MouseWheel += MouseWheel;
-            HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButton;
-        }
-    }
-
-    protected override void OnDisabled()
-    {
-        ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable = IsEnabled;
-
-        if (!IsEnabled)
-        {
-            HooksHelper.Instance.MouseHook.MouseWheel -= MouseWheel;
-            HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
-        }
+        HWND hwnd = PInvoke.FindWindow(TaskbarClassName, null);
+        bool hasRect = PInvoke.GetWindowRect(hwnd, out RECT rect);
+        return hasRect ? new Rect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top) : new Rect();
     }
 }

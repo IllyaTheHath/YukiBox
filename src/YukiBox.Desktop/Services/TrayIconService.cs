@@ -58,7 +58,7 @@ public class TrayIconService : ITrayIconService
         contextMenu.Items.Add(settingMenuItem);
         contextMenu.Items.Add(exitMenuItem);
 
-        BitmapImage bitmapImage = new BitmapImage();
+        BitmapImage bitmapImage = new();
         bitmapImage.UriSource = new Uri("ms-appx:///Assets/Images/logo.ico");
 
         //var iconBitmap = new BitmapImage(new Uri(@"Assets\Images\logo.ico"));

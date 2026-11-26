@@ -9,8 +9,6 @@ namespace YukiBox.Desktop.ViewModels;
 
 public class ShellViewModel : ViewModelBase
 {
-    private readonly INavigationService _navigationService;
-
     public ObservableCollection<NavMenuItemBase> NavMenuItems { get; set; }
     public ObservableCollection<NavMenuItemBase> FooterNavMenuItems { get; set; }
 
@@ -21,6 +19,8 @@ public class ShellViewModel : ViewModelBase
         get => _selectedItem;
         set => SetProperty(ref _selectedItem, value);
     }
+
+    private readonly INavigationService _navigationService;
 
     public ShellViewModel()
     {

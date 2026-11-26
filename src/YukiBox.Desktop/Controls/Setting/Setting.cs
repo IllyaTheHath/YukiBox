@@ -18,6 +18,56 @@ public class Setting : ContentControl
     private const string PartIconPresenter = "IconPresenter";
     private const string PartDescriptionPresenter = "DescriptionPresenter";
 
+    public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+       "Header",
+       typeof(string),
+       typeof(Setting),
+       new PropertyMetadata(default(string), OnHeaderChanged));
+
+    [Localizable(true)]
+    public string Header
+    {
+        get => (string)GetValue(HeaderProperty);
+        set => SetValue(HeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
+        "Description",
+        typeof(object),
+        typeof(Setting),
+        new PropertyMetadata(null, OnDescriptionChanged));
+
+    [Localizable(true)]
+    public object Description
+    {
+        get => GetValue(DescriptionProperty);
+        set => SetValue(DescriptionProperty, value);
+    }
+
+    public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
+        "Icon",
+        typeof(object),
+        typeof(Setting),
+        new PropertyMetadata(default(string), OnIconChanged));
+
+    public object Icon
+    {
+        get => GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
+    }
+
+    public static readonly DependencyProperty ActionContentProperty = DependencyProperty.Register(
+        "ActionContent",
+        typeof(object),
+        typeof(Setting),
+        null);
+
+    public object ActionContent
+    {
+        get => GetValue(ActionContentProperty);
+        set => SetValue(ActionContentProperty, value);
+    }
+
     private ContentPresenter _iconPresenter;
     private ContentPresenter _descriptionPresenter;
     private Setting _setting;
@@ -37,56 +87,6 @@ public class Setting : ContentControl
         SetEnabledState();
         IsEnabledChanged += Setting_IsEnabledChanged;
         base.OnApplyTemplate();
-    }
-
-    public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
-       "Header",
-       typeof(string),
-       typeof(Setting),
-       new PropertyMetadata(default(string), OnHeaderChanged));
-
-    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
-        "Description",
-        typeof(object),
-        typeof(Setting),
-        new PropertyMetadata(null, OnDescriptionChanged));
-
-    public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-        "Icon",
-        typeof(object),
-        typeof(Setting),
-        new PropertyMetadata(default(string), OnIconChanged));
-
-    public static readonly DependencyProperty ActionContentProperty = DependencyProperty.Register(
-        "ActionContent",
-        typeof(object),
-        typeof(Setting),
-        null);
-
-    [Localizable(true)]
-    public string Header
-    {
-        get => (string)GetValue(HeaderProperty);
-        set => SetValue(HeaderProperty, value);
-    }
-
-    [Localizable(true)]
-    public object Description
-    {
-        get => GetValue(DescriptionProperty);
-        set => SetValue(DescriptionProperty, value);
-    }
-
-    public object Icon
-    {
-        get => GetValue(IconProperty);
-        set => SetValue(IconProperty, value);
-    }
-
-    public object ActionContent
-    {
-        get => GetValue(ActionContentProperty);
-        set => SetValue(ActionContentProperty, value);
     }
 
     private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

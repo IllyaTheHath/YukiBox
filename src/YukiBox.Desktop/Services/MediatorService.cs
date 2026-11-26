@@ -23,7 +23,7 @@ public class MediatorService : IMediatorService
         }
         else
         {
-            var dic = _participants[@event];
+            Dictionary<object, Action<object>> dic = _participants[@event];
             if (!dic.ContainsKey(sender))
             {
                 dic.Add(sender, callback);
@@ -35,7 +35,7 @@ public class MediatorService : IMediatorService
     {
         if (_participants.ContainsKey(@event))
         {
-            var dic = _participants[@event];
+            Dictionary<object, Action<object>> dic = _participants[@event];
             if (dic.ContainsKey(sender))
             {
                 dic.Remove(sender);
@@ -47,8 +47,8 @@ public class MediatorService : IMediatorService
     {
         if (_participants.ContainsKey(@event))
         {
-            var dic = _participants[@event];
-            foreach (var ps in dic)
+            Dictionary<object, Action<object>> dic = _participants[@event];
+            foreach (KeyValuePair<object, Action<object>> ps in dic)
             {
                 ps.Value?.Invoke(arg);
             }

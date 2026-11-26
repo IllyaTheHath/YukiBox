@@ -18,6 +18,12 @@ public abstract class HookHelperBase : ObservableObject
         }
     }
 
+    public abstract void Initialize();
+
+    protected abstract void OnEnabled();
+
+    protected abstract void OnDisabled();
+
     private void OnIsEnabledChanged()
     {
         if (_isEnabled)
@@ -29,10 +35,4 @@ public abstract class HookHelperBase : ObservableObject
             OnDisabled();
         }
     }
-
-    public abstract void Initialize();
-
-    protected abstract void OnEnabled();
-
-    protected abstract void OnDisabled();
 }

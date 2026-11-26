@@ -10,13 +10,6 @@ namespace YukiBox.Desktop.Hooks;
 
 internal class MouseHook : IDisposable
 {
-    private bool _disposed;
-
-    private UnhookWindowsHookExSafeHandle _handle = new(IntPtr.Zero);
-    private HOOKPROC _hookProc;
-
-    #region Events
-
     public event Action<MOUSEINPUT> LeftButtonDown;
 
     public event Action<MOUSEINPUT> LeftButtonUp;
@@ -33,7 +26,15 @@ internal class MouseHook : IDisposable
 
     public event Action<MOUSEINPUT, short> MouseWheel;
 
-    #endregion Events
+    private UnhookWindowsHookExSafeHandle _handle = new(IntPtr.Zero);
+    private HOOKPROC _hookProc;
+
+    private bool _disposed;
+
+    ~MouseHook()
+    {
+        Dispose(false);
+    }
 
     public void Install()
     {
@@ -49,18 +50,39 @@ internal class MouseHook : IDisposable
         }
     }
 
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                Uninstall();
+            }
+
+            _disposed = true;
+        }
+    }
+
     private UnhookWindowsHookExSafeHandle SetHook(HOOKPROC proc)
     {
-        using var module = Process.GetCurrentProcess().MainModule;
-        var hMod = PInvoke.GetModuleHandle(module.ModuleName);
-        return PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, proc, hMod, 0);
+        using ProcessModule module = Process.GetCurrentProcess().MainModule;
+        FreeLibrarySafeHandle hMod = PInvoke.GetModuleHandle(module.ModuleName);
+        UnhookWindowsHookExSafeHandle handle = PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, proc, hMod, 0);
+        return handle;
     }
 
     private LRESULT MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
     {
         if (nCode < 0)
         {
-            return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
+            LRESULT skipped = PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
+            return skipped;
         }
 
         if (nCode == PInvoke.HC_ACTION)
@@ -107,30 +129,7 @@ internal class MouseHook : IDisposable
             }
         }
 
-        return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposed)
-        {
-            if (disposing)
-            {
-                Uninstall();
-            }
-
-            _disposed = true;
-        }
-    }
-
-    ~MouseHook()
-    {
-        Dispose(false);
+        LRESULT result = PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
+        return result;
     }
 }

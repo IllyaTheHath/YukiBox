@@ -29,12 +29,13 @@ public class PageService : IPageService
 
     public Page GetPage(string key)
     {
-        var pageType = GetPageType(key);
+        Type pageType = GetPageType(key);
         if (pageType is null)
         {
             return null;
         }
-        return Ioc.Default.GetService(pageType) as Page;
+        Page page = Ioc.Default.GetService(pageType) as Page;
+        return page;
     }
 
     public void Configure<TViewModel, TView>()
@@ -49,7 +50,7 @@ public class PageService : IPageService
                 throw new ArgumentException($"The key {key} is already configured in PageService");
             }
 
-            var type = typeof(TView);
+            Type type = typeof(TView);
             if (_pages.ContainsValue(type))
             {
                 throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == type).Key}");

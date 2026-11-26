@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -27,28 +28,12 @@ public partial class ShellWindow : Window, IShellWindow
         // WinUI 3 doesn't provide API to change window icon, so using Win32 API here
         //SetIcon(@"Assets\Images\logo.ico");
 
-        var appWindow = this.GetAppWindow();
+        AppWindow appWindow = this.GetAppWindow();
         appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
         SetTitleBar(appTitleBar);
 
         Closed += ShellWindow_Closed;
         (Content as FrameworkElement).Loaded += ShellWindow_Loaded;
-    }
-
-    private void ShellWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        // Set ContentDialog XamlRoot here
-        var contentDialogService = Ioc.Default.GetService<IContentDialogService>();
-        contentDialogService.SetMainXamlRoot(Content.XamlRoot);
-    }
-
-    private void ShellWindow_Closed(object sender, WindowEventArgs args)
-    {
-        this.HideWindow();
-        if (!App.Exiting)
-        {
-            args.Handled = true;
-        }
     }
 
     public Frame GetNavigationFrame()
@@ -65,6 +50,22 @@ public partial class ShellWindow : Window, IShellWindow
     public void CloseWindow()
     {
         Close();
+    }
+
+    private void ShellWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        // Set ContentDialog XamlRoot here
+        IContentDialogService contentDialogService = Ioc.Default.GetService<IContentDialogService>();
+        contentDialogService.SetMainXamlRoot(Content.XamlRoot);
+    }
+
+    private void ShellWindow_Closed(object sender, WindowEventArgs args)
+    {
+        this.HideWindow();
+        if (!App.Exiting)
+        {
+            args.Handled = true;
+        }
     }
 
     private void NavigateView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

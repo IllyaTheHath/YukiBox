@@ -1,4 +1,5 @@
 ﻿using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace YukiBox.Desktop.Models;
 
@@ -10,9 +11,9 @@ internal class QQMusicPlayer : MusicPlayer
 
     public override string GetMusicName()
     {
-        var hWnd = PInvoke.FindWindow("QQMusic_Daemon_Wnd", null);
+        HWND hWnd = PInvoke.FindWindow("QQMusic_Daemon_Wnd", null);
 
-        if (hWnd == Windows.Win32.Foundation.HWND.Null)
+        if (hWnd == HWND.Null)
         {
             return string.Empty;
         }

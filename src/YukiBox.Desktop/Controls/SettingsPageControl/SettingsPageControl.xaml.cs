@@ -8,13 +8,13 @@ namespace YukiBox.Desktop.Controls;
 
 public sealed partial class SettingsPageControl : UserControl
 {
+    public static readonly DependencyProperty ModuleContentProperty = DependencyProperty.Register("ModuleContent", typeof(object), typeof(SettingsPageControl), new PropertyMetadata(new Grid()));
+
     public object ModuleContent
     {
         get { return GetValue(ModuleContentProperty); }
         set { SetValue(ModuleContentProperty, value); }
     }
-
-    public static readonly DependencyProperty ModuleContentProperty = DependencyProperty.Register("ModuleContent", typeof(object), typeof(SettingsPageControl), new PropertyMetadata(new Grid()));
 
     public SettingsPageControl()
     {

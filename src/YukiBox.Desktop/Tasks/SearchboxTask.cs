@@ -26,7 +26,7 @@ public class SearchboxTask : BackgroundTaskBase
             string playerName = ConfigHelper.CurrentConfig.Taskbar.MusicPlayer;
             if (!string.IsNullOrEmpty(playerName) && _player?.Name != playerName)
             {
-                var type = Type.GetType(playerName);
+                Type type = Type.GetType(playerName);
                 _player = Activator.CreateInstance(type) as MusicPlayer;
             }
             _defaultText = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
@@ -57,6 +57,13 @@ public class SearchboxTask : BackgroundTaskBase
         }
     }
 
+    public override void Dispose()
+    {
+        _player = null;
+        base.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
     protected override Task ActionAsync()
     {
         if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
@@ -81,12 +88,5 @@ public class SearchboxTask : BackgroundTaskBase
         }
 
         return Task.CompletedTask;
-    }
-
-    public override void Dispose()
-    {
-        _player = null;
-        base.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

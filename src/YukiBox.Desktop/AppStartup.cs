@@ -19,13 +19,13 @@ public class AppStartup
 
     public static AppStartup Instance { get { return s_lazy.Value; } }
 
-    private IServiceProvider _services;
-
     private INavigationService _navigationService;
     private IPageService _pageService;
     private ITrayIconService _trayIconService;
 
     private IShellWindow _shellWindow;
+
+    private IServiceProvider _services;
 
     private AppStartup()
     {
@@ -35,6 +35,60 @@ public class AppStartup
     {
         _services = ConfigureServices();
         Ioc.Default.ConfigureServices(_services);
+    }
+
+    public void OnStartup()
+    {
+        ConfigurePages();
+
+        I18NSource.Instance.Initialize();
+
+        _trayIconService = Ioc.Default.GetService<ITrayIconService>();
+        _trayIconService.Initialize();
+
+        IEnumerable<IBackgroundTask> tasks = Ioc.Default.GetServices<IBackgroundTask>();
+        foreach (IBackgroundTask task in tasks)
+        {
+            task.Init();
+        }
+
+        HooksHelper.Instance.Initialize();
+    }
+
+    public void OnExit()
+    {
+        _trayIconService?.Dispose();
+
+        IEnumerable<IBackgroundTask> tasks = Ioc.Default.GetServices<IBackgroundTask>();
+        foreach (IBackgroundTask task in tasks)
+        {
+            task.Dispose();
+        }
+
+        HooksHelper.Instance.Dispose();
+    }
+
+    public void ShowShellWindow()
+    {
+        if (_shellWindow is null)
+        //if (!App.Current.Windows.OfType<IShellWindow>().Any())
+        {
+            _navigationService = Ioc.Default.GetService<INavigationService>();
+            _shellWindow = Ioc.Default.GetService<IShellWindow>();
+            //_shellWindow = new ShellWindow();
+            _navigationService.Initialize(_shellWindow.GetNavigationFrame());
+            _shellWindow.Show();
+            _navigationService.NavigateTo(typeof(AboutViewModel).FullName);
+        }
+        else
+        {
+            _shellWindow.Show();
+        }
+    }
+
+    public void Exit()
+    {
+        App.Exit();
     }
 
     private static IServiceProvider ConfigureServices()
@@ -67,38 +121,8 @@ public class AppStartup
         // Configure Background Task
         services.AddSingleton<IBackgroundTask, SearchboxTask>();
 
-        return services.BuildServiceProvider();
-    }
-
-    public void OnStartup()
-    {
-        ConfigurePages();
-
-        I18NSource.Instance.Initialize();
-
-        _trayIconService = Ioc.Default.GetService<ITrayIconService>();
-        _trayIconService.Initialize();
-
-        var tasks = Ioc.Default.GetServices<IBackgroundTask>();
-        foreach (var task in tasks)
-        {
-            task.Init();
-        }
-
-        HooksHelper.Instance.Initialize();
-    }
-
-    public void OnExit()
-    {
-        _trayIconService?.Dispose();
-
-        var tasks = Ioc.Default.GetServices<IBackgroundTask>();
-        foreach (var task in tasks)
-        {
-            task.Dispose();
-        }
-
-        HooksHelper.Instance.Dispose();
+        ServiceProvider serviceProvider = services.BuildServiceProvider();
+        return serviceProvider;
     }
 
     private void ConfigurePages()
@@ -109,28 +133,5 @@ public class AppStartup
 
         _pageService.Configure<AboutViewModel, AboutView>();
         _pageService.Configure<SettingViewModel, SettingView>();
-    }
-
-    public void ShowShellWindow()
-    {
-        if (_shellWindow is null)
-        //if (!App.Current.Windows.OfType<IShellWindow>().Any())
-        {
-            _navigationService = Ioc.Default.GetService<INavigationService>();
-            _shellWindow = Ioc.Default.GetService<IShellWindow>();
-            //_shellWindow = new ShellWindow();
-            _navigationService.Initialize(_shellWindow.GetNavigationFrame());
-            _shellWindow.Show();
-            _navigationService.NavigateTo(typeof(AboutViewModel).FullName);
-        }
-        else
-        {
-            _shellWindow.Show();
-        }
-    }
-
-    public void Exit()
-    {
-        App.Exit();
     }
 }

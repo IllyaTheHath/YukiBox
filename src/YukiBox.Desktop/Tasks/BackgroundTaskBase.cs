@@ -4,14 +4,14 @@ namespace YukiBox.Desktop.Tasks;
 
 public abstract class BackgroundTaskBase : IBackgroundTask
 {
-    private readonly Timer _timer;
-    private int _alreadyRunCount;
-
     public TimeSpan Interval { get; init; }
 
     public int RunCount { get; init; }
 
     public bool IsRunning { get; private set; }
+
+    private readonly Timer _timer;
+    private int _alreadyRunCount;
 
     public BackgroundTaskBase(TimeSpan interval, int runCount = 0)
     {
@@ -42,6 +42,18 @@ public abstract class BackgroundTaskBase : IBackgroundTask
         IsRunning = false;
     }
 
+    public virtual void Dispose()
+    {
+        _timer.Stop();
+        _timer.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual async Task ActionAsync()
+    {
+        await Task.CompletedTask;
+    }
+
     private async Task TickActionAsync()
     {
         if (RunCount <= 0 || _alreadyRunCount++ < RunCount)
@@ -52,17 +64,5 @@ public abstract class BackgroundTaskBase : IBackgroundTask
         {
             Stop();
         }
-    }
-
-    protected virtual async Task ActionAsync()
-    {
-        await Task.CompletedTask;
-    }
-
-    public virtual void Dispose()
-    {
-        _timer.Stop();
-        _timer.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

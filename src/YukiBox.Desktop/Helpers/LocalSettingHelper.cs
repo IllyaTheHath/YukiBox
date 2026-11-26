@@ -16,10 +16,12 @@ public static class LocalSettingHelper
 
                 if (typeof(T).IsEnum)
                 {
-                    return (T)Enum.Parse(typeof(T), value);
+                    T enumValue = (T)Enum.Parse(typeof(T), value);
+                    return enumValue;
                 }
 
-                return (T)Convert.ChangeType(value, typeof(T));
+                T convertedValue = (T)Convert.ChangeType(value, typeof(T));
+                return convertedValue;
             }
         }
         catch { }

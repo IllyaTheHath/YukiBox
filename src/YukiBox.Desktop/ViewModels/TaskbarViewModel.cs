@@ -15,8 +15,6 @@ namespace YukiBox.Desktop.ViewModels;
 
 public class TaskbarViewModel : ViewModelBase
 {
-    private readonly IBackgroundTask _task;
-
     public ObservableCollection<MusicPlayer> MusicPlayers { get; set; }
 
     private MusicPlayer _selectedPlayer;
@@ -68,6 +66,8 @@ public class TaskbarViewModel : ViewModelBase
             }
         }
     }
+
+    private readonly IBackgroundTask _task;
 
     public TaskbarViewModel()
     {

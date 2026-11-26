@@ -6,17 +6,17 @@ public class NavMenuItemBase { }
 
 public class NavMenuItem : NavMenuItemBase
 {
-    private readonly string _nameResourceName;
-
     public string Name { get; set; }
-
-    private readonly string _tooltipResourceName;
 
     public string Tooltip { get; set; }
 
     public string Glyph { get; set; }
 
     public Type TargetType { get; set; }
+
+    private readonly string _nameResourceName;
+
+    private readonly string _tooltipResourceName;
 
     public NavMenuItem()
     {

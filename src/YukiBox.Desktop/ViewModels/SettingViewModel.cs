@@ -12,8 +12,6 @@ namespace YukiBox.Desktop.ViewModels;
 
 public class SettingViewModel : ViewModelBase
 {
-    private readonly IContentDialogService _contentDialogService;
-
     private bool _enableStartUp;
 
     public bool EnableStartUp
@@ -33,6 +31,16 @@ public class SettingViewModel : ViewModelBase
         }
     }
 
+    private ICommand _resetSettingCommand;
+
+    public ICommand ResetSettingCommand => _resetSettingCommand ??= new AsyncRelayCommand(ResetSettingAsync);
+
+    private ICommand _appExitCommand;
+
+    public ICommand AppExitCommand => _appExitCommand ??= new RelayCommand(ExitApp);
+
+    private readonly IContentDialogService _contentDialogService;
+
     public SettingViewModel()
     {
         _contentDialogService = Ioc.Default.GetService<IContentDialogService>();
@@ -41,14 +49,6 @@ public class SettingViewModel : ViewModelBase
 
         async void InitGetEnableStartUp() => EnableStartUp = await GetEnableStartUpAsync();
     }
-
-    private ICommand _resetSettingCommand;
-
-    public ICommand ResetSettingCommand => _resetSettingCommand ??= new AsyncRelayCommand(ResetSettingAsync);
-
-    private ICommand _appExitCommand;
-
-    public ICommand AppExitCommand => _appExitCommand ??= new RelayCommand(ExitApp);
 
     private async Task ResetSettingAsync()
     {
@@ -65,8 +65,8 @@ public class SettingViewModel : ViewModelBase
     {
         try
         {
-            var startupTask = await StartupTask.GetAsync(App.AppName);
-            var state = startupTask.State;
+            StartupTask startupTask = await StartupTask.GetAsync(App.AppName);
+            StartupTaskState state = startupTask.State;
             return state == StartupTaskState.Enabled;
         }
         catch
@@ -79,7 +79,7 @@ public class SettingViewModel : ViewModelBase
     {
         try
         {
-            var startupTask = await StartupTask.GetAsync(App.AppName);
+            StartupTask startupTask = await StartupTask.GetAsync(App.AppName);
             if (enableStartUp)
             {
                 if (startupTask.State == StartupTaskState.DisabledByUser)

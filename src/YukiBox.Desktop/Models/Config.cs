@@ -11,7 +11,7 @@ public class Config
     public Config()
     {
         System = new();
-        Taskbar = new Config_Taskbar();
+        Taskbar = new();
     }
 }
 
