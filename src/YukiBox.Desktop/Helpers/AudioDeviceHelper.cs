@@ -18,7 +18,7 @@ public static class AudioDeviceHelper
         if (speakDevices.Count > 0)
         {
             MMDevice device = speakDevices.FirstOrDefault();
-            if (device != null)
+            if (device is not null)
             {
                 volume = (int)(device.AudioEndpointVolume.MasterVolumeLevelScalar * 100);
             }
@@ -58,7 +58,7 @@ public static class AudioDeviceHelper
         if (speakDevices.Count > 0)
         {
             MMDevice device = speakDevices.FirstOrDefault();
-            if (device != null)
+            if (device is not null)
             {
                 if (up)
                 {
@@ -106,7 +106,7 @@ public static class AudioDeviceHelper
         if (speakDevices.Count > 0)
         {
             MMDevice device = speakDevices.FirstOrDefault();
-            if (device != null)
+            if (device is not null)
             {
                 device.AudioEndpointVolume.Mute = true;
             }

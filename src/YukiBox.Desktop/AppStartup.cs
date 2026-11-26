@@ -17,7 +17,7 @@ public class AppStartup
 {
     private static readonly Lazy<AppStartup> s_lazy = new(() => new AppStartup());
 
-    public static AppStartup Instance { get { return s_lazy.Value; } }
+    public static AppStartup Instance => s_lazy.Value;
 
     private INavigationService _navigationService;
     private IPageService _pageService;

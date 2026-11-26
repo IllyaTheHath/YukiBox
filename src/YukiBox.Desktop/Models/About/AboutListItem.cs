@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Diagnostics;
+using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.Input;
 
@@ -37,7 +38,7 @@ public class AboutListItem
     {
         if (OpenUrl && !string.IsNullOrEmpty(Url))
         {
-            System.Diagnostics.Process.Start(Url);
+            Process.Start(Url);
         }
     }
 }

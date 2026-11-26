@@ -116,12 +116,12 @@ public class Setting : ContentControl
 
     private void Update()
     {
-        if (_setting == null)
+        if (_setting is null)
         {
             return;
         }
 
-        if (_setting.ActionContent != null)
+        if (_setting.ActionContent is not null)
         {
             if (_setting.ActionContent.GetType() != typeof(Button))
             {
@@ -133,9 +133,9 @@ public class Setting : ContentControl
             }
         }
 
-        if (_setting._iconPresenter != null)
+        if (_setting._iconPresenter is not null)
         {
-            if (_setting.Icon == null)
+            if (_setting.Icon is null)
             {
                 _setting._iconPresenter.Visibility = Visibility.Collapsed;
             }
@@ -145,7 +145,7 @@ public class Setting : ContentControl
             }
         }
 
-        if (_setting.Description == null)
+        if (_setting.Description is null)
         {
             _setting._descriptionPresenter.Visibility = Visibility.Collapsed;
         }

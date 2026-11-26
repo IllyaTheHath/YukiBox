@@ -32,8 +32,20 @@ public partial class ShellWindow : Window, IShellWindow
         appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
         SetTitleBar(appTitleBar);
 
-        Closed += ShellWindow_Closed;
-        (Content as FrameworkElement).Loaded += ShellWindow_Loaded;
+        Closed += (_, args) =>
+        {
+            this.HideWindow();
+            if (!App.Exiting)
+            {
+                args.Handled = true;
+            }
+        };
+        (Content as FrameworkElement).Loaded += (_, _) =>
+        {
+            // Set ContentDialog XamlRoot here
+            IContentDialogService contentDialogService = Ioc.Default.GetService<IContentDialogService>();
+            contentDialogService.SetMainXamlRoot(Content.XamlRoot);
+        };
     }
 
     public Frame GetNavigationFrame()
@@ -50,22 +62,6 @@ public partial class ShellWindow : Window, IShellWindow
     public void CloseWindow()
     {
         Close();
-    }
-
-    private void ShellWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        // Set ContentDialog XamlRoot here
-        IContentDialogService contentDialogService = Ioc.Default.GetService<IContentDialogService>();
-        contentDialogService.SetMainXamlRoot(Content.XamlRoot);
-    }
-
-    private void ShellWindow_Closed(object sender, WindowEventArgs args)
-    {
-        this.HideWindow();
-        if (!App.Exiting)
-        {
-            args.Handled = true;
-        }
     }
 
     private void NavigateView(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

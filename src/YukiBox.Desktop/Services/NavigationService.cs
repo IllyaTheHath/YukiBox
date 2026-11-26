@@ -55,7 +55,7 @@ public class NavigationService : INavigationService
             return;
         }
 
-        if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
+        if (_frame.Content?.GetType() != pageType || (parameter is not null && !parameter.Equals(_lastParameterUsed)))
         {
             Page page = _pageService.GetPage(pageKey);
             if (page is null)

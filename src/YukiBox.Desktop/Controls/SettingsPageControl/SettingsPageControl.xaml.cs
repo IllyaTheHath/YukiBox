@@ -12,8 +12,8 @@ public sealed partial class SettingsPageControl : UserControl
 
     public object ModuleContent
     {
-        get { return GetValue(ModuleContentProperty); }
-        set { SetValue(ModuleContentProperty, value); }
+        get => GetValue(ModuleContentProperty);
+        set => SetValue(ModuleContentProperty, value);
     }
 
     public SettingsPageControl()

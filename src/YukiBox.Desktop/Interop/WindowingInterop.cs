@@ -5,6 +5,7 @@ using Microsoft.Win32.SafeHandles;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace YukiBox.Desktop.Interop;
 
@@ -17,7 +18,7 @@ internal static class AppWindowExtensions
         return appWindow;
     }
 
-    private static AppWindow GetAppWindowFromWindowHandle(IntPtr windowHandle)
+    private static AppWindow GetAppWindowFromWindowHandle(nint windowHandle)
     {
         WindowId windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
         AppWindow appWindow = AppWindow.GetFromWindowId(windowId);
@@ -48,9 +49,9 @@ public static class WindowExtensions
     public static void SetIcon(this Window window, string icon)
     {
         nint hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-        SafeFileHandle hIcon = PInvoke.LoadImage(null, icon, Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE.IMAGE_ICON,
+        SafeFileHandle hIcon = PInvoke.LoadImage(null, icon, GDI_IMAGE_TYPE.IMAGE_ICON,
             16, 16,
-            Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS.LR_LOADFROMFILE);
+            IMAGE_FLAGS.LR_LOADFROMFILE);
         PInvoke.SendMessage(new HWND(hwnd), PInvoke.WM_SETICON, PInvoke.ICON_SMALL, hIcon.DangerousGetHandle());
     }
 }

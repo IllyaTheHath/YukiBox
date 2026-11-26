@@ -11,11 +11,11 @@ public class I18N : MarkupExtension
 {
     public string Code { get; set; }
 
-    public I18N() : base()
+    public I18N()
     {
     }
 
-    public I18N(string code) : base()
+    public I18N(string code)
     {
         Code = code;
     }
@@ -57,7 +57,7 @@ public class LanguageInfo
 
     private void Initialize()
     {
-        if (CultureInfo != null)
+        if (CultureInfo is not null)
         {
             DisplayName = $"{CultureInfo.NativeName} - {CultureInfo.EnglishName} [{CultureInfo.Name}]";
             LanguageName = CultureInfo.Name;
@@ -74,7 +74,7 @@ public class I18NSource
 {
     private static readonly Lazy<I18NSource> s_lazy = new(() => new I18NSource());
 
-    public static I18NSource Instance { get { return s_lazy.Value; } }
+    public static I18NSource Instance => s_lazy.Value;
 
     private LanguageInfo _currentLanguage;
 
@@ -132,10 +132,10 @@ public class I18NSource
 
     private static ObservableCollection<LanguageInfo> GetAllSupportedLanguages()
     {
-        var supportedLanguages = new ObservableCollection<LanguageInfo>
-        {
+        ObservableCollection<LanguageInfo> supportedLanguages =
+        [
             new(string.Empty)
-        };
+        ];
 
         ResourceManager resourceManager = Properties.Strings.ResourceManager;
         CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
@@ -149,7 +149,7 @@ public class I18NSource
                 }
 
                 ResourceSet resourceSet = resourceManager.GetResourceSet(culture, true, false);
-                if (resourceSet != null)
+                if (resourceSet is not null)
                 {
                     supportedLanguages.Add(new LanguageInfo(culture));
                 }

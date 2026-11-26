@@ -26,7 +26,7 @@ internal class MouseHook : IDisposable
 
     public event Action<MOUSEINPUT, short> MouseWheel;
 
-    private UnhookWindowsHookExSafeHandle _handle = new(IntPtr.Zero);
+    private UnhookWindowsHookExSafeHandle _handle = new(nint.Zero);
     private HOOKPROC _hookProc;
 
     private bool _disposed;

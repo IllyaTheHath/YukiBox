@@ -2,6 +2,7 @@
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 using YukiBox.Desktop.Helpers;
 
@@ -65,9 +66,9 @@ public class WheelVolumeHookHelper : HookHelperBase
         }
     }
 
-    private bool IsWindowsFullScreen(IntPtr hwnd)
+    private bool IsWindowsFullScreen(nint hwnd)
     {
-        if (hwnd != IntPtr.Zero)
+        if (hwnd != nint.Zero)
         {
             if (PInvoke.GetWindowRect(new HWND(hwnd), out RECT rect))
             {
@@ -99,8 +100,8 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     private Size GetScreenSize()
     {
-        int width = PInvoke.GetSystemMetrics(Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX.SM_CXSCREEN);
-        int height = PInvoke.GetSystemMetrics(Windows.Win32.UI.WindowsAndMessaging.SYSTEM_METRICS_INDEX.SM_CYSCREEN);
+        int width = PInvoke.GetSystemMetrics(SYSTEM_METRICS_INDEX.SM_CXSCREEN);
+        int height = PInvoke.GetSystemMetrics(SYSTEM_METRICS_INDEX.SM_CYSCREEN);
         return new Size(width, height);
     }
 

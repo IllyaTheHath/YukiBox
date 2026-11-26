@@ -16,7 +16,7 @@ public partial class SettingExpander : Expander
     private static void OnHeaderChanged(DependencyObject d, DependencyProperty dp)
     {
         var self = (SettingExpander)d;
-        if (self.Header != null)
+        if (self.Header is not null)
         {
             if (self.Header.GetType() == typeof(Setting))
             {

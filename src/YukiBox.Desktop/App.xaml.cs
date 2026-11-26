@@ -17,10 +17,7 @@ public partial class App : Application
 
     public static bool Exiting { get; private set; }
 
-    public static string AppVersion
-    {
-        get => Assembly.GetExecutingAssembly().GetName().Version.ToString();
-    }
+    public static string AppVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
     public App()
     {

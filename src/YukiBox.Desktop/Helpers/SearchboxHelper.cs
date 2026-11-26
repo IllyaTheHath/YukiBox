@@ -1,5 +1,6 @@
 ﻿using Windows.Win32;
 using Windows.Win32.Foundation;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace YukiBox.Desktop.Helpers;
 
@@ -8,19 +9,19 @@ public static class SearchboxHelper
     public static string GetSearchboxText()
     {
         HWND taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
-        if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
+        if (taskbarHWnd == HWND.Null)
         {
             return string.Empty;
         }
 
-        HWND searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
-        if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
+        HWND searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, HWND.Null, "TrayDummySearchControl", null);
+        if (searchBoxHWnd == HWND.Null)
         {
             return string.Empty;
         }
 
-        HWND searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
-        if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
+        HWND searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, HWND.Null, "Static", null);
+        if (searchBoxTextHWnd == HWND.Null)
         {
             return string.Empty;
         }
@@ -43,17 +44,17 @@ public static class SearchboxHelper
     public static bool SetSearchboxText(string text, bool compatibleStartIsBack)
     {
         HWND taskbarHWnd = PInvoke.FindWindow("Shell_TrayWnd", null);
-        if (taskbarHWnd == Windows.Win32.Foundation.HWND.Null)
+        if (taskbarHWnd == HWND.Null)
         {
             return false;
         }
-        HWND searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, Windows.Win32.Foundation.HWND.Null, "TrayDummySearchControl", null);
-        if (searchBoxHWnd == Windows.Win32.Foundation.HWND.Null)
+        HWND searchBoxHWnd = PInvoke.FindWindowEx(taskbarHWnd, HWND.Null, "TrayDummySearchControl", null);
+        if (searchBoxHWnd == HWND.Null)
         {
             return false;
         }
-        HWND searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, Windows.Win32.Foundation.HWND.Null, "Static", null);
-        if (searchBoxTextHWnd == Windows.Win32.Foundation.HWND.Null)
+        HWND searchBoxTextHWnd = PInvoke.FindWindowEx(searchBoxHWnd, HWND.Null, "Static", null);
+        if (searchBoxTextHWnd == HWND.Null)
         {
             return false;
         }
@@ -62,13 +63,13 @@ public static class SearchboxHelper
         // force refresh searchbox for the changes to take effect
         if (compatibleStartIsBack)
         {
-            PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_SHOWNOACTIVATE);
-            PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_HIDE);
+            PInvoke.ShowWindow(searchBoxTextHWnd, SHOW_WINDOW_CMD.SW_SHOWNOACTIVATE);
+            PInvoke.ShowWindow(searchBoxTextHWnd, SHOW_WINDOW_CMD.SW_HIDE);
         }
         else
         {
-            PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_HIDE);
-            PInvoke.ShowWindow(searchBoxTextHWnd, Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD.SW_SHOWNOACTIVATE);
+            PInvoke.ShowWindow(searchBoxTextHWnd, SHOW_WINDOW_CMD.SW_HIDE);
+            PInvoke.ShowWindow(searchBoxTextHWnd, SHOW_WINDOW_CMD.SW_SHOWNOACTIVATE);
         }
         return true;
     }

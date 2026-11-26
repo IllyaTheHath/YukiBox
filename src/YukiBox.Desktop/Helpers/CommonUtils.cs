@@ -2,10 +2,7 @@
 
 public static class CommonUtils
 {
-    public static WindowsVersion WindowsVersion
-    {
-        get => Environment.OSVersion.Version.Build >= 22000 ? WindowsVersion.Windows11 : WindowsVersion.Windows10;
-    }
+    public static WindowsVersion WindowsVersion => Environment.OSVersion.Version.Build >= 22000 ? WindowsVersion.Windows11 : WindowsVersion.Windows10;
 }
 
 public enum WindowsVersion

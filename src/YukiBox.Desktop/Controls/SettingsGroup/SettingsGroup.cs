@@ -82,12 +82,12 @@ public partial class SettingsGroup : ItemsControl
 
     private void Update()
     {
-        if (_settingsGroup == null)
+        if (_settingsGroup is null)
         {
             return;
         }
 
-        if (_settingsGroup.Description == null)
+        if (_settingsGroup.Description is null)
         {
             _settingsGroup._descriptionPresenter.Visibility = Visibility.Collapsed;
         }
