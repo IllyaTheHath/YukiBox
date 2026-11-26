@@ -8,6 +8,12 @@ public static class LocalSettingHelper
 {
     public static T Get<T>([CallerMemberName] string key = "")
     {
+        T value = Get<T>(default, key);
+        return value;
+    }
+
+    public static T Get<T>(T defaultValue, [CallerMemberName] string key = "")
+    {
         try
         {
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey(key))
@@ -25,7 +31,7 @@ public static class LocalSettingHelper
             }
         }
         catch { }
-        return default;
+        return defaultValue;
     }
 
     public static bool Set<T>(T value, [CallerMemberName] string key = "")

@@ -208,7 +208,7 @@
     <value>工作列</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
-    <value>滑鼠指標停留在工作列上時，以滾輪調整音量</value>
+    <value>滑鼠指標停留在工作列上時，以滾輪控制音量</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
     <value>一般</value>
@@ -220,6 +220,18 @@
     <value>結束 YukiBox</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
-    <value>滾輪調整音量</value>
+    <value>滾輪音量調整</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Adjust" xml:space="preserve">
+    <value>捲動滾輪調整音量</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute" xml:space="preserve">
+    <value>按一下中鍵靜音</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse" xml:space="preserve">
+    <value>反轉捲動方向</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc" xml:space="preserve">
+    <value>向下捲動時調高音量</value>
   </data>
 </root>

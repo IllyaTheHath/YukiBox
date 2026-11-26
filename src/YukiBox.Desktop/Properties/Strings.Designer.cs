@@ -61,29 +61,47 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Taskbar 的本地化字符串。
+        ///   查找类似 Scroll to adjust volume 的本地化字符串。
         /// </summary>
-        public static string AudioEnhancement_Taskbar {
+        public static string AudioEnhancement_Taskbar_WheelVolume_Adjust {
             get {
-                return ResourceManager.GetString("AudioEnhancement.Taskbar", resourceCulture);
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Adjust", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 Wheel volume control 的本地化字符串。
-        /// </summary>
-        public static string AudioEnhancement_Taskbar_WheelVolume {
-            get {
-                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Adjust the volume with the mouse wheel while the pointer is over the taskbar 的本地化字符串。
+        ///   查找类似 Control the volume with the mouse wheel while the pointer is over the taskbar 的本地化字符串。
         /// </summary>
         public static string AudioEnhancement_Taskbar_WheelVolume_Desc {
             get {
                 return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Middle-click to mute 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_MiddleClickMute {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Reverse scroll direction 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Reverse {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Reverse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Scroll down to turn the volume up 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Reverse_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc", resourceCulture);
             }
         }
         

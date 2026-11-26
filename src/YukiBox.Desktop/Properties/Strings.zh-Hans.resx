@@ -208,7 +208,7 @@
     <value>任务栏</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
-    <value>鼠标指针悬停在任务栏上时，使用滚轮调节音量</value>
+    <value>鼠标指针悬停在任务栏上时，使用滚轮控制音量</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
     <value>通用</value>
@@ -220,6 +220,18 @@
     <value>退出 YukiBox</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
-    <value>滚轮调节音量</value>
+    <value>滚轮音量调节</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Adjust" xml:space="preserve">
+    <value>滚动滚轮调节音量</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute" xml:space="preserve">
+    <value>单击中键静音</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse" xml:space="preserve">
+    <value>反转滚动方向</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc" xml:space="preserve">
+    <value>向下滚动时增大音量</value>
   </data>
 </root>

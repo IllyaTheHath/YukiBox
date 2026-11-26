@@ -208,7 +208,7 @@
     <value>Taskbar</value>
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
-    <value>Adjust the volume with the mouse wheel while the pointer is over the taskbar</value>
+    <value>Control the volume with the mouse wheel while the pointer is over the taskbar</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
     <value>General</value>
@@ -221,5 +221,17 @@
   </data>
   <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
     <value>Wheel volume control</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Adjust" xml:space="preserve">
+    <value>Scroll to adjust volume</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute" xml:space="preserve">
+    <value>Middle-click to mute</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse" xml:space="preserve">
+    <value>Reverse scroll direction</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc" xml:space="preserve">
+    <value>Scroll down to turn the volume up</value>
   </data>
 </root>

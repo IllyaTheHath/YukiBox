@@ -17,15 +17,58 @@
     <c:SettingsPageControl.ModuleContent>
       <StackPanel>
         <c:SettingsGroup Margin="0,-20,0,0" Header="{helpers:I18N Code='AudioEnhancement.Taskbar'}">
-          <c:Setting Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Desc'}" Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume'}">
-            <c:Setting.ActionContent>
-              <ToggleSwitch
-                FontSize="14"
-                IsOn="{x:Bind ViewModel.EnableWheelVolume, Mode=TwoWay}"
-                OffContent="{helpers:I18N Code='ToggleButton.Off'}"
-                OnContent="{helpers:I18N Code='ToggleButton.On'}" />
-            </c:Setting.ActionContent>
-          </c:Setting>
+          <c:SettingExpander>
+            <c:SettingExpander.Header>
+              <c:Setting Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Desc'}" Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume'}">
+                <c:Setting.ActionContent>
+                  <ToggleSwitch
+                    FontSize="14"
+                    IsOn="{x:Bind ViewModel.EnableWheelVolume, Mode=TwoWay}"
+                    OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                    OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                </c:Setting.ActionContent>
+              </c:Setting>
+            </c:SettingExpander.Header>
+            <StackPanel>
+              <c:Setting
+                Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Adjust'}"
+                IsEnabled="{x:Bind ViewModel.EnableWheelVolume, Mode=OneWay}"
+                Style="{StaticResource ExpanderContentSettingStyle}">
+                <c:Setting.ActionContent>
+                  <ToggleSwitch
+                    FontSize="14"
+                    IsOn="{x:Bind ViewModel.EnableWheelVolumeAdjust, Mode=TwoWay}"
+                    OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                    OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                </c:Setting.ActionContent>
+              </c:Setting>
+              <c:Setting
+                Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute'}"
+                IsEnabled="{x:Bind ViewModel.EnableWheelVolume, Mode=OneWay}"
+                Style="{StaticResource ExpanderContentSettingStyle}">
+                <c:Setting.ActionContent>
+                  <ToggleSwitch
+                    FontSize="14"
+                    IsOn="{x:Bind ViewModel.EnableWheelVolumeMiddleClickMute, Mode=TwoWay}"
+                    OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                    OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                </c:Setting.ActionContent>
+              </c:Setting>
+              <c:Setting
+                Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc'}"
+                Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Reverse'}"
+                IsEnabled="{x:Bind ViewModel.EnableWheelVolume, Mode=OneWay}"
+                Style="{StaticResource ExpanderContentSettingStyle}">
+                <c:Setting.ActionContent>
+                  <ToggleSwitch
+                    FontSize="14"
+                    IsOn="{x:Bind ViewModel.ReverseWheelVolume, Mode=TwoWay}"
+                    OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                    OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                </c:Setting.ActionContent>
+              </c:Setting>
+            </StackPanel>
+          </c:SettingExpander>
         </c:SettingsGroup>
       </StackPanel>
     </c:SettingsPageControl.ModuleContent>

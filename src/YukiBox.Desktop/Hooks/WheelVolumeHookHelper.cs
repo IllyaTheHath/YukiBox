@@ -12,43 +12,38 @@ public class WheelVolumeHookHelper : HookHelperBase
 {
     private const string TaskbarClassName = "Shell_TrayWnd";
 
+    public bool IsAdjustEnabled { get; set; }
+
+    public bool IsMiddleClickMuteEnabled { get; set; }
+
+    public bool IsReversed { get; set; }
+
     public override void Initialize()
     {
-        bool enabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
-        if (enabled != IsEnabled)
-        {
-            IsEnabled = enabled;
-        }
+        IsAdjustEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable;
+        IsMiddleClickMuteEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
+        IsReversed = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeReverse;
+        IsEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
     }
 
     protected override void OnEnabled()
     {
-        ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable = IsEnabled;
-
-        if (IsEnabled)
-        {
-            HooksHelper.Instance.MouseHook.MouseWheel += MouseWheel;
-            HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButton;
-        }
+        HooksHelper.Instance.MouseHook.MouseWheel += MouseWheel;
+        HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButton;
     }
 
     protected override void OnDisabled()
     {
-        ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable = IsEnabled;
-
-        if (!IsEnabled)
-        {
-            HooksHelper.Instance.MouseHook.MouseWheel -= MouseWheel;
-            HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
-        }
+        HooksHelper.Instance.MouseHook.MouseWheel -= MouseWheel;
+        HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
     }
 
     private void MouseWheel(MOUSEINPUT input, short delta)
     {
-        bool shouldAction = !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
+        bool shouldAction = IsAdjustEnabled && !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
         if (shouldAction)
         {
-            bool up = delta > 0;
+            bool up = (delta > 0) != IsReversed;
             int step = Math.Abs(delta) / 120;
             for (int i = 0; i < step; i++)
             {
@@ -59,7 +54,7 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     private void MouseMiddleButton(MOUSEINPUT input)
     {
-        bool shouldAction = !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
+        bool shouldAction = IsMiddleClickMuteEnabled && !IsForegroundWindowFullScreen() && IsMouseOverTaskbar(input.dx, input.dy);
         if (shouldAction)
         {
             AudioDeviceHelper.Mute(true);
