@@ -13,7 +13,6 @@
   <ItemGroup Label="UI">
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="H.NotifyIcon.WinUI" Version="2.4.1" />
-    <PackageVersion Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup Label="Audio">
     <PackageVersion Include="NAudio" Version="3.3.0" />

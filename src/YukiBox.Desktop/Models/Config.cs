@@ -6,12 +6,12 @@ public class Config
 {
     public Config_System System { get; private set; }
 
-    public Config_Taskbar Taskbar { get; private set; }
+    public Config_AudioEnhancement AudioEnhancement { get; private set; }
 
     public Config()
     {
         System = new();
-        Taskbar = new();
+        AudioEnhancement = new();
     }
 }
 
@@ -24,7 +24,7 @@ public class Config_System
     }
 }
 
-public class Config_Taskbar
+public class Config_AudioEnhancement
 {
     public bool WheelVolumeEnable
     {

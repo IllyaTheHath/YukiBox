@@ -17,6 +17,7 @@ public static class FontIconSymbol
     public const string Down = "\xE74B";
     public const string Save = "\xE74E";
     public const string SIPRedock = "\xE75B";
+    public const string Volume = "\xE767";
     public const string UpdateRestore = "\xE777";
     public const string Error = "\xE783";
     public const string Warning = "\xE78A";

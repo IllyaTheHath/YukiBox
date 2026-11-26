@@ -19,7 +19,7 @@ namespace YukiBox.Desktop.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -47,8 +47,8 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         public static global::System.Globalization.CultureInfo Culture {
@@ -57,6 +57,33 @@ namespace YukiBox.Desktop.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Taskbar 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Mouse Wheel Volume 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Mouse wheel adjusts the volume when pointer hover over taskbar 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Desc", resourceCulture);
             }
         }
         
@@ -115,6 +142,24 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Audio Enhancements 的本地化字符串。
+        /// </summary>
+        public static string Nav_AudioEnhancement {
+            get {
+                return ResourceManager.GetString("Nav.AudioEnhancement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Audio Feature Enhancements 的本地化字符串。
+        /// </summary>
+        public static string Nav_AudioEnhancement_Tooltip {
+            get {
+                return ResourceManager.GetString("Nav.AudioEnhancement.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Setting 的本地化字符串。
         /// </summary>
         public static string Nav_Setting {
@@ -129,24 +174,6 @@ namespace YukiBox.Desktop.Properties {
         public static string Nav_Setting_Tooltip {
             get {
                 return ResourceManager.GetString("Nav.Setting.Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Taskbar Tweak 的本地化字符串。
-        /// </summary>
-        public static string Nav_Taskbar {
-            get {
-                return ResourceManager.GetString("Nav.Taskbar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Taskbar Tweak Page 的本地化字符串。
-        /// </summary>
-        public static string Nav_Taskbar_Tooltip {
-            get {
-                return ResourceManager.GetString("Nav.Taskbar.Tooltip", resourceCulture);
             }
         }
         
@@ -291,33 +318,6 @@ namespace YukiBox.Desktop.Properties {
         public static string System_Setting_Restore {
             get {
                 return ResourceManager.GetString("System.Setting.Restore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Taskbar 的本地化字符串。
-        /// </summary>
-        public static string Taskbar_Taskbar {
-            get {
-                return ResourceManager.GetString("Taskbar.Taskbar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Mouse Wheel Volume 的本地化字符串。
-        /// </summary>
-        public static string Taskbar_Taskbar_WheelVolume {
-            get {
-                return ResourceManager.GetString("Taskbar.Taskbar.WheelVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Mouse wheel adjusts the volume when pointer hover over taskbar 的本地化字符串。
-        /// </summary>
-        public static string Taskbar_Taskbar_WheelVolume_Desc {
-            get {
-                return ResourceManager.GetString("Taskbar.Taskbar.WheelVolume.Desc", resourceCulture);
             }
         }
         

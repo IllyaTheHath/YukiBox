@@ -14,7 +14,7 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     public override void Initialize()
     {
-        bool enabled = ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable;
+        bool enabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
         if (enabled != IsEnabled)
         {
             IsEnabled = enabled;
@@ -23,7 +23,7 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     protected override void OnEnabled()
     {
-        ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable = IsEnabled;
+        ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable = IsEnabled;
 
         if (IsEnabled)
         {
@@ -34,7 +34,7 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     protected override void OnDisabled()
     {
-        ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable = IsEnabled;
+        ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable = IsEnabled;
 
         if (!IsEnabled)
         {

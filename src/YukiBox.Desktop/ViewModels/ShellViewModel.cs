@@ -28,8 +28,8 @@ public class ShellViewModel : ViewModelBase
         NavMenuItems = [];
         FooterNavMenuItems = [];
 
-        var taskbar = new NavMenuItem("Nav.Taskbar", "Nav.Taskbar.Tooltip", FontIconSymbol.SIPRedock, typeof(TaskbarViewModel));
-        NavMenuItems.Add(taskbar);
+        var audioEnhancement = new NavMenuItem("Nav.AudioEnhancement", "Nav.AudioEnhancement.Tooltip", FontIconSymbol.Volume, typeof(AudioEnhancementViewModel));
+        NavMenuItems.Add(audioEnhancement);
 
         var about = new NavMenuItem("Nav.About", "Nav.About.Tooltip", FontIconSymbol.Info, typeof(AboutViewModel));
         var setting = new NavMenuItem("Nav.Setting", "Nav.Setting.Tooltip", FontIconSymbol.Setting, typeof(SettingViewModel));

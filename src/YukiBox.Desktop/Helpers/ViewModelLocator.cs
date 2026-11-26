@@ -11,7 +11,7 @@ public class ViewModelLocator
     public static ViewModelLocator Current => s_current.Value;
 
     public ShellViewModel ShellViewModel => Ioc.Default.GetService<ShellViewModel>();
-    public TaskbarViewModel TaskbarViewModel => Ioc.Default.GetService<TaskbarViewModel>();
+    public AudioEnhancementViewModel AudioEnhancementViewModel => Ioc.Default.GetService<AudioEnhancementViewModel>();
     public AboutViewModel AboutViewModel => Ioc.Default.GetService<AboutViewModel>();
     public SettingViewModel SettingViewModel => Ioc.Default.GetService<SettingViewModel>();
 

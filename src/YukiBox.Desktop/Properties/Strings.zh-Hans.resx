@@ -132,11 +132,11 @@
   <data name="Nav.About.Tooltip" xml:space="preserve">
     <value>关于页</value>
   </data>
-  <data name="Nav.Taskbar" xml:space="preserve">
-    <value>任务栏调整</value>
+  <data name="Nav.AudioEnhancement" xml:space="preserve">
+    <value>音频功能增强</value>
   </data>
-  <data name="Nav.Taskbar.Tooltip" xml:space="preserve">
-    <value>任务栏调整</value>
+  <data name="Nav.AudioEnhancement.Tooltip" xml:space="preserve">
+    <value>音频功能增强</value>
   </data>
   <data name="Nav.Setting" xml:space="preserve">
     <value>设置</value>
@@ -204,10 +204,10 @@
   <data name="System.Setting.Restore" xml:space="preserve">
     <value>重置为默认设置</value>
   </data>
-  <data name="Taskbar.Taskbar" xml:space="preserve">
+  <data name="AudioEnhancement.Taskbar" xml:space="preserve">
     <value>任务栏</value>
   </data>
-  <data name="Taskbar.Taskbar.WheelVolume.Desc" xml:space="preserve">
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Desc" xml:space="preserve">
     <value>鼠标指针悬停在任务栏上时滚轮调节音量</value>
   </data>
   <data name="System.Setting.General" xml:space="preserve">
@@ -219,7 +219,7 @@
   <data name="System.Setting.AppExit" xml:space="preserve">
     <value>关闭 YukiBox</value>
   </data>
-  <data name="Taskbar.Taskbar.WheelVolume" xml:space="preserve">
+  <data name="AudioEnhancement.Taskbar.WheelVolume" xml:space="preserve">
     <value>滚轮音量调节</value>
   </data>
 </root>

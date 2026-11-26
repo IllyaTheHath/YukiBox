@@ -3,7 +3,7 @@ using YukiBox.Desktop.Hooks;
 
 namespace YukiBox.Desktop.ViewModels;
 
-public class TaskbarViewModel : ViewModelBase
+public class AudioEnhancementViewModel : ViewModelBase
 {
     private bool _enableWheelVolume;
 
@@ -19,8 +19,8 @@ public class TaskbarViewModel : ViewModelBase
         }
     }
 
-    public TaskbarViewModel()
+    public AudioEnhancementViewModel()
     {
-        EnableWheelVolume = ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable;
+        EnableWheelVolume = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
     }
 }

@@ -6,13 +6,13 @@ using YukiBox.Desktop.ViewModels;
 namespace YukiBox.Desktop.Views;
 
 /// <summary>
-/// Interaction logic for HomeView.xaml
+/// Interaction logic for AudioEnhancementView.xaml
 /// </summary>
-public partial class TaskbarView : Page
+public partial class AudioEnhancementView : Page
 {
-    public TaskbarViewModel ViewModel => ViewModelLocator.Current.TaskbarViewModel;
+    public AudioEnhancementViewModel ViewModel => ViewModelLocator.Current.AudioEnhancementViewModel;
 
-    public TaskbarView()
+    public AudioEnhancementView()
     {
         InitializeComponent();
         DataContext = ViewModel;

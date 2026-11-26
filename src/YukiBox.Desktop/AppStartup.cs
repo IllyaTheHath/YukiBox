@@ -96,8 +96,8 @@ public class AppStartup
         services.AddSingleton<ShellViewModel>();
 
         // Configure View & ViewModel
-        services.AddSingleton<TaskbarView>();
-        services.AddSingleton<TaskbarViewModel>();
+        services.AddSingleton<AudioEnhancementView>();
+        services.AddSingleton<AudioEnhancementViewModel>();
 
         services.AddSingleton<AboutView>();
         services.AddSingleton<AboutViewModel>();
@@ -113,7 +113,7 @@ public class AppStartup
     {
         _pageService = Ioc.Default.GetService<IPageService>();
 
-        _pageService.Configure<TaskbarViewModel, TaskbarView>();
+        _pageService.Configure<AudioEnhancementViewModel, AudioEnhancementView>();
 
         _pageService.Configure<AboutViewModel, AboutView>();
         _pageService.Configure<SettingViewModel, SettingView>();
