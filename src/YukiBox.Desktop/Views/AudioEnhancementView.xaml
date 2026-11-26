@@ -31,6 +31,7 @@
             </c:SettingExpander.Header>
             <StackPanel>
               <c:Setting
+                Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Adjust.Desc'}"
                 Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Adjust'}"
                 IsEnabled="{x:Bind ViewModel.EnableWheelVolume, Mode=OneWay}"
                 Style="{StaticResource ExpanderContentSettingStyle}">
@@ -43,6 +44,7 @@
                 </c:Setting.ActionContent>
               </c:Setting>
               <c:Setting
+                Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc'}"
                 Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute'}"
                 IsEnabled="{x:Bind ViewModel.EnableWheelVolume, Mode=OneWay}"
                 Style="{StaticResource ExpanderContentSettingStyle}">

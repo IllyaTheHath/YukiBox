@@ -70,6 +70,15 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Scrolling over the taskbar is handled by this app and may stop other taskbar tools' wheel features from working 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Adjust_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Adjust.Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Control the volume with the mouse wheel while the pointer is over the taskbar 的本地化字符串。
         /// </summary>
         public static string AudioEnhancement_Taskbar_WheelVolume_Desc {
@@ -84,6 +93,15 @@ namespace YukiBox.Desktop.Properties {
         public static string AudioEnhancement_Taskbar_WheelVolume_MiddleClickMute {
             get {
                 return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Middle-clicking a taskbar button no longer opens a new window 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_MiddleClickMute_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc", resourceCulture);
             }
         }
         

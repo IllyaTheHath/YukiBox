@@ -19,6 +19,8 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     public bool IsReversed { get; set; }
 
+    private bool _isMiddleButtonDownHandled;
+
     public override void Initialize()
     {
         IsAdjustEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable;
@@ -30,35 +32,53 @@ public class WheelVolumeHookHelper : HookHelperBase
     protected override void OnEnabled()
     {
         HooksHelper.Instance.MouseHook.MouseWheel += MouseWheel;
-        HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButton;
+        HooksHelper.Instance.MouseHook.MiddleButtonDown += MouseMiddleButtonDown;
+        HooksHelper.Instance.MouseHook.MiddleButtonUp += MouseMiddleButtonUp;
     }
 
     protected override void OnDisabled()
     {
         HooksHelper.Instance.MouseHook.MouseWheel -= MouseWheel;
-        HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButton;
+        HooksHelper.Instance.MouseHook.MiddleButtonDown -= MouseMiddleButtonDown;
+        HooksHelper.Instance.MouseHook.MiddleButtonUp -= MouseMiddleButtonUp;
+        _isMiddleButtonDownHandled = false;
     }
 
-    private void MouseWheel(MSLLHOOKSTRUCT mouseInfo, short delta)
+    private void MouseWheel(object sender, MouseHookEventArgs e)
     {
-        bool shouldAction = IsAdjustEnabled && IsPointOverTaskbar(mouseInfo.pt);
+        bool shouldAction = IsAdjustEnabled && IsPointOverTaskbar(e.MouseInfo.pt);
         if (shouldAction)
         {
-            bool up = (delta > 0) != IsReversed;
-            int step = Math.Abs(delta) / 120;
+            bool up = (e.WheelDelta > 0) != IsReversed;
+            int step = Math.Abs(e.WheelDelta) / 120;
             for (int i = 0; i < step; i++)
             {
                 AudioDeviceHelper.StepSystemVolume(up, true);
             }
+
+            e.Handled = true;
         }
     }
 
-    private void MouseMiddleButton(MSLLHOOKSTRUCT mouseInfo)
+    private void MouseMiddleButtonDown(object sender, MouseHookEventArgs e)
     {
-        bool shouldAction = IsMiddleClickMuteEnabled && IsPointOverTaskbar(mouseInfo.pt);
+        bool shouldAction = IsMiddleClickMuteEnabled && IsPointOverTaskbar(e.MouseInfo.pt);
         if (shouldAction)
         {
             AudioDeviceHelper.Mute(true);
+            e.Handled = true;
+        }
+
+        _isMiddleButtonDownHandled = shouldAction;
+    }
+
+    private void MouseMiddleButtonUp(object sender, MouseHookEventArgs e)
+    {
+        // Swallow the matching button up as well, otherwise the taskbar may still treat it as a middle click
+        if (_isMiddleButtonDownHandled)
+        {
+            _isMiddleButtonDownHandled = false;
+            e.Handled = true;
         }
     }
 

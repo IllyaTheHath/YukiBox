@@ -234,4 +234,10 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc" xml:space="preserve">
     <value>Scroll down to turn the volume up</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Adjust.Desc" xml:space="preserve">
+    <value>Scrolling over the taskbar is handled by this app and may stop other taskbar tools' wheel features from working</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc" xml:space="preserve">
+    <value>Middle-clicking a taskbar button no longer opens a new window</value>
+  </data>
 </root>

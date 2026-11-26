@@ -9,21 +9,21 @@ namespace YukiBox.Desktop.Hooks;
 
 internal class MouseHook : IDisposable
 {
-    public event Action<MSLLHOOKSTRUCT> LeftButtonDown;
+    public event EventHandler<MouseHookEventArgs> LeftButtonDown;
 
-    public event Action<MSLLHOOKSTRUCT> LeftButtonUp;
+    public event EventHandler<MouseHookEventArgs> LeftButtonUp;
 
-    public event Action<MSLLHOOKSTRUCT> RightButtonDown;
+    public event EventHandler<MouseHookEventArgs> RightButtonDown;
 
-    public event Action<MSLLHOOKSTRUCT> RightButtonUp;
+    public event EventHandler<MouseHookEventArgs> RightButtonUp;
 
-    public event Action<MSLLHOOKSTRUCT> MiddleButtonDown;
+    public event EventHandler<MouseHookEventArgs> MiddleButtonDown;
 
-    public event Action<MSLLHOOKSTRUCT> MiddleButtonUp;
+    public event EventHandler<MouseHookEventArgs> MiddleButtonUp;
 
-    public event Action<MSLLHOOKSTRUCT> MouseMove;
+    public event EventHandler<MouseHookEventArgs> MouseMove;
 
-    public event Action<MSLLHOOKSTRUCT, short> MouseWheel;
+    public event EventHandler<MouseHookEventArgs> MouseWheel;
 
     private UnhookWindowsHookExSafeHandle _handle = new(nint.Zero);
     private HOOKPROC _hookProc;
@@ -87,44 +87,32 @@ internal class MouseHook : IDisposable
         if (nCode == PInvoke.HC_ACTION)
         {
             uint mouseEvent = (uint)wParam;
-            MSLLHOOKSTRUCT mouseInfo = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
-            switch (mouseEvent)
+            EventHandler<MouseHookEventArgs> handler = mouseEvent switch
             {
-                case PInvoke.WM_LBUTTONDOWN:
-                    LeftButtonDown?.Invoke(mouseInfo);
-                    break;
+                PInvoke.WM_LBUTTONDOWN => LeftButtonDown,
+                PInvoke.WM_LBUTTONUP => LeftButtonUp,
+                PInvoke.WM_RBUTTONDOWN => RightButtonDown,
+                PInvoke.WM_RBUTTONUP => RightButtonUp,
+                PInvoke.WM_MBUTTONDOWN => MiddleButtonDown,
+                PInvoke.WM_MBUTTONUP => MiddleButtonUp,
+                PInvoke.WM_MOUSEMOVE => MouseMove,
+                PInvoke.WM_MOUSEWHEEL => MouseWheel,
+                _ => null,
+            };
 
-                case PInvoke.WM_LBUTTONUP:
-                    LeftButtonUp?.Invoke(mouseInfo);
-                    break;
+            if (handler is not null)
+            {
+                MSLLHOOKSTRUCT mouseInfo = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
+                short wheelDelta = mouseEvent == PInvoke.WM_MOUSEWHEEL ? (short)(mouseInfo.mouseData >> 16) : (short)0;
+                MouseHookEventArgs args = new(mouseInfo, wheelDelta);
+                handler(this, args);
 
-                case PInvoke.WM_RBUTTONDOWN:
-                    RightButtonDown?.Invoke(mouseInfo);
-                    break;
-
-                case PInvoke.WM_RBUTTONUP:
-                    RightButtonUp?.Invoke(mouseInfo);
-                    break;
-
-                case PInvoke.WM_MBUTTONDOWN:
-                    MiddleButtonDown?.Invoke(mouseInfo);
-                    break;
-
-                case PInvoke.WM_MBUTTONUP:
-                    MiddleButtonUp?.Invoke(mouseInfo);
-                    break;
-
-                case PInvoke.WM_MOUSEMOVE:
-                    MouseMove?.Invoke(mouseInfo);
-                    break;
-
-                case PInvoke.WM_MOUSEWHEEL:
-                    short delta = (short)(mouseInfo.mouseData >> 16);
-                    MouseWheel?.Invoke(mouseInfo, delta);
-                    break;
-
-                default:
-                    break;
+                if (args.Handled)
+                {
+                    // A nonzero return value stops the message from reaching the rest of the hook chain and the target window
+                    LRESULT handled = new(1);
+                    return handled;
+                }
             }
         }
 

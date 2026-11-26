@@ -234,4 +234,10 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc" xml:space="preserve">
     <value>向下滚动时增大音量</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Adjust.Desc" xml:space="preserve">
+    <value>任务栏上的滚轮操作将由本工具处理，其他任务栏工具的滚轮功能可能失效</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc" xml:space="preserve">
+    <value>在任务栏按钮上单击中键将不再打开新窗口</value>
+  </data>
 </root>

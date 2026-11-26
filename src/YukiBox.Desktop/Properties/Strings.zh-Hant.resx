@@ -234,4 +234,10 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc" xml:space="preserve">
     <value>向下捲動時調高音量</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Adjust.Desc" xml:space="preserve">
+    <value>工作列上的滾輪操作將由本工具處理，其他工作列工具的滾輪功能可能失效</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.MiddleClickMute.Desc" xml:space="preserve">
+    <value>在工作列按鈕上按一下中鍵將不再開啟新視窗</value>
+  </data>
 </root>
