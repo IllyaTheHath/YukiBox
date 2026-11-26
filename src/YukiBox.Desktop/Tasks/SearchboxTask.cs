@@ -1,95 +1,92 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.Models;
 
-namespace YukiBox.Desktop.Tasks
+namespace YukiBox.Desktop.Tasks;
+
+public class SearchboxTask : BackgroundTaskBase
 {
-    public class SearchboxTask : BackgroundTaskBase
+    private MusicPlayer _player;
+    private string _defaultText;
+    private bool _compatibleStartIsBack;
+
+    public SearchboxTask() : this(TimeSpan.FromSeconds(1), 0)
     {
-        private MusicPlayer _player;
-        private string _defaultText;
-        private bool _compatibleStartIsBack;
+    }
 
-        public SearchboxTask() : this(TimeSpan.FromSeconds(1), 0)
-        {
-        }
+    public SearchboxTask(TimeSpan interval, int runCount = 0) : base(interval, runCount)
+    {
+    }
 
-        public SearchboxTask(TimeSpan interval, int runCount = 0) : base(interval, runCount)
+    public override void Init()
+    {
+        try
         {
-        }
-
-        public override void Init()
-        {
-            try
+            string playerName = ConfigHelper.CurrentConfig.Taskbar.MusicPlayer;
+            if (!string.IsNullOrEmpty(playerName) && _player?.Name != playerName)
             {
-                var playerName = ConfigHelper.CurrentConfig.Taskbar.MusicPlayer;
-                if (!string.IsNullOrEmpty(playerName) && this._player?.Name != playerName)
-                {
-                    var type = Type.GetType(playerName);
-                    this._player = Activator.CreateInstance(type) as MusicPlayer;
-                }
-                this._defaultText = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
-                this._compatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
+                var type = Type.GetType(playerName);
+                _player = Activator.CreateInstance(type) as MusicPlayer;
             }
-            catch { }
-            if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
-            {
-                Run();
-            }
+            _defaultText = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
+            _compatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
         }
-
-        public void ChangeSettings(MusicPlayer player, string text, bool compatibleStartIsBack)
+        catch { }
+        if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
         {
-            this._player = player;
-            this._defaultText = text;
-            this._compatibleStartIsBack = compatibleStartIsBack;
-
-            // refresh
-            if (IsRunning)
-            {
-                var musicName = this._player?.GetMusicName();
-                if (string.IsNullOrEmpty(musicName))
-                {
-                    musicName = this._defaultText;
-                }
-                SearchboxHelper.SetSearchboxText(musicName, this._compatibleStartIsBack);
-            }
+            Run();
         }
+    }
 
-        protected override Task Action()
+    public void ChangeSettings(MusicPlayer player, string text, bool compatibleStartIsBack)
+    {
+        _player = player;
+        _defaultText = text;
+        _compatibleStartIsBack = compatibleStartIsBack;
+
+        // refresh
+        if (IsRunning)
         {
-            if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
+            string musicName = _player?.GetMusicName();
+            if (string.IsNullOrEmpty(musicName))
             {
-                var musicName = this._player?.GetMusicName();
-                if (string.IsNullOrEmpty(musicName))
-                {
-                    musicName = this._defaultText;
-                }
-
-                var text = SearchboxHelper.GetSearchboxText();
-                if (text != musicName)
-                {
-                    SearchboxHelper.SetSearchboxText(musicName, this._compatibleStartIsBack);
-                    Debug.WriteLine($"set searchbox text to \"{text}\" at {DateTime.Now}");
-                }
+                musicName = _defaultText;
             }
-            else
+            SearchboxHelper.SetSearchboxText(musicName, _compatibleStartIsBack);
+        }
+    }
+
+    protected override Task ActionAsync()
+    {
+        if (ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable && CommonUtils.WindowsVersion == WindowsVersion.Windows10)
+        {
+            string musicName = _player?.GetMusicName();
+            if (string.IsNullOrEmpty(musicName))
             {
-                Stop();
-                ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = false;
+                musicName = _defaultText;
             }
 
-            return Task.CompletedTask;
+            string text = SearchboxHelper.GetSearchboxText();
+            if (text != musicName)
+            {
+                SearchboxHelper.SetSearchboxText(musicName, _compatibleStartIsBack);
+                Debug.WriteLine($"set searchbox text to \"{text}\" at {DateTime.Now}");
+            }
+        }
+        else
+        {
+            Stop();
+            ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = false;
         }
 
-        public override void Dispose()
-        {
-            this._player = null;
-            base.Dispose();
-            GC.SuppressFinalize(this);
-        }
+        return Task.CompletedTask;
+    }
+
+    public override void Dispose()
+    {
+        _player = null;
+        base.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

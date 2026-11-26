@@ -1,19 +1,16 @@
-﻿using System;
-
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 
 using YukiBox.Desktop.ViewModels;
 
-namespace YukiBox.Desktop.Contracts.Services
+namespace YukiBox.Desktop.Contracts.Services;
+
+public interface IPageService
 {
-    public interface IPageService
-    {
-        Type GetPageType(string key);
+    Type GetPageType(string key);
 
-        Page GetPage(string key);
+    Page GetPage(string key);
 
-        void Configure<VM, V>()
-            where VM : ViewModelBase
-            where V : Page;
-    }
+    void Configure<TViewModel, TView>()
+        where TViewModel : ViewModelBase
+        where TView : Page;
 }

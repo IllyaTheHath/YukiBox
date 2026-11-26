@@ -1,19 +1,16 @@
-﻿using System;
+﻿namespace YukiBox.Desktop.Tasks;
 
-namespace YukiBox.Desktop.Tasks
+public interface IBackgroundTask : IDisposable
 {
-    public interface IBackgroundTask : IDisposable
-    {
-        string Name => this.GetType().FullName;
+    string Name => GetType().FullName;
 
-        TimeSpan Interval { get; }
+    TimeSpan Interval { get; }
 
-        int RunCount { get; }
+    int RunCount { get; }
 
-        void Init();
+    void Init();
 
-        void Run();
+    void Run();
 
-        void Stop();
-    }
+    void Stop();
 }

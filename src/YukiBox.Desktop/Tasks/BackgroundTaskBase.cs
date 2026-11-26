@@ -1,71 +1,68 @@
-﻿using System;
-using System.Threading.Tasks;
-using Timer = System.Timers.Timer;
+﻿using Timer = System.Timers.Timer;
 
-namespace YukiBox.Desktop.Tasks
+namespace YukiBox.Desktop.Tasks;
+
+public abstract class BackgroundTaskBase : IBackgroundTask
 {
-    public abstract class BackgroundTaskBase : IBackgroundTask
+    private readonly Timer _timer;
+    private int _alreadyRunCount;
+
+    public TimeSpan Interval { get; init; }
+
+    public int RunCount { get; init; }
+
+    public bool IsRunning { get; private set; }
+
+    public BackgroundTaskBase(TimeSpan interval, int runCount = 0)
     {
-        private readonly Timer _timer;
-        private int _alreadyRunCount;
+        Interval = interval;
+        RunCount = runCount;
 
-        public TimeSpan Interval { get; init; }
+        _timer = new();
+        _timer.Interval = Interval.TotalMilliseconds;
+        _timer.Elapsed += async (s, o) => await TickActionAsync();
+        _timer.Enabled = false;
+    }
 
-        public int RunCount { get; init; }
+    public virtual void Init()
+    {
+    }
 
-        public bool IsRunning { get; private set; }
+    public void Run()
+    {
+        _timer.Enabled = true;
+        _timer.Start();
+        IsRunning = true;
+    }
 
-        public BackgroundTaskBase(TimeSpan interval, int runCount = 0)
+    public void Stop()
+    {
+        _timer.Stop();
+        _timer.Enabled = false;
+        IsRunning = false;
+    }
+
+    private async Task TickActionAsync()
+    {
+        if (RunCount <= 0 || _alreadyRunCount++ < RunCount)
         {
-            Interval = interval;
-            RunCount = runCount;
-
-            this._timer = new();
-            this._timer.Interval = Interval.TotalMilliseconds;
-            this._timer.Elapsed += async (s, o) => await TickAction();
-            this._timer.Enabled = false;
+            await ActionAsync();
         }
-
-        public virtual void Init()
+        else
         {
+            Stop();
         }
+    }
 
-        public void Run()
-        {
-            this._timer.Enabled = true;
-            this._timer.Start();
-            IsRunning = true;
-        }
+    protected virtual async Task ActionAsync()
+    {
+        await Task.CompletedTask;
+    }
 
-        public void Stop()
-        {
-            this._timer.Stop();
-            this._timer.Enabled = false;
-            IsRunning = false;
-        }
-
-        private async Task TickAction()
-        {
-            if (RunCount <= 0 || this._alreadyRunCount++ < RunCount)
-            {
-                await Action();
-            }
-            else
-            {
-                Stop();
-            }
-        }
-
-        protected virtual async Task Action()
-        {
-            await Task.CompletedTask;
-        }
-
-        public virtual void Dispose()
-        {
-            this._timer.Stop();
-            this._timer.Dispose();
-            GC.SuppressFinalize(this);
-        }
+    public virtual void Dispose()
+    {
+        _timer.Stop();
+        _timer.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

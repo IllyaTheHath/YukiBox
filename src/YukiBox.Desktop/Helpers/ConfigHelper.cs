@@ -1,21 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using YukiBox.Desktop.Models;
 
-using YukiBox.Desktop.Models;
+namespace YukiBox.Desktop.Helpers;
 
-namespace YukiBox.Desktop.Helpers
+public static class ConfigHelper
 {
-    public static class ConfigHelper
+    public static Config CurrentConfig { get; private set; }
+
+    static ConfigHelper()
     {
-        public static Config CurrentConfig { get; private set; }
+        CurrentConfig = new();
+    }
 
-        static ConfigHelper()
-        {
-            CurrentConfig = new();
-        }
-
-        public static async Task Clear()
-        {
-            await LocalSettingHelper.Clear();
-        }
+    public static async Task ClearAsync()
+    {
+        await LocalSettingHelper.ClearAsync();
     }
 }

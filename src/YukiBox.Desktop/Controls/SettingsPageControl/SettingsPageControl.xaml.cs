@@ -1,38 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace YukiBox.Desktop.Controls
+namespace YukiBox.Desktop.Controls;
+
+public sealed partial class SettingsPageControl : UserControl
 {
-    public sealed partial class SettingsPageControl : UserControl
+    public object ModuleContent
     {
-        public object ModuleContent
-        {
-            get { return GetValue(ModuleContentProperty); }
-            set { SetValue(ModuleContentProperty, value); }
-        }
+        get { return GetValue(ModuleContentProperty); }
+        set { SetValue(ModuleContentProperty, value); }
+    }
 
-        public static readonly DependencyProperty ModuleContentProperty = DependencyProperty.Register("ModuleContent", typeof(object), typeof(SettingsPageControl), new PropertyMetadata(new Grid()));
+    public static readonly DependencyProperty ModuleContentProperty = DependencyProperty.Register("ModuleContent", typeof(object), typeof(SettingsPageControl), new PropertyMetadata(new Grid()));
 
-        public SettingsPageControl()
-        {
-            InitializeComponent();
-        }
+    public SettingsPageControl()
+    {
+        InitializeComponent();
     }
 }

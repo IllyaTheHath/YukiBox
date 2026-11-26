@@ -1,18 +1,15 @@
-﻿using System;
+﻿namespace YukiBox.Desktop.Helpers;
 
-namespace YukiBox.Desktop.Helpers
+public static class CommonUtils
 {
-    public static class CommonUtils
+    public static WindowsVersion WindowsVersion
     {
-        public static WindowsVersion WindowsVersion
-        {
-            get => Environment.OSVersion.Version.Build >= 22000 ? WindowsVersion.Windows11 : WindowsVersion.Windows10;
-        }
+        get => Environment.OSVersion.Version.Build >= 22000 ? WindowsVersion.Windows11 : WindowsVersion.Windows10;
     }
+}
 
-    public enum WindowsVersion
-    {
-        Windows10 = 10,
-        Windows11 = 11,
-    }
+public enum WindowsVersion
+{
+    Windows10 = 10,
+    Windows11 = 11,
 }

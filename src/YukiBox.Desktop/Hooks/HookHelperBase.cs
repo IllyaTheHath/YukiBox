@@ -1,42 +1,38 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-using CommunityToolkit.Mvvm.ComponentModel;
+namespace YukiBox.Desktop.Hooks;
 
-
-namespace YukiBox.Desktop.Hooks
+public abstract class HookHelperBase : ObservableObject
 {
-    public abstract class HookHelperBase : ObservableObject
+    private bool _isEnabled;
+
+    public bool IsEnabled
     {
-        private bool _isEnabled;
-
-        public bool IsEnabled
+        get => _isEnabled;
+        set
         {
-            get => this._isEnabled;
-            set
+            if (SetProperty(ref _isEnabled, value))
             {
-                if (SetProperty(ref this._isEnabled, value))
-                {
-                    OnIsEnabledChanged();
-                }
+                OnIsEnabledChanged();
             }
         }
-
-        private void OnIsEnabledChanged()
-        {
-            if (this._isEnabled)
-            {
-                OnEnabled();
-            }
-            else
-            {
-                OnDisabled();
-            }
-        }
-
-        public abstract void Initialize();
-
-        protected abstract void OnEnabled();
-
-        protected abstract void OnDisabled();
     }
+
+    private void OnIsEnabledChanged()
+    {
+        if (_isEnabled)
+        {
+            OnEnabled();
+        }
+        else
+        {
+            OnDisabled();
+        }
+    }
+
+    public abstract void Initialize();
+
+    protected abstract void OnEnabled();
+
+    protected abstract void OnDisabled();
 }

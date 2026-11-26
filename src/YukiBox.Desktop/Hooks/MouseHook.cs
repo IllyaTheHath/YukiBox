@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 using Windows.Win32;
@@ -7,132 +6,131 @@ using Windows.Win32.Foundation;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 using Windows.Win32.UI.WindowsAndMessaging;
 
-namespace YukiBox.Desktop.Hooks
+namespace YukiBox.Desktop.Hooks;
+
+internal class MouseHook : IDisposable
 {
-    internal class MouseHook : IDisposable
+    private bool _disposed;
+
+    private UnhookWindowsHookExSafeHandle _handle = new(IntPtr.Zero);
+    private HOOKPROC _hookProc;
+
+    #region Events
+
+    public event Action<MOUSEINPUT> LeftButtonDown;
+
+    public event Action<MOUSEINPUT> LeftButtonUp;
+
+    public event Action<MOUSEINPUT> RightButtonDown;
+
+    public event Action<MOUSEINPUT> RightButtonUp;
+
+    public event Action<MOUSEINPUT> MiddleButtonDown;
+
+    public event Action<MOUSEINPUT> MiddleButtonUp;
+
+    public event Action<MOUSEINPUT> MouseMove;
+
+    public event Action<MOUSEINPUT, short> MouseWheel;
+
+    #endregion Events
+
+    public void Install()
     {
-        private bool _disposed;
+        _hookProc = MouseProc;
+        _handle = SetHook(_hookProc);
+    }
 
-        private UnhookWindowsHookExSafeHandle _handle = new UnhookWindowsHookExSafeHandle(IntPtr.Zero);
-        private HOOKPROC _hookProc;
-
-        #region Events
-
-        public event Action<MOUSEINPUT> LeftButtonDown;
-
-        public event Action<MOUSEINPUT> LeftButtonUp;
-
-        public event Action<MOUSEINPUT> RightButtonDown;
-
-        public event Action<MOUSEINPUT> RightButtonUp;
-
-        public event Action<MOUSEINPUT> MiddleButtonDown;
-
-        public event Action<MOUSEINPUT> MiddleButtonUp;
-
-        public event Action<MOUSEINPUT> MouseMove;
-
-        public event Action<MOUSEINPUT, short> MouseWheel;
-
-        #endregion Events
-
-        public void Install()
+    public void Uninstall()
+    {
+        if (!_handle.IsClosed && !_handle.IsInvalid)
         {
-            this._hookProc = MouseProc;
-            this._handle = SetHook(this._hookProc);
+            _handle.Dispose();
         }
+    }
 
-        public void Uninstall()
+    private UnhookWindowsHookExSafeHandle SetHook(HOOKPROC proc)
+    {
+        using var module = Process.GetCurrentProcess().MainModule;
+        var hMod = PInvoke.GetModuleHandle(module.ModuleName);
+        return PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, proc, hMod, 0);
+    }
+
+    private LRESULT MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
+    {
+        if (nCode < 0)
         {
-            if (!this._handle.IsClosed && !this._handle.IsInvalid)
-            {
-                this._handle.Dispose();
-            }
-        }
-
-        private UnhookWindowsHookExSafeHandle SetHook(HOOKPROC proc)
-        {
-            using var module = Process.GetCurrentProcess().MainModule;
-            var hMod = PInvoke.GetModuleHandle(module.ModuleName);
-            return PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, proc, hMod, 0);
-        }
-
-        private LRESULT MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
-        {
-            if (nCode < 0)
-            {
-                return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
-            }
-
-            if (nCode == PInvoke.HC_ACTION)
-            {
-                var mouseEvent = (uint)wParam;
-                var mouseInput = (MOUSEINPUT)Marshal.PtrToStructure(lParam, typeof(MOUSEINPUT));
-                switch (mouseEvent)
-                {
-                    case PInvoke.WM_LBUTTONDOWN:
-                        LeftButtonDown?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_LBUTTONUP:
-                        LeftButtonUp?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_RBUTTONDOWN:
-                        RightButtonDown?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_RBUTTONUP:
-                        RightButtonUp?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_MBUTTONDOWN:
-                        MiddleButtonDown?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_MBUTTONUP:
-                        MiddleButtonUp?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_MOUSEMOVE:
-                        MouseMove?.Invoke(mouseInput);
-                        break;
-
-                    case PInvoke.WM_MOUSEWHEEL:
-                        var delta = (short)(mouseInput.mouseData >> 16);
-                        MouseWheel?.Invoke(mouseInput, delta);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
             return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
         }
 
-        public void Dispose()
+        if (nCode == PInvoke.HC_ACTION)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this._disposed)
+            uint mouseEvent = (uint)wParam;
+            var mouseInput = (MOUSEINPUT)Marshal.PtrToStructure(lParam, typeof(MOUSEINPUT));
+            switch (mouseEvent)
             {
-                if (disposing)
-                {
-                    Uninstall();
-                }
+                case PInvoke.WM_LBUTTONDOWN:
+                    LeftButtonDown?.Invoke(mouseInput);
+                    break;
 
-                this._disposed = true;
+                case PInvoke.WM_LBUTTONUP:
+                    LeftButtonUp?.Invoke(mouseInput);
+                    break;
+
+                case PInvoke.WM_RBUTTONDOWN:
+                    RightButtonDown?.Invoke(mouseInput);
+                    break;
+
+                case PInvoke.WM_RBUTTONUP:
+                    RightButtonUp?.Invoke(mouseInput);
+                    break;
+
+                case PInvoke.WM_MBUTTONDOWN:
+                    MiddleButtonDown?.Invoke(mouseInput);
+                    break;
+
+                case PInvoke.WM_MBUTTONUP:
+                    MiddleButtonUp?.Invoke(mouseInput);
+                    break;
+
+                case PInvoke.WM_MOUSEMOVE:
+                    MouseMove?.Invoke(mouseInput);
+                    break;
+
+                case PInvoke.WM_MOUSEWHEEL:
+                    short delta = (short)(mouseInput.mouseData >> 16);
+                    MouseWheel?.Invoke(mouseInput, delta);
+                    break;
+
+                default:
+                    break;
             }
         }
 
-        ~MouseHook()
+        return PInvoke.CallNextHookEx(null, nCode, wParam, lParam);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
         {
-            Dispose(false);
+            if (disposing)
+            {
+                Uninstall();
+            }
+
+            _disposed = true;
         }
+    }
+
+    ~MouseHook()
+    {
+        Dispose(false);
     }
 }

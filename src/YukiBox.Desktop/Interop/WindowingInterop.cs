@@ -1,60 +1,56 @@
-﻿using System;
-
-using Microsoft.UI;
+﻿using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
 
-namespace YukiBox.Desktop.Interop
+namespace YukiBox.Desktop.Interop;
+
+internal static class AppWindowExtensions
 {
-    internal static class AppWindowExtensions
+    public static AppWindow GetAppWindow(this Window window)
     {
-        public static AppWindow GetAppWindow(this Window window)
-        {
-            var windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+        nint windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
 
-            return GetAppWindowFromWindowHandle(windowHandle);
-        }
-
-        private static AppWindow GetAppWindowFromWindowHandle(IntPtr windowHandle)
-        {
-            WindowId windowId;
-            windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
-
-            return AppWindow.GetFromWindowId(windowId);
-        }
-
+        return GetAppWindowFromWindowHandle(windowHandle);
     }
 
-    public static class WindowExtensions
+    private static AppWindow GetAppWindowFromWindowHandle(IntPtr windowHandle)
     {
-        public static void ShowWindow(this Window window)
-        {
-            var appWindow = window.GetAppWindow();
-            if(appWindow is not null && !appWindow.IsVisible)
-            {
-                appWindow.Show();
-            }
-        }
+        WindowId windowId;
+        windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
 
-        public static void HideWindow(this Window window)
-        {
-            var appWindow = window.GetAppWindow();
-            if (appWindow is not null && appWindow.IsVisible)
-            {
-                appWindow.Hide();
-            }
-        }
+        return AppWindow.GetFromWindowId(windowId);
+    }
+}
 
-        public static void SetIcon(this Window window, string icon)
+public static class WindowExtensions
+{
+    public static void ShowWindow(this Window window)
+    {
+        var appWindow = window.GetAppWindow();
+        if (appWindow is not null && !appWindow.IsVisible)
         {
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-            var hIcon = PInvoke.LoadImage(null, icon, Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE.IMAGE_ICON,
-                16, 16,
-                Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS.LR_LOADFROMFILE);
-            PInvoke.SendMessage(new HWND(hwnd), PInvoke.WM_SETICON, PInvoke.ICON_SMALL, hIcon.DangerousGetHandle());
+            appWindow.Show();
         }
+    }
+
+    public static void HideWindow(this Window window)
+    {
+        var appWindow = window.GetAppWindow();
+        if (appWindow is not null && appWindow.IsVisible)
+        {
+            appWindow.Hide();
+        }
+    }
+
+    public static void SetIcon(this Window window, string icon)
+    {
+        nint hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+        var hIcon = PInvoke.LoadImage(null, icon, Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE.IMAGE_ICON,
+            16, 16,
+            Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS.LR_LOADFROMFILE);
+        PInvoke.SendMessage(new HWND(hwnd), PInvoke.WM_SETICON, PInvoke.ICON_SMALL, hIcon.DangerousGetHandle());
     }
 }

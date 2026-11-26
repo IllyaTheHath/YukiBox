@@ -1,60 +1,59 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 
-namespace YukiBox.Desktop
+namespace YukiBox.Desktop;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public const string AppName = "YukiBox.Desktop";
+    public const string AppDisplayName = "YukiBox";
+    public const string AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
+
+    public static bool Exiting { get; private set; }
+
+    public static string AppVersion
     {
-        public const string AppName = "YukiBox.Desktop";
-        public const string AppDisplayName = "YukiBox";
-        public const string AppUuid = "B19A8370-3BD2-452F-851D-7A0058EC35AC";
+        get => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+    }
 
-        public static bool Exiting { get; private set; }
-        public static string AppVersion
+    public App()
+    {
+        var appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+        var instance = AppInstance.FindOrRegisterForKey(AppUuid);
+        if (!instance.IsCurrent)
         {
-            get => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            instance.RedirectActivationToAsync(appArgs).GetResults();
+            Process.GetCurrentProcess().Kill();
+            return;
         }
 
-        public App()
-        {
-            var appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
-            var instance = AppInstance.FindOrRegisterForKey(AppUuid);
-            if (!instance.IsCurrent)
-            {
-                instance.RedirectActivationToAsync(appArgs).GetResults();
-                Process.GetCurrentProcess().Kill();
-                return;
-            }
+        InitializeComponent();
 
-            InitializeComponent();
+        AppStartup.Instance.Initialize();
+    }
 
-            AppStartup.Instance.Initialize();
-        }
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        base.OnLaunched(args);
 
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
-        {
-            base.OnLaunched(args);
+        AppStartup.Instance.OnStartup();
+    }
 
-            AppStartup.Instance.OnStartup();
-        }
+    /// <summary>
+    /// Override App Exit
+    /// </summary>
+    public static new void Exit()
+    {
+        Exiting = true;
 
-        /// <summary>
-        /// Override App Exit
-        /// </summary>
-        public static new void Exit()
-        {
-            Exiting = true;
+        AppStartup.Instance.OnExit();
 
-            AppStartup.Instance.OnExit();
-
-            App.Current.Exit();
-        }
+        App.Current.Exit();
     }
 }

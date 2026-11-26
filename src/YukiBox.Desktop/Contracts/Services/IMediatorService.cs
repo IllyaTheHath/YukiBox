@@ -1,13 +1,10 @@
-﻿using System;
+﻿namespace YukiBox.Desktop.Contracts.Services;
 
-namespace YukiBox.Desktop.Contracts.Services
+public interface IMediatorService
 {
-    public interface IMediatorService
-    {
-        void Register(object sender, string @event,Action<object> callback);
+    void Register(object sender, string @event, Action<object> callback);
 
-        void UnRegister(object sender, string @event);
+    void UnRegister(object sender, string @event);
 
-        void BroadcastMessage(string @event, object args);
-    }
+    void BroadcastMessage(string @event, object args);
 }

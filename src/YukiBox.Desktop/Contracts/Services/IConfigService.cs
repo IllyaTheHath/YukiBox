@@ -1,13 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using YukiBox.Desktop.Models;
 
-using YukiBox.Desktop.Models;
+namespace YukiBox.Desktop.Contracts.Services;
 
-namespace YukiBox.Desktop.Contracts.Services
+public interface IConfigService
 {
-    public interface IConfigService
-    {
-        Config CurrentConfig { get; }
+    Config CurrentConfig { get; }
 
-        Task Clear();
-    }
+    Task ClearAsync();
 }

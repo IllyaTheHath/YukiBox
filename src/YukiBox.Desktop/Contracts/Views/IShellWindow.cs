@@ -1,14 +1,12 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 
-namespace YukiBox.Desktop.Contracts.Views
+namespace YukiBox.Desktop.Contracts.Views;
+
+public interface IShellWindow
 {
-    public interface IShellWindow
-    {
-        Frame GetNavigationFrame();
+    Frame GetNavigationFrame();
 
-        void Show();
+    void Show();
 
-        void CloseWindow();
-    }
+    void CloseWindow();
 }

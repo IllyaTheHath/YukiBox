@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace YukiBox.Desktop.Contracts.Services;
 
-namespace YukiBox.Desktop.Contracts.Services
+public interface ITrayIconService : IDisposable
 {
-    public interface ITrayIconService : IDisposable
-    {
-        void Initialize();
-    }
+    void Initialize();
 }

@@ -1,73 +1,70 @@
-﻿using System;
-
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 using YukiBox.Desktop.Contracts.Services;
 
-namespace YukiBox.Desktop.Services
+namespace YukiBox.Desktop.Services;
+
+public class NavigationService : INavigationService
 {
-    public class NavigationService : INavigationService
+    private Frame _frame;
+    private object _lastParameterUsed;
+
+    private readonly IPageService _pageService;
+
+    public string CurrentPageKey
     {
-        private Frame _frame;
-        private object _lastParameterUsed;
-
-        private readonly IPageService _pageService;
-
-        public string CurrentPageKey
+        get
         {
-            get
+            if (_frame.Content is FrameworkElement element)
             {
-                if (this._frame.Content is FrameworkElement element)
-                {
-                    return element.DataContext.GetType().FullName;
-                }
-
-                return string.Empty;
+                return element.DataContext.GetType().FullName;
             }
+
+            return string.Empty;
+        }
+    }
+
+    public NavigationService(IPageService pageService)
+    {
+        _pageService = pageService;
+    }
+
+    public void Initialize(Frame shellFrame)
+    {
+        _frame = shellFrame;
+    }
+
+    public void NavigateTo(string pageKey)
+    {
+        NavigateTo(pageKey, null);
+    }
+
+    public void NavigateTo(string pageKey, object parameter)
+    {
+        if (_frame is null)
+        {
+            return;
         }
 
-        public NavigationService(IPageService pageService)
+        var pageType = _pageService.GetPageType(pageKey);
+
+        if (pageType is null)
         {
-            this._pageService = pageService;
+            return;
         }
 
-        public void Initialize(Frame shellFrame)
+        if (_frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParameterUsed)))
         {
-            this._frame = shellFrame;
-        }
-
-        public void NavigateTo(string pageKey)
-        {
-            NavigateTo(pageKey, null);
-        }
-
-        public void NavigateTo(string pageKey, object parameter)
-        {
-            if (this._frame is null)
+            var page = _pageService.GetPage(pageKey);
+            if (page is null)
             {
                 return;
             }
-
-            var pageType = this._pageService.GetPageType(pageKey);
-
-            if (pageType is null)
+            bool navigated = _frame.Navigate(page.GetType(), parameter);
+            if (navigated)
             {
-                return;
-            }
-
-            if (this._frame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(this._lastParameterUsed)))
-            {
-                var page = this._pageService.GetPage(pageKey);
-                if (page is null)
-                {
-                    return;
-                }
-                var navigated = this._frame.Navigate(page.GetType(), parameter);
-                if (navigated)
-                {
-                    this._lastParameterUsed = parameter;
-                }
+                _lastParameterUsed = parameter;
             }
         }
     }

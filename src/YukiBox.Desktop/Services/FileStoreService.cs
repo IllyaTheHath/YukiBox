@@ -1,80 +1,75 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using YukiBox.Desktop.Contracts.Services;
 
-using YukiBox.Desktop.Contracts.Services;
+namespace YukiBox.Desktop.Services;
 
-namespace YukiBox.Desktop.Services
+public class FileStoreService : IFileStoreService
 {
-    public class FileStoreService : IFileStoreService
+    public byte[] Read(string folderPath, string fileName)
     {
-        public byte[] Read(string folderPath, string fileName)
+        string path = Path.Combine(folderPath, fileName);
+        if (File.Exists(path))
         {
-            var path = Path.Combine(folderPath, fileName);
-            if (File.Exists(path))
-            {
-                using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                var bytes = new byte[fs.Length];
-                fs.ReadExactly(bytes);
-                return bytes;
-            }
-
-            return null;
+            using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            byte[] bytes = new byte[fs.Length];
+            fs.ReadExactly(bytes);
+            return bytes;
         }
 
-        public async Task<byte[]> ReadAsync(string folderPath, string fileName)
-        {
-            var path = Path.Combine(folderPath, fileName);
-            if (File.Exists(path))
-            {
-                using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                var bytes = new byte[fs.Length];
-                await fs.ReadExactlyAsync(bytes);
-                return bytes;
-            }
+        return null;
+    }
 
-            return null;
+    public async Task<byte[]> ReadAsync(string folderPath, string fileName)
+    {
+        string path = Path.Combine(folderPath, fileName);
+        if (File.Exists(path))
+        {
+            using FileStream fs = new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            byte[] bytes = new byte[fs.Length];
+            await fs.ReadExactlyAsync(bytes);
+            return bytes;
         }
 
-        public void Save(string folderPath, string fileName, byte[] content)
-        {
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+        return null;
+    }
 
-            var path = Path.Combine(folderPath, fileName);
-            using FileStream fs = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-            fs.Write(content);
+    public void Save(string folderPath, string fileName, byte[] content)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
         }
 
-        public async Task SaveAsync(string folderPath, string fileName, byte[] content)
-        {
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+        string path = Path.Combine(folderPath, fileName);
+        using FileStream fs = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+        fs.Write(content);
+    }
 
-            var path = Path.Combine(folderPath, fileName);
-            using FileStream fs = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-            await fs.WriteAsync(content);
+    public async Task SaveAsync(string folderPath, string fileName, byte[] content)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
         }
 
-        public void DeleteFile(string folderPath, string fileName)
-        {
-            var path = Path.Combine(folderPath, fileName);
-            if (File.Exists(path))
-            {
-                File.Delete(Path.Combine(path));
-            }
-        }
+        string path = Path.Combine(folderPath, fileName);
+        using FileStream fs = new(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+        await fs.WriteAsync(content);
+    }
 
-        public void DeleteFolder(string folderPath)
+    public void DeleteFile(string folderPath, string fileName)
+    {
+        string path = Path.Combine(folderPath, fileName);
+        if (File.Exists(path))
         {
-            if (Directory.Exists(folderPath))
-            {
-                Directory.Delete(folderPath);
-            }
+            File.Delete(Path.Combine(path));
+        }
+    }
+
+    public void DeleteFolder(string folderPath)
+    {
+        if (Directory.Exists(folderPath))
+        {
+            Directory.Delete(folderPath);
         }
     }
 }

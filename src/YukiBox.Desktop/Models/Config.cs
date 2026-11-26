@@ -1,61 +1,58 @@
-﻿using System;
+﻿using YukiBox.Desktop.Helpers;
 
-using YukiBox.Desktop.Helpers;
+namespace YukiBox.Desktop.Models;
 
-namespace YukiBox.Desktop.Models
+public class Config
 {
-    public class Config
+    public Config_System System { get; private set; }
+
+    public Config_Taskbar Taskbar { get; private set; }
+
+    public Config()
     {
-        public Config_System System { get; private set; }
+        System = new();
+        Taskbar = new Config_Taskbar();
+    }
+}
 
-        public Config_Taskbar Taskbar { get; private set; }
+public class Config_System
+{
+    public string Language
+    {
+        get => LocalSettingHelper.Get<string>();
+        set => LocalSettingHelper.Set(value);
+    }
+}
 
-        public Config()
-        {
-            System = new();
-            Taskbar = new Config_Taskbar();
-        }
+public class Config_Taskbar
+{
+    public string SearchBoxTextDefault
+    {
+        get => LocalSettingHelper.Get<string>();
+        set => LocalSettingHelper.Set(value);
     }
 
-    public class Config_System
+    public bool SearchBoxTextUpdateEnable
     {
-        public string Language
-        {
-            get => LocalSettingHelper.Get<string>();
-            set => LocalSettingHelper.Set(value);
-        }
+        get => LocalSettingHelper.Get<bool>();
+        set => LocalSettingHelper.Set(value);
     }
 
-    public class Config_Taskbar
+    public bool CompatibleStartIsBack
     {
-        public string SearchBoxTextDefault
-        {
-            get => LocalSettingHelper.Get<string>();
-            set => LocalSettingHelper.Set(value);
-        }
+        get => LocalSettingHelper.Get<bool>();
+        set => LocalSettingHelper.Set(value);
+    }
 
-        public bool SearchBoxTextUpdateEnable
-        {
-            get => LocalSettingHelper.Get<bool>();
-            set => LocalSettingHelper.Set(value);
-        }
+    public string MusicPlayer
+    {
+        get => LocalSettingHelper.Get<string>();
+        set => LocalSettingHelper.Set(value);
+    }
 
-        public bool CompatibleStartIsBack
-        {
-            get => LocalSettingHelper.Get<bool>();
-            set => LocalSettingHelper.Set(value);
-        }
-
-        public string MusicPlayer
-        {
-            get => LocalSettingHelper.Get<string>();
-            set => LocalSettingHelper.Set(value);
-        }
-
-        public bool WheelVolumeEnable
-        {
-            get => LocalSettingHelper.Get<bool>();
-            set => LocalSettingHelper.Set(value);
-        }
+    public bool WheelVolumeEnable
+    {
+        get => LocalSettingHelper.Get<bool>();
+        set => LocalSettingHelper.Set(value);
     }
 }

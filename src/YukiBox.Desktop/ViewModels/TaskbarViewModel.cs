@@ -1,119 +1,117 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using YukiBox.Desktop.Contracts.Services;
 using YukiBox.Desktop.Helpers;
+using YukiBox.Desktop.Hooks;
 using YukiBox.Desktop.Models;
 using YukiBox.Desktop.Tasks;
-using System.Windows.Input;
-using YukiBox.Desktop.Hooks;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace YukiBox.Desktop.ViewModels
+namespace YukiBox.Desktop.ViewModels;
+
+public class TaskbarViewModel : ViewModelBase
 {
-    public class TaskbarViewModel : ViewModelBase
+    private readonly IBackgroundTask _task;
+
+    public ObservableCollection<MusicPlayer> MusicPlayers { get; set; }
+
+    private MusicPlayer _selectedPlayer;
+
+    public MusicPlayer SelectedPlayer
     {
-        private readonly IBackgroundTask _task;
+        get => _selectedPlayer;
+        set => SetProperty(ref _selectedPlayer, value);
+    }
 
-        public ObservableCollection<MusicPlayer> MusicPlayers { get; set; }
+    private bool _enableMusicUpdate;
 
-        private MusicPlayer _selectedPlayer;
+    public bool EnableMusicUpdate
+    {
+        get => _enableMusicUpdate;
+        set => SetProperty(ref _enableMusicUpdate, value);
+    }
 
-        public MusicPlayer SelectedPlayer
+    private bool _compatibleStartIsBack;
+
+    public bool CompatibleStartIsBack
+    {
+        get => _compatibleStartIsBack;
+        set => SetProperty(ref _compatibleStartIsBack, value);
+    }
+
+    private string _searchBoxTextDefault;
+
+    public string SearchBoxTextDefault
+    {
+        get => _searchBoxTextDefault;
+        set => SetProperty(ref _searchBoxTextDefault, value);
+    }
+
+    private ICommand _saveChangeSearchbox;
+
+    public ICommand SaveChangeSearchbox => _saveChangeSearchbox ??= new RelayCommand(PerformSaveChangeSearchbox);
+
+    private bool _enableWheelVolume;
+
+    public bool EnableWheelVolume
+    {
+        get => _enableWheelVolume;
+        set
         {
-            get => this._selectedPlayer;
-            set => SetProperty(ref this._selectedPlayer, value);
-        }
-
-        private bool _enableMusicUpdate;
-
-        public bool EnableMusicUpdate
-        {
-            get => this._enableMusicUpdate;
-            set => SetProperty(ref this._enableMusicUpdate, value);
-        }
-
-        private bool _compatibleStartIsBack;
-
-        public bool CompatibleStartIsBack
-        {
-            get => this._compatibleStartIsBack;
-            set => SetProperty(ref this._compatibleStartIsBack, value);
-        }
-
-        private string _searchBoxTextDefault;
-
-        public string SearchBoxTextDefault
-        {
-            get => this._searchBoxTextDefault;
-            set => SetProperty(ref this._searchBoxTextDefault, value);
-        }
-
-        private ICommand _saveChangeSearchbox;
-        public ICommand SaveChangeSearchbox => this._saveChangeSearchbox ??= new RelayCommand(PerformSaveChangeSearchbox);
-
-        private bool _enableWheelVolume;
-
-        public bool EnableWheelVolume
-        {
-            get => this._enableWheelVolume;
-            set
+            if (SetProperty(ref _enableWheelVolume, value))
             {
-                if (SetProperty(ref this._enableWheelVolume, value))
-                {
-                    HooksHelper.Instance.WheelVolumeHookHelper.IsEnabled = EnableWheelVolume;
-                }
+                HooksHelper.Instance.WheelVolumeHookHelper.IsEnabled = EnableWheelVolume;
             }
         }
+    }
 
-        public TaskbarViewModel()
+    public TaskbarViewModel()
+    {
+        _task = Ioc.Default.GetServices<IBackgroundTask>().FirstOrDefault(x => x.Name == typeof(SearchboxTask).FullName);
+
+        MusicPlayers = [];
+        InitMenu();
+
+        SelectedPlayer = MusicPlayers.FirstOrDefault(x => x.Name == ConfigHelper.CurrentConfig.Taskbar.MusicPlayer);
+        CompatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
+        SearchBoxTextDefault = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
+        EnableMusicUpdate = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable;
+
+        EnableWheelVolume = ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable;
+    }
+
+    private void InitMenu()
+    {
+        var qqMusic = new QQMusicPlayer();
+        MusicPlayers.Add(qqMusic);
+
+        var cloudMusic = new CloudMusicPlayer();
+        MusicPlayers.Add(cloudMusic);
+    }
+
+    private void PerformSaveChangeSearchbox()
+    {
+        ConfigHelper.CurrentConfig.Taskbar.MusicPlayer = SelectedPlayer?.Name;
+        ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack = CompatibleStartIsBack;
+        ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault = SearchBoxTextDefault;
+        ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = EnableMusicUpdate;
+
+        if (EnableMusicUpdate)
         {
-            this._task = Ioc.Default.GetServices<IBackgroundTask>().FirstOrDefault(x => x.Name == typeof(SearchboxTask).FullName);
-
-            MusicPlayers = new ObservableCollection<MusicPlayer>();
-            InitMenu();
-
-            SelectedPlayer = MusicPlayers.FirstOrDefault(x => x.Name == ConfigHelper.CurrentConfig.Taskbar.MusicPlayer);
-            CompatibleStartIsBack = ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack;
-            SearchBoxTextDefault = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault;
-            EnableMusicUpdate = ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable;
-
-            EnableWheelVolume = ConfigHelper.CurrentConfig.Taskbar.WheelVolumeEnable;
+            _task?.Run();
+        }
+        else
+        {
+            _task?.Stop();
         }
 
-        private void InitMenu()
+        if (_task is SearchboxTask st)
         {
-            var qqMusic = new QQMusicPlayer();
-            MusicPlayers.Add(qqMusic);
-
-            var cloudMusic = new CloudMusicPlayer();
-            MusicPlayers.Add(cloudMusic);
-        }
-
-        private void PerformSaveChangeSearchbox()
-        {
-            ConfigHelper.CurrentConfig.Taskbar.MusicPlayer = SelectedPlayer?.Name;
-            ConfigHelper.CurrentConfig.Taskbar.CompatibleStartIsBack = CompatibleStartIsBack;
-            ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextDefault = SearchBoxTextDefault;
-            ConfigHelper.CurrentConfig.Taskbar.SearchBoxTextUpdateEnable = EnableMusicUpdate;
-
-            if (EnableMusicUpdate)
-            {
-                this._task?.Run();
-            }
-            else
-            {
-                this._task?.Stop();
-            }
-
-            if (this._task is SearchboxTask st)
-            {
-                st.ChangeSettings(SelectedPlayer, SearchBoxTextDefault, CompatibleStartIsBack);
-            }
+            st.ChangeSettings(SelectedPlayer, SearchBoxTextDefault, CompatibleStartIsBack);
         }
     }
 }

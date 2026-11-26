@@ -3,19 +3,18 @@
 using YukiBox.Desktop.Helpers;
 using YukiBox.Desktop.ViewModels;
 
-namespace YukiBox.Desktop.Views
-{
-    /// <summary>
-    /// Interaction logic for SettingView.xaml
-    /// </summary>
-    public partial class SettingView : Page
-    {
-        public SettingViewModel ViewModel => ViewModelLocator.Current.SettingViewModel;
+namespace YukiBox.Desktop.Views;
 
-        public SettingView()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
+/// <summary>
+/// Interaction logic for SettingView.xaml
+/// </summary>
+public partial class SettingView : Page
+{
+    public SettingViewModel ViewModel => ViewModelLocator.Current.SettingViewModel;
+
+    public SettingView()
+    {
+        InitializeComponent();
+        DataContext = ViewModel;
     }
 }
