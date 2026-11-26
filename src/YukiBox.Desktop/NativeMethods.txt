@@ -1,6 +1,7 @@
 ﻿CallNextHookEx
 DestroyIcon
 GetAncestor
+GetAsyncKeyState
 GetClassName
 GetModuleHandle
 LoadImage
@@ -22,3 +23,4 @@ WM_MBUTTONUP
 WM_MOUSEMOVE
 WM_MOUSEWHEEL
 WM_SETICON
+WHEEL_DELTA

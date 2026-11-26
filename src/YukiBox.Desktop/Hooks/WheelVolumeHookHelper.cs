@@ -2,6 +2,7 @@
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 using YukiBox.Desktop.Helpers;
@@ -19,6 +20,10 @@ public class WheelVolumeHookHelper : HookHelperBase
 
     public int VolumeStep { get; set; }
 
+    public bool IsModifierEnabled { get; set; }
+
+    public int ShiftMultiplier { get; set; }
+
     public bool IsReversed { get; set; }
 
     public bool IsMiddleClickMuteEnabled { get; set; }
@@ -29,6 +34,8 @@ public class WheelVolumeHookHelper : HookHelperBase
     {
         IsAdjustEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable;
         VolumeStep = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeStep;
+        IsModifierEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeModifierEnable;
+        ShiftMultiplier = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeShiftMultiplier;
         IsReversed = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeReverse;
         IsMiddleClickMuteEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
         IsEnabled = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
@@ -54,12 +61,16 @@ public class WheelVolumeHookHelper : HookHelperBase
         bool shouldAction = IsAdjustEnabled && IsPointOverTaskbar(e.MouseInfo.pt);
         if (shouldAction)
         {
-            bool up = (e.WheelDelta > 0) != IsReversed;
-            int notches = Math.Abs(e.WheelDelta) / 120;
-            int keyPresses = notches * (VolumeStep / VolumeKeyStep);
-            for (int i = 0; i < keyPresses; i++)
+            // Treat each event as at most one notch so wheel acceleration from the driver cannot jump the volume
+            bool isFullNotch = e.WheelDelta >= PInvoke.WHEEL_DELTA || e.WheelDelta <= -PInvoke.WHEEL_DELTA;
+            if (isFullNotch)
             {
-                AudioDeviceHelper.StepSystemVolume(up, true);
+                bool up = (e.WheelDelta > 0) != IsReversed;
+                int keyPresses = GetCurrentVolumeStep() / VolumeKeyStep;
+                for (int i = 0; i < keyPresses; i++)
+                {
+                    AudioDeviceHelper.StepSystemVolume(up, true);
+                }
             }
 
             e.Handled = true;
@@ -102,5 +113,33 @@ public class WheelVolumeHookHelper : HookHelperBase
         string className = new(buffer[..length]);
         bool isTaskbar = className is TaskbarClassName or SecondaryTaskbarClassName;
         return isTaskbar;
+    }
+
+    private int GetCurrentVolumeStep()
+    {
+        if (!IsModifierEnabled)
+        {
+            return VolumeStep;
+        }
+
+        if (IsKeyDown(VIRTUAL_KEY.VK_CONTROL))
+        {
+            return VolumeKeyStep;
+        }
+
+        if (IsKeyDown(VIRTUAL_KEY.VK_SHIFT))
+        {
+            int fastStep = VolumeStep * ShiftMultiplier;
+            return fastStep;
+        }
+
+        return VolumeStep;
+    }
+
+    private bool IsKeyDown(VIRTUAL_KEY key)
+    {
+        short state = PInvoke.GetAsyncKeyState((int)key);
+        bool isDown = (state & 0x8000) != 0;
+        return isDown;
     }
 }

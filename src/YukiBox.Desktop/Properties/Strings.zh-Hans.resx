@@ -246,4 +246,16 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.Step.Desc" xml:space="preserve">
     <value>滚轮每滚动一格调节的音量</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier" xml:space="preserve">
+    <value>Shift 加速倍数</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier.Desc" xml:space="preserve">
+    <value>按住 Shift 时，每格调节量乘以此倍数</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Modifier" xml:space="preserve">
+    <value>修饰键调速</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Modifier.Desc" xml:space="preserve">
+    <value>按住 Ctrl 时使用最小调节量，按住 Shift 时加速</value>
+  </data>
 </root>

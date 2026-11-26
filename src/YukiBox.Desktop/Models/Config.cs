@@ -44,6 +44,18 @@ public class Config_AudioEnhancement
         set => LocalSettingHelper.Set(value);
     }
 
+    public bool WheelVolumeModifierEnable
+    {
+        get => LocalSettingHelper.Get<bool>();
+        set => LocalSettingHelper.Set(value);
+    }
+
+    public int WheelVolumeShiftMultiplier
+    {
+        get => LocalSettingHelper.Get(2);
+        set => LocalSettingHelper.Set(value);
+    }
+
     public bool WheelVolumeReverse
     {
         get => LocalSettingHelper.Get<bool>();

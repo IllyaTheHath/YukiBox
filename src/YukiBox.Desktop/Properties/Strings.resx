@@ -246,4 +246,16 @@
   <data name="AudioEnhancement.Taskbar.WheelVolume.Step.Desc" xml:space="preserve">
     <value>Volume change for each scroll notch</value>
   </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier" xml:space="preserve">
+    <value>Shift speed multiplier</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier.Desc" xml:space="preserve">
+    <value>Multiplies the volume step while Shift is held</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Modifier" xml:space="preserve">
+    <value>Modifier key speed control</value>
+  </data>
+  <data name="AudioEnhancement.Taskbar.WheelVolume.Modifier.Desc" xml:space="preserve">
+    <value>Hold Ctrl for the smallest step, hold Shift to speed up</value>
+  </data>
 </root>

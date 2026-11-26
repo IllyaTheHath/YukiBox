@@ -106,6 +106,24 @@ namespace YukiBox.Desktop.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Modifier key speed control 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Modifier {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Modifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hold Ctrl for the smallest step, hold Shift to speed up 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_Modifier_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Modifier.Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Reverse scroll direction 的本地化字符串。
         /// </summary>
         public static string AudioEnhancement_Taskbar_WheelVolume_Reverse {
@@ -120,6 +138,24 @@ namespace YukiBox.Desktop.Properties {
         public static string AudioEnhancement_Taskbar_WheelVolume_Reverse_Desc {
             get {
                 return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Shift speed multiplier 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_ShiftMultiplier {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Multiplies the volume step while Shift is held 的本地化字符串。
+        /// </summary>
+        public static string AudioEnhancement_Taskbar_WheelVolume_ShiftMultiplier_Desc {
+            get {
+                return ResourceManager.GetString("AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier.Desc", resourceCulture);
             }
         }
         

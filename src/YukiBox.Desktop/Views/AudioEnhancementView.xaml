@@ -67,6 +67,42 @@
                 </c:Setting.ActionContent>
               </c:Setting>
               <c:Setting
+                Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Modifier.Desc'}"
+                Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Modifier'}"
+                IsEnabled="{x:Bind ViewModel.IsWheelVolumeAdjustAvailable, Mode=OneWay}"
+                Style="{StaticResource ExpanderContentSettingStyle}">
+                <c:Setting.ActionContent>
+                  <ToggleSwitch
+                    FontSize="14"
+                    IsOn="{x:Bind ViewModel.EnableWheelVolumeModifier, Mode=TwoWay}"
+                    OffContent="{helpers:I18N Code='ToggleButton.Off'}"
+                    OnContent="{helpers:I18N Code='ToggleButton.On'}" />
+                </c:Setting.ActionContent>
+              </c:Setting>
+              <c:Setting
+                Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier.Desc'}"
+                Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier'}"
+                IsEnabled="{x:Bind ViewModel.IsWheelVolumeModifierAvailable, Mode=OneWay}"
+                Style="{StaticResource ExpanderContentSettingStyle}">
+                <c:Setting.ActionContent>
+                  <StackPanel Orientation="Horizontal" Spacing="12">
+                    <Slider
+                      Width="160"
+                      VerticalAlignment="Center"
+                      AutomationProperties.Name="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.ShiftMultiplier'}"
+                      IsThumbToolTipEnabled="False"
+                      Maximum="5"
+                      Minimum="2"
+                      SnapsTo="StepValues"
+                      StepFrequency="1"
+                      Value="{x:Bind ViewModel.WheelVolumeShiftMultiplier, Mode=TwoWay}" />
+                    <TextBlock MinWidth="32" VerticalAlignment="Center">
+                      <Run Text="×" /><Run Text="{x:Bind ViewModel.WheelVolumeShiftMultiplier, Mode=OneWay}" />
+                    </TextBlock>
+                  </StackPanel>
+                </c:Setting.ActionContent>
+              </c:Setting>
+              <c:Setting
                 Description="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Reverse.Desc'}"
                 Header="{helpers:I18N Code='AudioEnhancement.Taskbar.WheelVolume.Reverse'}"
                 IsEnabled="{x:Bind ViewModel.IsWheelVolumeAdjustAvailable, Mode=OneWay}"

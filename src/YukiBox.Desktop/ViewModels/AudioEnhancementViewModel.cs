@@ -17,6 +17,7 @@ public class AudioEnhancementViewModel : ViewModelBase
                 ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable = value;
                 HooksHelper.Instance.WheelVolumeHookHelper.IsEnabled = value;
                 OnPropertyChanged(nameof(IsWheelVolumeAdjustAvailable));
+                OnPropertyChanged(nameof(IsWheelVolumeModifierAvailable));
             }
         }
     }
@@ -33,6 +34,7 @@ public class AudioEnhancementViewModel : ViewModelBase
                 ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable = value;
                 HooksHelper.Instance.WheelVolumeHookHelper.IsAdjustEnabled = value;
                 OnPropertyChanged(nameof(IsWheelVolumeAdjustAvailable));
+                OnPropertyChanged(nameof(IsWheelVolumeModifierAvailable));
             }
         }
     }
@@ -51,6 +53,40 @@ public class AudioEnhancementViewModel : ViewModelBase
                 int step = (int)value;
                 ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeStep = step;
                 HooksHelper.Instance.WheelVolumeHookHelper.VolumeStep = step;
+            }
+        }
+    }
+
+    private bool _enableWheelVolumeModifier;
+
+    public bool EnableWheelVolumeModifier
+    {
+        get => _enableWheelVolumeModifier;
+        set
+        {
+            if (SetProperty(ref _enableWheelVolumeModifier, value))
+            {
+                ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeModifierEnable = value;
+                HooksHelper.Instance.WheelVolumeHookHelper.IsModifierEnabled = value;
+                OnPropertyChanged(nameof(IsWheelVolumeModifierAvailable));
+            }
+        }
+    }
+
+    public bool IsWheelVolumeModifierAvailable => IsWheelVolumeAdjustAvailable && EnableWheelVolumeModifier;
+
+    private double _wheelVolumeShiftMultiplier;
+
+    public double WheelVolumeShiftMultiplier
+    {
+        get => _wheelVolumeShiftMultiplier;
+        set
+        {
+            if (SetProperty(ref _wheelVolumeShiftMultiplier, value))
+            {
+                int multiplier = (int)value;
+                ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeShiftMultiplier = multiplier;
+                HooksHelper.Instance.WheelVolumeHookHelper.ShiftMultiplier = multiplier;
             }
         }
     }
@@ -90,6 +126,8 @@ public class AudioEnhancementViewModel : ViewModelBase
         _enableWheelVolume = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeEnable;
         _enableWheelVolumeAdjust = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeAdjustEnable;
         _wheelVolumeStep = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeStep;
+        _enableWheelVolumeModifier = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeModifierEnable;
+        _wheelVolumeShiftMultiplier = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeShiftMultiplier;
         _reverseWheelVolume = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeReverse;
         _enableWheelVolumeMiddleClickMute = ConfigHelper.CurrentConfig.AudioEnhancement.WheelVolumeMiddleClickMuteEnable;
     }
