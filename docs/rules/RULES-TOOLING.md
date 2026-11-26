@@ -53,3 +53,26 @@
 1. 本项目只能在 Windows 上构建（WinUI 3 的 XAML 编译与 MSIX 打包依赖 Windows）。在 WSL 中构建时使用 `win-dotnet`；不得用 Linux 版 `dotnet` 还原或构建本项目，两者的 SDK 版本及 `obj/`、`project.assets.json` 路径格式互不兼容。
 2. 自动化代理执行构建时加 `-nodeReuse:false`，避免残留的 MSBuild 节点进程锁定文件。
 3. `bin/`、`obj/`、`artifacts/` 不得提交。
+
+## 代码格式检查
+
+1. 构建时检查代码风格（`Directory.Build.props` 中的 `EnforceCodeStyleInBuild`）：`.editorconfig` 中标为 `:warning` 的规则在 `dotnet build` 与 Visual Studio 构建中都会因 `TreatWarningsAsErrors` 报错。
+2. `.editorconfig` 只放 .NET / Roslyn 官方设置；第三方工具使用各自的配置文件：Roslynator 规则在仓库根目录的 `roslynator.globalconfig`（由 `Directory.Build.props` 的 `GlobalAnalyzerConfigFiles` 引用），XamlStyler 配置在 `Settings.XamlStyler`。
+3. 部分规则不在构建时检查（如 IDE0003 多余的 `this.`），完整检查使用 `dotnet format`：
+
+    ```powershell
+    dotnet format whitespace src/YukiBox.Desktop/YukiBox.Desktop.csproj --verify-no-changes
+    dotnet format style src/YukiBox.Desktop/YukiBox.Desktop.csproj --verify-no-changes --severity warn
+    dotnet format analyzers src/YukiBox.Desktop/YukiBox.Desktop.csproj --verify-no-changes --severity warn
+    ```
+
+4. XAML 使用 XamlStyler 格式化，配置为仓库根目录的 `Settings.XamlStyler`（Visual Studio 扩展与命令行共用）；命令行工具为本地 .NET 工具，首次使用前执行 `dotnet tool restore`：
+
+    ```powershell
+    # 格式化
+    dotnet xstyler -d src -r -c Settings.XamlStyler
+    # 只检查
+    dotnet xstyler -d src -r -c Settings.XamlStyler -p
+    ```
+
+5. 修改 C# 或 XAML 后，提交前运行上述检查。

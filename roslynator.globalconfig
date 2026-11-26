@@ -1,0 +1,28 @@
+﻿is_global = true
+
+# Disable all Roslynator rules that are enabled by default; rules below are opt-in
+dotnet_analyzer_diagnostic.category-roslynator.severity = none
+
+# Enforced (maps to docs/rules/RULES-CSHARP.md)
+dotnet_diagnostic.RCS1046.severity = warning
+dotnet_diagnostic.RCS1047.severity = warning
+dotnet_diagnostic.RCS1075.severity = warning
+dotnet_diagnostic.RCS0010.severity = warning
+dotnet_diagnostic.RCS0013.severity = warning
+dotnet_diagnostic.RCS0063.severity = warning
+dotnet_diagnostic.RCS1037.severity = warning
+
+# Suggestions
+dotnet_diagnostic.RCS1070.severity = suggestion
+dotnet_diagnostic.RCS1071.severity = suggestion
+dotnet_diagnostic.RCS1160.severity = suggestion
+dotnet_diagnostic.RCS1168.severity = suggestion
+dotnet_diagnostic.RCS1170.severity = suggestion
+dotnet_diagnostic.RCS1202.severity = suggestion
+dotnet_diagnostic.RCS1212.severity = suggestion
+dotnet_diagnostic.RCS1225.severity = suggestion
+dotnet_diagnostic.RCS1261.severity = suggestion
+
+# Not enabled on purpose (conflict with RULES-CSHARP.md):
+# RCS1124 (return via local variable), RCS1090 (ConfigureAwait), RCS1174 (always await),
+# RCS0012 / RCS0036 (blank lines within a member group)

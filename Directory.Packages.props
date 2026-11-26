@@ -27,6 +27,10 @@
   <ItemGroup Label="Logging">
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
   </ItemGroup>
+  <ItemGroup Label="Analyzers">
+    <GlobalPackageReference Include="Roslynator.Analyzers" Version="5.0.1" />
+    <GlobalPackageReference Include="Roslynator.Formatting.Analyzers" Version="5.0.1" />
+  </ItemGroup>
   <ItemGroup Label="Test">
     <PackageVersion Include="MSTest" Version="4.5.3" />
   </ItemGroup>
